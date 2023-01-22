@@ -1,0 +1,36 @@
+{
+  "name": "remax-template",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Starter template for Remax apps",
+  "main": "index.js",
+  "keywords": [],
+  "author": "Caihuanyu <eterlf41@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "remax build -t wechat -w",
+    "build": "cross-env NODE_ENV=production remax build -t wechat"
+  },
+  "dependencies": {
+    "react": "^16.12.0",
+    "remax": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.16",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "cross-env": "^7.0.2",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.3",
+    "prettier-eslint": "^15.0.1",
+    "typescript": "^3.7.3"
+  }
+}
