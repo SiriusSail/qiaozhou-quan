@@ -1,8 +1,98 @@
 import React, { useMemo } from 'react';
-import { View, Text, Image } from 'remax/wechat';
-import { Tabs, Card } from 'anna-remax-ui';
-import styles from './index.css';
+import { View, Text } from 'remax/wechat';
+import { Tabs, Card, Row, Col, Button, Tag, Space } from 'anna-remax-ui';
+import styles from './index.less';
+import classnames from 'classnames';
+import Image from '@/components/image';
 const { TabContent } = Tabs;
+
+const BagItem: React.FC = () => {
+  return (
+    <Card
+      style={{ padding: '10rpx 0', margin: '20rpx 0' }}
+      contentStyle={{ padding: '0 20rpx' }}
+      shadow
+      title={
+        <View className={styles['bag-item-title']}>
+          <Space>
+            <Image src='/images/test/123.jpg' width='40rpx' height='40rpx' />
+            <View>肯德基</View>
+          </Space>
+        </View>
+      }>
+      <View className={styles['bag-item']}>
+        <Row>
+          <Col span={7} className={styles['bag-item-left']}>
+            <View
+              className={classnames(
+                styles['bag-item-up'],
+                styles['font-size-80']
+              )}>
+              ￥500
+            </View>
+            <View className={styles['bag-item-down']}>
+              <Tag color='red'>店铺优惠券</Tag>
+            </View>
+          </Col>
+          <Col span={11}>
+            <View
+              className={classnames(
+                styles['bag-item-up'],
+                styles['font-size-60']
+              )}>
+              满2000可用
+            </View>
+            <View className={styles['bag-item-down']}>
+              有效期至 2022.11.29 23:59
+            </View>
+          </Col>
+          <Col span={6}>
+            <View className={styles['bag-item-right']}>
+              <Button type='primary' danger>
+                使用
+              </Button>
+            </View>
+          </Col>
+        </Row>
+      </View>
+      <View className={styles['bag-item']}>
+        <Row>
+          <Col span={7} className={styles['bag-item-left']}>
+            <View
+              className={classnames(
+                styles['bag-item-up'],
+                styles['font-size-80']
+              )}>
+              ￥500
+            </View>
+            <View className={styles['bag-item-down']}>
+              <Tag color='red'>店铺优惠券</Tag>
+            </View>
+          </Col>
+          <Col span={11}>
+            <View
+              className={classnames(
+                styles['bag-item-up'],
+                styles['font-size-60']
+              )}>
+              满2000可用
+            </View>
+            <View className={styles['bag-item-down']}>
+              有效期至 2022.11.29 23:59
+            </View>
+          </Col>
+          <Col span={6}>
+            <View className={styles['bag-item-right']}>
+              <Button type='primary' danger>
+                使用
+              </Button>
+            </View>
+          </Col>
+        </Row>
+      </View>
+    </Card>
+  );
+};
 
 const Index = () => {
   const [stateKey, setStateKey] = React.useState('0');
@@ -36,11 +126,9 @@ const Index = () => {
     <Tabs onTabClick={({ key }) => setStateKey(key)} activeKey={stateKey}>
       {tabs.map((tab) => (
         <TabContent key={tab.key} tab={tab.title}>
-          <Card>
-            <View className={styles.tabContent}>{`${
-              tab.key === '1' ? '待报价' : tab.title
-            } content`}</View>
-          </Card>
+          <BagItem />
+          <BagItem />
+          <BagItem />
         </TabContent>
       ))}
     </Tabs>
