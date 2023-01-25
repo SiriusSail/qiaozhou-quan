@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@remax/plugin-less": "^1.0.0",
+    "ahooks": "^3.7.4",
     "anna-remax-ui": "^1.9.3",
     "annar": "^2.2.1",
     "react": "^16.12.0",
