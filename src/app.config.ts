@@ -1,7 +1,14 @@
 import { AppConfig } from 'remax/wechat';
 
 const config: AppConfig = {
-  pages: ['pages/index/index', 'pages/my/index', 'pages/bag/index'],
+  pages: [
+    'pages/index/index', // 首页
+    'pages/my/index', // 我的
+    'pages/bag/index', // 福利袋
+    'pages/setting/index', // 设置
+    'pages/activity/index', // 活动管理
+    'pages/activitySetting/index', // 活动活动设置
+  ],
   window: {
     navigationBarTitleText: '抢券小程序',
     navigationBarBackgroundColor: '#fff',

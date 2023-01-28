@@ -1,0 +1,59 @@
+page {
+  background: #fff;
+  font-size: 28px;
+}
+
+.anna-card-foot {
+ background-color: #fff !important;
+}
+
+.anna-cell-container {
+  display: block;
+}
+
+.anna-cell-container-main-left {
+  box-sizing: border-box;
+  flex: 1 1;
+  display: flex;
+  align-items: center;
+}
+
+.anna-cell-container-main-right {
+  flex: 1 1;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.anna-cell-container-main-right-value {
+  width: 100%;
+  text-align: right;
+}
+
+.anna-cell-container-main-left-label {
+  box-sizing: border-box;
+  color: #333;
+  font-weight: 500;
+  flex: 1 1;
+  display: flex;
+  align-items: center;
+}
+
+.anna-cell-container-main-left-label-required {
+  color: #f5222d;
+  margin-right: 0.125rem;
+}
+
+.anna-cell-container-main-left-label-value {
+  margin-right: 0.625rem;
+}
+.anna-cell-container-main {
+  display: flex;
+  width: 100%;
+}
+.anna-cell-container-description {
+  margin-top: 0.3125rem;
+  font-size: .75rem;
+  color: #999;
+}

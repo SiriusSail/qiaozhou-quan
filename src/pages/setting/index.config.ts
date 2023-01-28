@@ -1,7 +1,7 @@
 import { PageConfig } from 'remax/wechat';
 
 const config: PageConfig = {
-  navigationBarTitleText: '个人中心',
+  navigationBarTitleText: '设置',
 };
 
 export default config;

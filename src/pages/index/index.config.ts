@@ -1,7 +1,7 @@
 import { PageConfig } from 'remax/wechat';
 
 const config: PageConfig = {
-  navigationBarTitleText: 'Remax Wechat Template Index',
+  navigationBarTitleText: '首页',
 };
 
 export default config;
