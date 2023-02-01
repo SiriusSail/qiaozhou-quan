@@ -5,43 +5,18 @@ import {
   clearStorageSync,
 } from 'remax/wechat';
 
-type keys =
-  | 'token'
-  | 'openId'
-  | 'iv'
-  | 'encryptedData'
-  | 'refferalAuth'
-  | 'ca'
-  | 'userType' // 用户类型 转诊用户类型 referral
-  | 'PAGE_PATIENT_KEY' // 转诊选择的就诊人
-  | 'PAGE_REFERRAL_KEY'; // 转诊
+type Keys = 'token' | 'oldPath';
 
 interface Storage {
   get: {
-    (key: keys | string): string | null;
-    (key: 'doctorId'): string | null;
+    (key: Keys | string): string | null;
+    (key: Keys): string | null;
   };
   set: {
-    (
-      key: 'doctorId' | 'oldPath' | 'username' | 'password' | 'refferalAuth',
-      value: string | undefined
-    ): void;
+    (key: Keys, value: string | undefined): void;
   };
   del: {
-    (
-      key:
-        | keys
-        | 'userInfo'
-        | 'username'
-        | 'baseUrl'
-        | 'password'
-        | 'oldPath'
-        | 'VOICE'
-        | 'PIC'
-        | 'inputContent'
-        | 'ca'
-        | 'doctorId'
-    ): void;
+    (key: Keys): void;
   };
   clear: () => void;
 }

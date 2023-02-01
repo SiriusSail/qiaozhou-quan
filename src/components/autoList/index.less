@@ -1,0 +1,219 @@
+.more-select-img {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  flex: 0 0 30px;
+  transition: transform 0.3s;
+  background-size: contain;
+  opacity: 0.5;
+}
+
+.more-select-img-rotate {
+  transform: rotate(180deg);
+}
+
+.more-select-parent {
+  height: 88px;
+  padding: 31px 0 31px;
+  box-sizing: border-box;
+}
+
+.more-select-tag {
+  position: relative;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  font-size: 26px;
+  line-height: 26px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.more-select-body {
+  position: fixed;
+  padding-top: 88px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  display: none;
+  opacity: 0;
+  &.hover {
+    // opacity: 1;
+    z-index: 2;
+    display: block;
+    animation: roadEffect1 0.3s ease-in both; //steps(1, start);
+  }
+  &.hover2 {
+    animation: roadEffect0 0.3s ease-in both; //steps(1, start);
+  }
+  .more-select-body-background2 {
+    z-index: 1;
+  }
+}
+
+@keyframes roadEffect0 {
+  0% {
+    opacity: 1;
+    z-index: 2;
+    display: block;
+  }
+  99% {
+    opacity: 0;
+    z-index: 2;
+    display: block;
+  }
+  100% {
+    opacity: 0;
+    z-index: -1;
+    display: none;
+  }
+}
+
+@keyframes roadEffect1 {
+  0% {
+    display: block;
+  }
+  1% {
+    opacity: 0;
+    display: block;
+  }
+  100% {
+    opacity: 1;
+    display: block;
+  }
+}
+
+.more-select-body-background2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.more-select-body-background {
+  background: #fff;
+  position: relative;
+  z-index: 2;
+  top: 0;
+}
+
+.more-select-body-item {
+  text-align: center;
+  line-height: 80px;
+  font-size: 30px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.more-select-calendar {
+  position: absolute;
+  padding: 40px 0;
+  bottom: -100%;
+  background: #fff;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  transition: bottom 0.3s;
+  opacity: 0;
+}
+
+.more-select-calendar-rotate {
+  bottom: 0;
+  opacity: 1;
+}
+
+.calendar-clear {
+  text-align: right;
+  padding: 0 20px 20px;
+}
+
+.calendar-clear-button {
+  border-radius: 10px;
+  background: #dfecf9;
+  display: inline-block;
+  color: #2780d9;
+  padding: 10px 20px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  18% {
+    transform: rotate(135deg);
+  }
+  25% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  94% {
+    transform: rotate(315deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.load_rotate {
+  height: 40px;
+  width: 40px;
+  margin-right: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  transition: 0.5s;
+  transform-origin: 20px 20px;
+  animation: rotate 2.5s infinite linear; /*开始动画后无限循环，用来控制rotate*/
+}
+
+.scroll_image2 {
+  height: 131px;
+  width: 131px;
+  padding-bottom: 20px;
+}
+
+.scroll_image {
+  height: 99.5px;
+  width: 97.5px;
+  padding-bottom: 20px;
+  &.large {
+    width: 195px;
+    height: 199px;
+  }
+}
+
+.scroll_no_no_data {
+  height: 400px;
+  font-size: 30px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #9a9a9a;
+}
+
+.status {
+  padding-top: 40px;
+}
+
+.err_data {
+  > view {
+    padding: 20px 0;
+    font-size: 18px;
+  }
+}
+.err_data_image {
+  height: 81px;
+  width: 92px;
+}
+.err_data_button {
+  height: 55px;
+  font-size: 29px;
+  line-height: 55px;
+}

@@ -47,7 +47,6 @@ const NoticeBar = (props: NoticeBarProps) => {
   } = props;
   const { width: innerW = 0 } = useViewSize('innerId');
   const { width: contentW = 0 } = useViewSize('contentId');
-  console.log(contentW);
   return (
     <View
       className={classNames(styles.noticeBarBox, className)}

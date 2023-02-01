@@ -3,6 +3,7 @@ import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
 import Image from '@/components/image';
 import Block from '@/components/block';
+import userInfoStores from '@/stores/userInfo';
 import { Card, Tag, Row, Col } from 'anna-remax-ui';
 
 type TagItemProps = {
@@ -33,6 +34,7 @@ const TagItem: React.FC<TagItemProps> = ({
 };
 
 const Index = () => {
+  const { userInfo } = userInfoStores.useContainer();
   return (
     <View className={styles.my}>
       <View className={styles.info}>
@@ -43,13 +45,17 @@ const Index = () => {
             borderBottomRightRadius: 0,
             borderBottomLeftRadius: 0,
           }}
-          title='淡彩'
+          title={userInfo?.nickname || '请登录或注册您的账号'}
           description={
             <View className={styles['info-title']}>
               <View>
-                <Tag color='#000000'>VPI</Tag>
+                {userInfo ? (
+                  <Tag color='#000000'>VIP</Tag>
+                ) : (
+                  <Tag color='#000000'>点击登录/注册</Tag>
+                )}
               </View>
-              <View>花边-蕾丝花边-睫毛花边</View>
+              <View className={styles['info-browse']}>暂时没什么可以看</View>
             </View>
           }
           cover={
@@ -57,7 +63,7 @@ const Index = () => {
               height='160rpx'
               width='160rpx'
               style={{ overflow: 'hidden', borderRadius: '50%' }}
-              src='/images/test/123.jpg'
+              src={userInfo?.avatarurl || '/images/test/nouser.jpg'}
             />
           }
           direction='horizontal'
@@ -85,7 +91,14 @@ const Index = () => {
                 })
               }
             />
-            <TagItem text='个人中心' />
+            <TagItem
+              text='商家信息'
+              onTap={() =>
+                navigateTo({
+                  url: '/pages/userInfo/index',
+                })
+              }
+            />
           </Row>
         </Block>
         <Block title='其他服务'>

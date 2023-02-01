@@ -13,11 +13,16 @@ export const Img: React.FC<ImagePropsType> = ({
   width,
   height,
   className,
+  src = '/images/discover.png',
   ...props
 }) => {
   return (
     <View className={styles['image-container']} style={{ height, width }}>
-      <Image className={classNames(className, styles.image)} {...props} />
+      <Image
+        className={classNames(className, styles.image)}
+        src={src}
+        {...props}
+      />
     </View>
   );
 };

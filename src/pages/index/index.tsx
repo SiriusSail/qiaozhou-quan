@@ -1,9 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, Swiper, SwiperItem } from 'remax/wechat';
+import { View, Swiper, SwiperItem } from 'remax/wechat';
 import { Icon, Space, Grid, Card } from 'anna-remax-ui';
 import NoticeBar from '@/components/notice-bar';
 import Image from '@/components/image';
 import styles from './index.less';
+import userInfoStores from '@/stores/userInfo';
+import enums from '@/stores/enums';
+import AutoList from '@/components/autoList';
+import ModailSelect from '@/components/modailSelect';
+import { getActivityListByUserId } from '@/apis/activity';
+import { usePageEvent } from 'remax/macro';
 
 const renderGridItem = (col: any, index?: number) => (
   <View className={styles['demo-grid-item']}>红包{col}</View>
@@ -47,17 +53,40 @@ const Item = () => {
 };
 
 const Index = () => {
-  const [b] = useState(1);
-  const data = useMemo(() => {
-    return b;
-  }, [b]);
+  const { userInfo } = userInfoStores.useContainer();
+
+  const { campus, getCampusPage } = enums.useContainer();
+
+  const [selectCampus, setSelectCampus] = useState<API.OptionsType>();
+
+  const thenCampus = useMemo(() => {
+    return selectCampus || campus?.data?.[0];
+  }, [campus?.data, selectCampus]);
+
+  usePageEvent('onShow', () => {
+    if (!campus?.data || campus?.data.length <= 0) {
+      return;
+    }
+    getCampusPage();
+  });
   return (
     <View className={styles.app}>
       <View className={styles.top}>
-        <Space>
-          <Icon type='location' size='36px' />
-          <View>工商大学</View>
-        </Space>
+        <ModailSelect
+          title='选择校区'
+          onSelect={(val, item, { close }) => {
+            close();
+            setSelectCampus(item);
+          }}
+          options={campus?.data || []}
+          onClick={getCampusPage}
+          button={(val, valueData) => (
+            <Space>
+              <Icon type='location' size='36px' />
+              <View>{valueData?.value || campus?.data?.[0].value}</View>
+            </Space>
+          )}
+        />
       </View>
       <View className={styles.body}>
         <Swiper indicatorDots={true} autoplay={true} interval={5000}>
@@ -72,7 +101,23 @@ const Index = () => {
           </SwiperItem>
         </Swiper>
         <NoticeBar title='温馨提示'> 这里是通知信息栏</NoticeBar>
-        <Item />
+        <AutoList
+          getList={(params) => {
+            if (!thenCampus?.key) {
+              return Promise.resolve({ records: [], current: 1 });
+            }
+            return getActivityListByUserId({
+              ...params,
+              userId: userInfo?.id,
+              campusId: thenCampus?.key,
+            });
+          }}
+          renderItem={(res) => {
+            console.log(res, 123123);
+            return <Item />;
+          }}
+        />
+
         <Item />
         <Item />
         <Item />

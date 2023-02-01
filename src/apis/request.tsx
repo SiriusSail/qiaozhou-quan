@@ -3,7 +3,7 @@ import { request } from 'remax/wechat';
 type RequestOptions = WechatMiniprogram.RequestOption & {
   path?: string;
 } & import('@remax/framework-shared').PromisifyArgs<
-    WechatMiniprogram.RequestSuccessCallbackResult,
+    WechatMiniprogram.RequestSuccessCallbackResult['data'],
     WechatMiniprogram.GeneralCallbackResult
   >;
 
@@ -19,8 +19,8 @@ interface ResponseInterceptor {
     options: RequestOptions,
     isHideError?: boolean
   ):
-    | Promise<WechatMiniprogram.RequestSuccessCallbackResult | void>
-    | WechatMiniprogram.RequestSuccessCallbackResult
+    | Promise<WechatMiniprogram.RequestSuccessCallbackResult['data'] | void>
+    | WechatMiniprogram.RequestSuccessCallbackResult['data']
     | void;
 }
 
@@ -48,19 +48,19 @@ export default class Request {
   public request = async <T,>(
     options: RequestOptions,
     isHideError?: boolean
-  ): Promise<
-    Omit<WechatMiniprogram.RequestSuccessCallbackResult, 'data'> & { data: T }
-  > => {
-    let requestOptions = this.getRequestOptions(options);
-    for (const item of this.requestInterceptors) {
-      requestOptions = await item(requestOptions, isHideError);
-    }
-    let result = await request(requestOptions);
-    for (const item of this.responseInterceptors) {
-      result = (await item(result, requestOptions, isHideError)) || result;
-    }
-    return result;
-  };
+  ): Promise<T> =>
+    // Omit<WechatMiniprogram.RequestSuccessCallbackResult, 'data'> & { data: T }>
+    {
+      let requestOptions = this.getRequestOptions(options);
+      for (const item of this.requestInterceptors) {
+        requestOptions = await item(requestOptions, isHideError);
+      }
+      let result = await request(requestOptions);
+      for (const item of this.responseInterceptors) {
+        result = (await item(result, requestOptions, isHideError)) || result;
+      }
+      return result as any;
+    };
   private responseInterceptors: ResponseInterceptor[] = [];
   private requestInterceptors: RequestInterceptor[] = [];
   interceptors = {

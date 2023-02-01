@@ -1,12 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text } from 'remax/wechat';
 import { Tabs, Card, Row, Col, Button, Tag, Space } from 'anna-remax-ui';
 import styles from './index.less';
 import classnames from 'classnames';
 import Image from '@/components/image';
+import userInfoStores from '@/stores/userInfo';
+import AutoList from '@/components/autoList';
+import { updateCampus } from '@/apis/usercoupon';
+import type { CampusItem } from '@/apis/usercoupon';
 const { TabContent } = Tabs;
 
-const BagItem: React.FC = () => {
+const BagItem: React.FC<CampusItem> = (props) => {
+  console.log(props);
   return (
     <Card
       style={{ padding: '10rpx 0', margin: '20rpx 0' }}
@@ -15,46 +20,60 @@ const BagItem: React.FC = () => {
       title={
         <View className={styles['bag-item-title']}>
           <Space>
-            <Image src='/images/test/123.jpg' width='40rpx' height='40rpx' />
-            <View>肯德基</View>
+            <Image
+              src={props.merAvatarurl || undefined}
+              width='40rpx'
+              height='40rpx'
+            />
+            <View>{props.merchantName}</View>
           </Space>
         </View>
       }>
-      <View className={styles['bag-item']}>
-        <Row>
-          <Col span={7} className={styles['bag-item-left']}>
-            <View
-              className={classnames(
-                styles['bag-item-up'],
-                styles['font-size-80']
-              )}>
-              ￥500
-            </View>
-            <View className={styles['bag-item-down']}>
-              <Tag color='red'>店铺优惠券</Tag>
-            </View>
-          </Col>
-          <Col span={11}>
-            <View
-              className={classnames(
-                styles['bag-item-up'],
-                styles['font-size-60']
-              )}>
-              满2000可用
-            </View>
-            <View className={styles['bag-item-down']}>
-              有效期至 2022.11.29 23:59
-            </View>
-          </Col>
-          <Col span={6}>
-            <View className={styles['bag-item-right']}>
-              <Button type='primary' danger>
-                使用
-              </Button>
-            </View>
-          </Col>
-        </Row>
-      </View>
+      {props?.list?.map((item) => {
+        return (
+          <View className={styles['bag-item']}>
+            <Row>
+              <Col span={7} className={styles['bag-item-left']}>
+                <View
+                  className={classnames(
+                    styles['bag-item-up'],
+                    styles['font-size-80']
+                  )}>
+                  {item.favorable}
+                </View>
+                <View className={styles['bag-item-down']}>
+                  <Tag color='red'>{item.couponName}</Tag>
+                </View>
+              </Col>
+              <Col span={11}>
+                <View
+                  className={classnames(
+                    styles['bag-item-up'],
+                    styles['font-size-60']
+                  )}>
+                  满2000可用
+                </View>
+                <View className={styles['bag-item-down']}>
+                  有效期至 {item.effectiveTime}
+                </View>
+              </Col>
+              <Col span={6}>
+                <View className={styles['bag-item-right']}>
+                  {item.status === 1 ? (
+                    <Button type='primary' danger>
+                      使用
+                    </Button>
+                  ) : (
+                    <Button disabled={true} type='primary' danger>
+                      已使用
+                    </Button>
+                  )}
+                </View>
+              </Col>
+            </Row>
+          </View>
+        );
+      })}
       <View className={styles['bag-item']}>
         <Row>
           <Col span={7} className={styles['bag-item-left']}>
@@ -95,14 +114,11 @@ const BagItem: React.FC = () => {
 };
 
 const Index = () => {
-  const [stateKey, setStateKey] = React.useState('0');
+  const [status, setStatus] = useState('1');
+  const { userInfo } = userInfoStores.useContainer();
 
   const tabs = useMemo(() => {
     return [
-      {
-        key: '0',
-        title: '全部',
-      },
       {
         key: '1',
         title: (
@@ -116,22 +132,28 @@ const Index = () => {
         key: '2',
         title: '已使用',
       },
-      {
-        key: '3',
-        title: '已过期',
-      },
     ];
   }, []);
   return (
-    <Tabs onTabClick={({ key }) => setStateKey(key)} activeKey={stateKey}>
-      {tabs.map((tab) => (
-        <TabContent key={tab.key} tab={tab.title}>
-          <BagItem />
-          <BagItem />
-          <BagItem />
-        </TabContent>
-      ))}
-    </Tabs>
+    <View>
+      <Tabs onTabClick={({ key }) => setStatus(key)} activeKey={status}>
+        {tabs.map((tab) => (
+          <TabContent key={tab.key} tab={tab.title} />
+        ))}
+      </Tabs>
+      <AutoList<CampusItem>
+        getList={(params) => {
+          return updateCampus({
+            ...params,
+            // userId: userInfo?.id,
+            status,
+          });
+        }}
+        renderItem={(res) => {
+          return <BagItem {...res} />;
+        }}
+      />
+    </View>
   );
 };
 
