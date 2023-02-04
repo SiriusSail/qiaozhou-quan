@@ -6,13 +6,16 @@ import Image from '@/components/image';
 import styles from './index.less';
 import userInfoStores from '@/stores/userInfo';
 import enums from '@/stores/enums';
+import Iconfont from '@/components/iconfont';
 import AutoList from '@/components/autoList';
 import ModailSelect from '@/components/modailSelect';
 import { getActivityListByUserId } from '@/apis/activity';
 import { usePageEvent } from 'remax/macro';
 
 const renderGridItem = (col: any, index?: number) => (
-  <View className={styles['demo-grid-item']}>红包{col}</View>
+  <View className={styles['demo-grid-item']}>
+    <Iconfont name='qz-hongbao' size={200} />
+  </View>
 );
 
 const Item = () => {
@@ -26,7 +29,11 @@ const Item = () => {
           description='阳光正好，带上好心情到店吃饭！'
           extra={<View className={styles.coverExtra}>🏖</View>}
           cover={
-            <Image height='180rpx' width='180rpx' src='/images/test/123.jpg' />
+            <Image
+              height='180rpx'
+              width='180rpx'
+              src='/images/test/nouser.jpg'
+            />
           }
           direction='horizontal'>
           <View className={styles.coverRow}>

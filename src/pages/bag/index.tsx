@@ -7,6 +7,7 @@ import Image from '@/components/image';
 import userInfoStores from '@/stores/userInfo';
 import AutoList from '@/components/autoList';
 import { updateCampus } from '@/apis/usercoupon';
+import LoginPlugin from '@/plugins/loginPlugin';
 import type { CampusItem } from '@/apis/usercoupon';
 const { TabContent } = Tabs;
 
@@ -135,7 +136,7 @@ const Index = () => {
     ];
   }, []);
   return (
-    <View>
+    <LoginPlugin>
       <Tabs onTabClick={({ key }) => setStatus(key)} activeKey={status}>
         {tabs.map((tab) => (
           <TabContent key={tab.key} tab={tab.title} />
@@ -153,7 +154,7 @@ const Index = () => {
           return <BagItem {...res} />;
         }}
       />
-    </View>
+    </LoginPlugin>
   );
 };
 

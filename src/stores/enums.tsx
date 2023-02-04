@@ -12,7 +12,7 @@ export default createContainer(() => {
   const { data: merchant, run: getMerchant } = useRequest(
     () =>
       getMerchantType().then((res) => ({
-        data: res.data.map((item) => ({
+        data: res.map((item) => ({
           key: item.dataCode,
           value: item.dataValue,
         })),

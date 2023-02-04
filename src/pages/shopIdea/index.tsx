@@ -113,7 +113,7 @@ const Index = () => {
               <Input label='联系电话' placeholder='请输入联系电话' />
             </FormItem>
             <FormItem
-              name='merAddress'
+              name='file'
               trigger='onChange'
               rules={[{ required: true }]}>
               <Input label='店铺地址' placeholder='请输入店铺详细地址' />
@@ -122,7 +122,13 @@ const Index = () => {
               name='merAddress'
               trigger='onChange'
               rules={[{ required: true }]}>
-              <ImageUpload label='店铺地址' />
+              <ImageUpload label='店铺照片上传(至少三张)' />
+            </FormItem>
+            <FormItem
+              name='aptitude'
+              trigger='onChange'
+              rules={[{ required: true }]}>
+              <ImageUpload label='店铺资质上传' />
             </FormItem>
           </View>
 

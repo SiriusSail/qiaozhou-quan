@@ -8,9 +8,10 @@ const config: AppConfig = {
     'pages/setting/index', // 设置
     'pages/activity/index', // 活动管理
     'pages/activityDetails/index', // 活动详情
-    'pages/userInfo/index', // 商家信息
-    'pages/userIdea/index', // 商家修改
+    'pages/shopInfo/index', // 商家信息
+    'pages/shopIdea/index', // 商家修改
     'pages/activitySetting/index', // 活动活动设置
+    'pages/shop/index', // 店铺
     'pages/login/index', // 登录
   ],
   window: {

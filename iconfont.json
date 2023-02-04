@@ -1,0 +1,9 @@
+{
+  "symbol_url": "//at.alicdn.com/t/c/font_3880061_exhoidc7pkk.js",
+  "save_dir": "./src/components/iconfont",
+  "use_typescript": false,
+  "platforms": "*",
+  "use_rpx": true,
+  "trim_icon_prefix": "icon",
+  "default_icon_size": 41
+}

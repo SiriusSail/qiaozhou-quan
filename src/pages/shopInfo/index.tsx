@@ -31,7 +31,7 @@ const Index = () => {
           size='large'
           onTap={() => {
             navigateTo({
-              url: '/pages/userIdea/index',
+              url: '/pages/shopIdea/index',
             });
           }}
           type='primary'

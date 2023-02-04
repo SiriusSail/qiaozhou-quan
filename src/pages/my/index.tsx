@@ -4,7 +4,8 @@ import styles from './index.less';
 import Image from '@/components/image';
 import Block from '@/components/block';
 import userInfoStores from '@/stores/userInfo';
-import { Card, Tag, Row, Col } from 'anna-remax-ui';
+import { Card, Tag, Row, Col, Icon } from 'anna-remax-ui';
+import IconFont from '@/components/iconfont';
 
 type TagItemProps = {
   onTap?: () => void;
@@ -50,7 +51,7 @@ const Index = () => {
             <View className={styles['info-title']}>
               <View>
                 {userInfo ? (
-                  <Tag color='#000000'>VIP</Tag>
+                  <IconFont size={60} color='red' name='qz-tipvip' />
                 ) : (
                   <Tag color='#000000'>点击登录/注册</Tag>
                 )}
@@ -84,10 +85,10 @@ const Index = () => {
         <Block title='商家服务'>
           <Row gutter={16}>
             <TagItem
-              text='活动管理'
+              text='添加活动'
               onTap={() =>
                 navigateTo({
-                  url: '/pages/activity/index',
+                  url: '/pages/activitySetting/index',
                 })
               }
             />

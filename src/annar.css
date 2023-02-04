@@ -5,3 +5,6 @@
 .anna-cell-container {
   flex-direction: column;
 }
+.anna-card-cover {
+  padding-left: 20rpx;
+}
