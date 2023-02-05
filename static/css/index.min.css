@@ -1,1 +1,1 @@
-.back{width:100vw;height:400rpx;background-size:100% }.info{position:relative;width:100vw;height:400rpx}.absolute{position:absolute;top:-100rpx;left:0;width:100vw}.content{width:80vw;margin:0 auto;background-color:#fff;padding:30rpx;border-radius:20rpx;box-shadow:1px 1px 1px #f9d46c;border:1px solid #f9d46c}.title{font-size:36rpx;font-weight:600}
+.image-container{display:inline-block}.image-container .image{height:100%;width:100%}

@@ -8,10 +8,13 @@ const config: AppConfig = {
     'pages/setting/index', // 设置
     'pages/activity/index', // 活动管理
     'pages/activityDetails/index', // 活动详情
+    'pages/shop/index', // 店铺
     'pages/shopInfo/index', // 商家信息
     'pages/shopIdea/index', // 商家修改
+    'pages/shopApply/index', // 商家申请
+    'pages/userInfo/index', // 认证信息
+    'pages/userIdea/index', // 修改认证信息
     'pages/activitySetting/index', // 活动活动设置
-    'pages/shop/index', // 店铺
     'pages/login/index', // 登录
   ],
   window: {
@@ -45,6 +48,17 @@ const config: AppConfig = {
         text: '我得',
       },
     ],
+  },
+  plugins: {
+    chooseLocation: {
+      version: '1.0.10',
+      provider: 'wx76a9a06e5b4e693e',
+    },
+  },
+  permission: {
+    'scope.userLocation': {
+      desc: '你的位置信息将用于小程序定位',
+    },
   },
 };
 

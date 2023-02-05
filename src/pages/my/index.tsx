@@ -79,8 +79,24 @@ const Index = () => {
       <View className={styles.body}>
         <Block title='我的账户'>
           <Row gutter={16}>
-            <TagItem icon='vipcard' text='个人认证' />
-            <TagItem icon='vip' text='会员中心' />
+            <TagItem
+              onTap={() =>
+                navigateTo({
+                  url: '/pages/userInfo/index',
+                })
+              }
+              icon='vipcard'
+              text='个人认证'
+            />
+            <TagItem
+              onTap={() =>
+                navigateTo({
+                  url: '/pages/activitySetting/index',
+                })
+              }
+              icon='vip'
+              text='会员中心'
+            />
           </Row>
         </Block>
         <Block title='商家服务'>
@@ -94,15 +110,27 @@ const Index = () => {
                 })
               }
             />
-            <TagItem
-              icon='shop'
-              text='商家信息'
-              onTap={() =>
-                navigateTo({
-                  url: '/pages/shopInfo/index',
-                })
-              }
-            />
+            {userInfo?.roleName === '商家' ? (
+              <TagItem
+                icon='shop'
+                text='商家信息'
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/shopInfo/index',
+                  })
+                }
+              />
+            ) : (
+              <TagItem
+                icon='shop'
+                text='成为商家'
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/shopApply/index',
+                  })
+                }
+              />
+            )}
           </Row>
         </Block>
         <Block title='其他服务'>

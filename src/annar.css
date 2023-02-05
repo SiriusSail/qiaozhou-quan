@@ -9,3 +9,19 @@
   padding-left: 20rpx;
   padding-right: 20rpx;
 }
+
+.anna-cell-container-main-left {
+  flex: none;
+}
+
+.anna-form-value, .anna-form-value-placeholder {
+  text-align: right !important;
+}
+
+.anna-cell-container-main-right-value .anna-input-container .anna-input {
+  text-align: right !important;
+}
+
+.anna-search_bar-input-value {
+  text-align: left;
+}

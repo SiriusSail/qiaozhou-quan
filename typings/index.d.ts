@@ -17,7 +17,7 @@ declare namespace API {
     success: boolean;
     timestamp: number;
   };
-  type OptionsType = { key?: string; value?: string };
+  type OptionsType = { key?: string; value: string };
 
   type PageListParamas<T = any> = {
     /**

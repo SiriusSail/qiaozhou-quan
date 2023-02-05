@@ -4,7 +4,7 @@
         "urlCheck": false,
         "es6": true,
         "postcss": true,
-        "minified": true,
+        "minified": false,
         "newFeature": true,
         "coverView": true,
         "autoAudits": false,
@@ -18,7 +18,10 @@
             "outputPath": ""
         },
         "bundle": false,
-        "enhance": true
+        "enhance": true,
+        "ignoreUploadUnusedFiles": false,
+        "minifyWXML": false,
+        "minifyWXSS": false
     },
     "compileType": "miniprogram",
     "simulatorType": "wechat",

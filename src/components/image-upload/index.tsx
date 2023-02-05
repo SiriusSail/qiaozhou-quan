@@ -4,6 +4,7 @@ import { previewImage, chooseMedia } from 'remax/wechat';
 import { sync, to, deepClone } from 'anna-remax-ui/esm/_util';
 import { getPrefixCls } from 'anna-remax-ui/esm/common';
 import Icon from 'anna-remax-ui/esm/icon';
+import classnames from 'classnames';
 
 const prefixCls = getPrefixCls('image-upload');
 
@@ -17,6 +18,7 @@ export type DataItem = ImageProps | string;
 export interface ImageUploadProps {
   // files?: DataItem[];
   value?: DataItem[];
+  className?: string;
   multiple?: boolean;
   multipleCount?: number;
   sizeType?: string[];
@@ -41,6 +43,7 @@ const ImageUpload = (props: ImageUploadProps) => {
     deletable = true,
     disabled,
     maxCount,
+    className,
     children,
   } = props;
 
@@ -125,7 +128,7 @@ const ImageUpload = (props: ImageUploadProps) => {
 
   console.log(files, 333333);
   return (
-    <View className={prefixCls}>
+    <View className={classnames(prefixCls, className)}>
       {files.map((item: DataItem, index: number) => (
         <View
           key={(item as ImageProps).key || index}
