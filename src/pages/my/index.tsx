@@ -10,11 +10,13 @@ import IconFont from '@/components/iconfont';
 type TagItemProps = {
   onTap?: () => void;
   text?: React.ReactNode;
-  image?: string | React.ReactNode;
+  image?: string;
+  icon?: string;
 };
 
 const TagItem: React.FC<TagItemProps> = ({
   text,
+  icon,
   image = '/images/test/123.jpg',
   onTap,
 }) => {
@@ -22,10 +24,10 @@ const TagItem: React.FC<TagItemProps> = ({
     <Col span={6}>
       <View onTap={onTap}>
         <View className={styles['tag-image']}>
-          {typeof image === 'string' ? (
-            <Image height='100rpx' width='100rpx' src={image} />
+          {icon ? (
+            <Icon type={icon} size='60rpx' color='#666' />
           ) : (
-            image
+            <Image height='100rpx' width='100rpx' src={image} />
           )}
         </View>
         <View className={styles['body-text']}>{text}</View>
@@ -77,15 +79,15 @@ const Index = () => {
       <View className={styles.body}>
         <Block title='我的账户'>
           <Row gutter={16}>
-            <TagItem text='个人中心' />
-            <TagItem text='个人中心' />
-            <TagItem text='个人中心' />
+            <TagItem icon='vipcard' text='个人认证' />
+            <TagItem icon='vip' text='会员中心' />
           </Row>
         </Block>
         <Block title='商家服务'>
           <Row gutter={16}>
             <TagItem
               text='添加活动'
+              icon='activity'
               onTap={() =>
                 navigateTo({
                   url: '/pages/activitySetting/index',
@@ -93,10 +95,11 @@ const Index = () => {
               }
             />
             <TagItem
+              icon='shop'
               text='商家信息'
               onTap={() =>
                 navigateTo({
-                  url: '/pages/userInfo/index',
+                  url: '/pages/shopInfo/index',
                 })
               }
             />
@@ -105,6 +108,7 @@ const Index = () => {
         <Block title='其他服务'>
           <Row gutter={16}>
             <TagItem
+              icon='settings'
               text='设置'
               onTap={() =>
                 navigateTo({

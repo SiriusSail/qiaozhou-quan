@@ -1,18 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
 import Image from '@/components/image';
 import Iconfont from '@/components/iconfont';
 import Block from '@/components/block';
+import Voucher from '@/components/voucher';
 import userInfoStores from '@/stores/userInfo';
-import { Space, Card, Grid, Col, Icon } from 'anna-remax-ui';
-import IconFont from '@/components/iconfont';
+import { Space, Card, Grid, Popup, Icon } from 'anna-remax-ui';
 
-const renderGridItem = (col: any, index?: number) => (
-  <View className={styles['demo-grid-item']}>
-    <Iconfont name='qz-hongbao' size={200} />
-  </View>
-);
+const RenderGridItem = (col: any) => {
+  const [show, setShow] = useState(false);
+  const [voucher, setVoucher] = useState(false);
+  return (
+    <View>
+      <View className={styles['demo-grid-item']} onTap={() => setShow(true)}>
+        <Iconfont name='qz-hongbao' size={200} />
+      </View>
+      <Popup
+        closeable={false}
+        style={{ background: 'transparent' }}
+        open={show}
+        onClose={() => {
+          setShow(false);
+        }}>
+        <View className={styles['popup-content']}>
+          <View
+            className={styles['change-size']}
+            onTap={() => {
+              setShow(false);
+              setVoucher(true);
+            }}>
+            <Iconfont name='qz-hongbao' size={600} />
+          </View>
+        </View>
+      </Popup>
+      <Popup
+        closeable={false}
+        style={{ background: 'transparent' }}
+        open={voucher}
+        onClose={() => {
+          setVoucher(false);
+        }}>
+        <View className={styles['voucher-content']}>
+          <View className={styles['voucher-title']}>恭喜您获得了</View>
+          <Voucher />
+        </View>
+      </Popup>
+    </View>
+  );
+};
 
 const Item = () => {
   return (
@@ -21,6 +57,7 @@ const Item = () => {
       shadow={true}
       cover={
         <Card
+          title={'现金红包'}
           description='阳光正好，带上好心情到店吃饭！'
           extra={<View className={styles.coverExtra}>未领取</View>}
           direction='horizontal'>
@@ -28,19 +65,10 @@ const Item = () => {
             <div></div>
           </View>
         </Card>
-      }
-      foot={
-        <View className={styles['card-footer']}>
-          <Space>
-            <Icon type='like' size='40px' />
-            <Icon type='favor' size='40px' />
-            <Icon type='comment' size='40px' />
-          </Space>
-        </View>
       }>
       <View className={styles.envelopes}>
         <Grid data={['1', '2', '3']} columns={3} gutter={16}>
-          {renderGridItem}
+          {(col, index) => <RenderGridItem {...col} />}
         </Grid>
       </View>
     </Card>
@@ -70,7 +98,9 @@ const Index = () => {
         </View>
       </View>
       <Block title='店铺活动'>
-        <Item />
+        <View className={styles.welfare}>
+          <Item />
+        </View>
       </Block>
     </View>
   );

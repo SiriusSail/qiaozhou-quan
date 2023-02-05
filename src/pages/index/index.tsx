@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Swiper, SwiperItem } from 'remax/wechat';
+import { View, Swiper, SwiperItem, navigateTo } from 'remax/wechat';
 import { Icon, Space, Grid, Card } from 'anna-remax-ui';
 import NoticeBar from '@/components/notice-bar';
 import Image from '@/components/image';
@@ -23,6 +23,11 @@ const Item = () => {
     <Card
       style={{ padding: '20rpx 0', margin: '30rpx 0' }}
       shadow={true}
+      onTap={() => {
+        navigateTo({
+          url: '/pages/shop/index',
+        });
+      }}
       cover={
         <Card
           title={<View className={styles['card-title']}>肯德基</View>}

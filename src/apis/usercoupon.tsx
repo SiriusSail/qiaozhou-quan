@@ -18,18 +18,19 @@ type UpdateCampusParams = {
 };
 export type CampusItem = {
   couponCount: 2;
-  list: {
-    couponId?: string;
-    couponName?: string;
-    couponNo?: string;
-    effectiveTime?: string;
-    favorable: number;
-    merchantId?: string;
-    status: number;
-  }[];
+  list: CampusVoucherItem[];
   merAvatarurl?: string;
   merchantId?: string;
   merchantName?: string;
+};
+export type CampusVoucherItem = {
+  couponId?: string;
+  couponName?: string;
+  couponNo?: string;
+  effectiveTime?: string;
+  favorable: number;
+  merchantId?: string;
+  status: number;
 };
 /**
  * 查询用户领取到的券
