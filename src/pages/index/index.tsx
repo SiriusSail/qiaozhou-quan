@@ -39,7 +39,7 @@ const Item = (props: ActivetyUser) => {
           title={
             <View className={styles['card-title']}>{props.merchantName}</View>
           }
-          description={props.merDescribe}
+          description={props.merDescribe || '暂无简介'}
           // extra={<View className={styles.coverExtra}>🏖</View>}
           cover={
             <Image
@@ -49,9 +49,9 @@ const Item = (props: ActivetyUser) => {
             />
           }
           direction='horizontal'>
-          <View className={styles.coverRow}>
+          {/* <View className={styles.coverRow}>
             <div>{props?.merDescribe || '暂无简介'}</div>
-          </View>
+          </View> */}
         </Card>
       }
       foot={
