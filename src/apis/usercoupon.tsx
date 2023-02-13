@@ -42,10 +42,15 @@ export const updateCampus = (data: API.PageListReq<UpdateCampusParams>) =>
     data,
     dataType: 'json',
   });
+
+type UseCouponParams = {
+  couponNo?: string;
+  userId?: string;
+};
 /**
  * 核销优惠券
  */
-export const useCoupon = (data) =>
+export const coupon = (data: UseCouponParams) =>
   request<string>({
     method: 'POST',
     url: '/wx/api/usercoupon/useCoupon',

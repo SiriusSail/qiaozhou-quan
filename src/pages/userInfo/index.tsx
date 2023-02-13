@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
 import BottomButton from '@/components/bottomButton';
-import LoginPlugin from '@/plugins/loginPlugin';
+import LoginLayout from '@/layout/loginLayout';
 import Image from '@/components/image';
 import userInfoStores from '@/stores/userInfo';
 import { Cell, Popup, Space, ImageUpload } from 'anna-remax-ui';
@@ -16,7 +16,7 @@ const Index = () => {
   });
 
   return (
-    <LoginPlugin>
+    <LoginLayout>
       <View className={styles.setting}>
         <Cell label='头像'>
           <Image
@@ -46,7 +46,7 @@ const Index = () => {
           修改信息
         </BottomButton>
       </View>
-    </LoginPlugin>
+    </LoginLayout>
   );
 };
 export default Index;

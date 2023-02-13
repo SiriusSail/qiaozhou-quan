@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text } from 'remax/wechat';
+import { View, Text, navigateTo, startPullDownRefresh } from 'remax/wechat';
 import { Tabs, Card, Row, Col, Button, Tag, Space } from 'anna-remax-ui';
 import styles from './index.less';
 import classnames from 'classnames';
@@ -7,19 +7,25 @@ import Image from '@/components/image';
 import userInfoStores from '@/stores/userInfo';
 import AutoList from '@/components/autoList';
 import { updateCampus } from '@/apis/usercoupon';
-import LoginPlugin from '@/plugins/loginPlugin';
+import LoginLayout from '@/layout/loginLayout';
 import type { CampusItem } from '@/apis/usercoupon';
+import { usePageEvent } from 'remax/macro';
 const { TabContent } = Tabs;
 
 const BagItem: React.FC<CampusItem> = (props) => {
-  console.log(props);
   return (
     <Card
       style={{ padding: '10rpx 0', margin: '20rpx 0' }}
       contentStyle={{ padding: '0 20rpx' }}
       shadow
       title={
-        <View className={styles['bag-item-title']}>
+        <View
+          onTap={() =>
+            navigateTo({
+              url: `/pages/shop/index?id=${props.merchantId}`,
+            })
+          }
+          className={styles['bag-item-title']}>
           <Space>
             <Image
               src={props.merAvatarurl || undefined}
@@ -52,7 +58,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
                     styles['bag-item-up'],
                     styles['font-size-60']
                   )}>
-                  满2000可用
+                  无使用门槛
                 </View>
                 <View className={styles['bag-item-down']}>
                   有效期至 {item.effectiveTime}
@@ -61,7 +67,14 @@ const BagItem: React.FC<CampusItem> = (props) => {
               <Col span={6}>
                 <View className={styles['bag-item-right']}>
                   {item.status === 1 ? (
-                    <Button type='primary' danger>
+                    <Button
+                      type='primary'
+                      danger
+                      onTap={() => {
+                        navigateTo({
+                          url: `/pages/voucher/index?id=${item.couponId}`,
+                        });
+                      }}>
                       使用
                     </Button>
                   ) : (
@@ -75,41 +88,6 @@ const BagItem: React.FC<CampusItem> = (props) => {
           </View>
         );
       })}
-      <View className={styles['bag-item']}>
-        <Row>
-          <Col span={7} className={styles['bag-item-left']}>
-            <View
-              className={classnames(
-                styles['bag-item-up'],
-                styles['font-size-80']
-              )}>
-              ￥500
-            </View>
-            <View className={styles['bag-item-down']}>
-              <Tag color='red'>店铺优惠券</Tag>
-            </View>
-          </Col>
-          <Col span={11}>
-            <View
-              className={classnames(
-                styles['bag-item-up'],
-                styles['font-size-60']
-              )}>
-              满2000可用
-            </View>
-            <View className={styles['bag-item-down']}>
-              有效期至 2022.11.29 23:59
-            </View>
-          </Col>
-          <Col span={6}>
-            <View className={styles['bag-item-right']}>
-              <Button type='primary' danger>
-                使用
-              </Button>
-            </View>
-          </Col>
-        </Row>
-      </View>
     </Card>
   );
 };
@@ -135,8 +113,11 @@ const Index = () => {
       },
     ];
   }, []);
+  usePageEvent('onShow', () => {
+    startPullDownRefresh();
+  });
   return (
-    <LoginPlugin>
+    <View>
       <Tabs onTabClick={({ key }) => setStatus(key)} activeKey={status}>
         {tabs.map((tab) => (
           <TabContent key={tab.key} tab={tab.title} />
@@ -144,17 +125,20 @@ const Index = () => {
       </Tabs>
       <AutoList<CampusItem>
         getList={(params) => {
+          if (!userInfo?.id) {
+            return Promise.resolve({ records: [], current: 1 });
+          }
           return updateCampus({
             ...params,
             // userId: userInfo?.id,
             status,
           });
         }}
-        renderItem={(res) => {
-          return <BagItem {...res} />;
+        renderItem={(res, index) => {
+          return <BagItem key={index} {...res} />;
         }}
       />
-    </LoginPlugin>
+    </View>
   );
 };
 

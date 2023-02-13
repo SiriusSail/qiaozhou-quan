@@ -1,9 +1,10 @@
 import Request from './request';
 import storage from '@/utils/storage';
-import { navigateBack } from 'remax/wechat';
+import { navigateBack, uploadFile, navigateTo } from 'remax/wechat';
+import { baseUrl } from '@/consts/index';
 
 export const { request, interceptors } = new Request({
-  baseUrl: 'http://www.chqheiyou.com:9001',
+  baseUrl,
 });
 
 interceptors.request.use((options) => {
@@ -39,8 +40,11 @@ interceptors.response.use(
     config,
     isHideError
   ) => {
-    if (code === 400) {
+    if (code === 401) {
       storage.del('token');
+      navigateTo({
+        url: '/pages/login/index',
+      });
     }
     if (code === 200) {
       data.data = data.data || { ...data };
@@ -70,6 +74,7 @@ const apis = {
       data,
       dataType: 'json',
     }).then((response) => {
+      console.log(response, 33333);
       storage.set('token', response);
       navigateBack();
       return response;
@@ -80,6 +85,19 @@ const apis = {
     return request<API.UserInfo>({
       method: 'GET',
       url: '/wx/api/auth/info',
+    });
+  },
+  uploadFile: (path: string) => {
+    const token = storage.get('token') || '';
+    return uploadFile({
+      url: `${baseUrl}/wx/api/file/upload`,
+      filePath: path,
+      name: 'file',
+      header: {
+        Authorization: `BearerApp ${token}`,
+      },
+    }).then((res) => {
+      return JSON.parse(res.data);
     });
   },
 };

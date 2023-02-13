@@ -1,32 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
 import BottomButton from '@/components/bottomButton';
-import LoginPlugin from '@/plugins/loginPlugin';
-import Block from '@/components/block';
-import { Cell, Popup, Space, ImageUpload } from 'anna-remax-ui';
+import Image from '@/components/image';
+import LoginLayout from '@/layout/loginLayout';
+import { getMerchantByUserId } from '@/apis/merchant';
+import { Cell } from 'anna-remax-ui';
+import { useRequest } from 'ahooks';
+import user from '@/stores/userInfo';
+import { usePageEvent } from 'remax/macro';
 
 const Index = () => {
+  const { userInfo } = user.useContainer();
+  const { data, run } = useRequest(() => getMerchantByUserId(userInfo!.id), {
+    manual: !userInfo?.id,
+  });
+
+  usePageEvent('onShow', () => {
+    !!data && run();
+  });
   return (
-    <LoginPlugin>
+    <LoginLayout>
       <View className={styles.setting}>
-        <Cell label='店铺名称'>点击查看</Cell>
-        <Cell label='经营类别'>金额</Cell>
-        <Cell label='区域选择'>红包个数</Cell>
-        <Cell label='联系人'>同时拥有个数</Cell>
-        <Cell label='联系电话'>同时拥有个数</Cell>
-        <Cell label='店铺地址'>同时拥有个数</Cell>
-        <Cell label='资质证件'>同时拥有个数</Cell>
-        <Block title='资质证件及店铺照片上传'>
-          <View style={{ padding: '0 20px' }}>
-            <ImageUpload
-              files={['/images/test/123.jpg']}
-              multiple
-              deletable={false}
-              maxCount={1}
-            />
-          </View>
-        </Block>
+        <Cell label='店铺头像'>
+          {<Image src={data?.merAvatarurl} height='40rpx' width='40rpx' />}
+        </Cell>
+        <Cell label='店铺名称'>{data?.merName}</Cell>
+        <Cell label='联系人'>{data?.merPerson}</Cell>
+        <Cell label='区域'>
+          {data?.list?.map((item) => item.campusName).join(',')}
+        </Cell>
+        <Cell label='联系电话'>{data?.merPersonTel}</Cell>
+        <Cell label='店铺地址'>{data?.merAddress}</Cell>
         <BottomButton
           size='large'
           onTap={() => {
@@ -40,7 +45,7 @@ const Index = () => {
           修改信息
         </BottomButton>
       </View>
-    </LoginPlugin>
+    </LoginLayout>
   );
 };
 export default Index;

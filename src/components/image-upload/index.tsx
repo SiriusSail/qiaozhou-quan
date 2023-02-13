@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { View, Image } from 'remax/one';
-import { previewImage, chooseMedia } from 'remax/wechat';
+import { previewImage, chooseMedia, uploadFile } from 'remax/wechat';
 import { sync, to, deepClone } from 'anna-remax-ui/esm/_util';
 import { getPrefixCls } from 'anna-remax-ui/esm/common';
 import Icon from 'anna-remax-ui/esm/icon';
+import { baseUrl } from '@/consts/index';
 import classnames from 'classnames';
+import apis from '@/apis/index';
 
 const prefixCls = getPrefixCls('image-upload');
 
@@ -71,7 +73,9 @@ const ImageUpload = (props: ImageUploadProps) => {
     let urls = files;
     const current = index as any as string;
     if (typeof files[index] !== 'string') {
-      urls = files.map((i) => (i as ImageProps).url || (i as any).tempFilePath);
+      urls = files?.map?.(
+        (i) => (i as ImageProps).url || (i as any).tempFilePath
+      );
     }
     previewImage({
       urls: urls as string[],
@@ -81,7 +85,25 @@ const ImageUpload = (props: ImageUploadProps) => {
     });
   };
 
-  const handleAdd = async () => {
+  const handleDelete = useCallback(
+    (e: any, index: number) => {
+      e.stopPropagation();
+      let newValue = deepClone(files);
+      newValue.splice(index, 1);
+      newValue = newValue.map((item: DataItem, index: number) => {
+        const newItem = item;
+        if (typeof newItem === 'string') {
+          return newItem;
+        }
+        (newItem as ImageProps).key = String(index);
+        return newItem;
+      });
+      onChange?.(newValue);
+    },
+    [files, onChange]
+  );
+
+  const handleAdd = useCallback(async () => {
     if (disabled) {
       return;
     }
@@ -103,35 +125,32 @@ const ImageUpload = (props: ImageUploadProps) => {
     if (errc) {
       return;
     }
-    console.log(resc);
     const targetFiles = resc.filePaths
       ? resc.filePaths.map((i: any) => i)
-      : resc.tempFiles.map((i: any) => i);
-    const newFiles = files.concat(targetFiles);
-    onChange?.(newFiles);
-  };
+      : resc.tempFiles?.map?.((i: any) => i);
 
-  const handleDelete = (e: any, index: number) => {
-    e.stopPropagation();
-    let newValue = deepClone(files);
-    newValue.splice(index, 1);
-    newValue = newValue.map((item: DataItem, index: number) => {
-      const newItem = item;
-      if (typeof newItem === 'string') {
-        return newItem;
-      }
-      (newItem as ImageProps).key = String(index);
-      return newItem;
-    });
-    onChange?.(newValue);
-  };
+    targetFiles.forEach((item: any) =>
+      apis.uploadFile(item.tempFilePath).then((res) => {
+        const newFiles = files.concat({ ...item, url: res.data });
+        onChange?.(newFiles);
+      })
+    );
+  }, [
+    disabled,
+    files,
+    multiple,
+    multipleCount,
+    onChange,
+    sizeType,
+    sourceType,
+  ]);
 
   console.log(files, 333333);
   return (
     <View className={classnames(prefixCls, className)}>
-      {files.map((item: DataItem, index: number) => (
+      {files?.map?.((item: DataItem, index: number) => (
         <View
-          key={(item as ImageProps).key || index}
+          key={(item as ImageProps)?.key || index}
           className={`${prefixCls}-item`}
           onTap={() => handleClickImage(index)}>
           {deletable ? (
@@ -157,8 +176,8 @@ const ImageUpload = (props: ImageUploadProps) => {
           <Image
             mode='widthFix'
             src={
-              (item as ImageProps).url ||
-              (item as any).tempFilePath ||
+              (item as any)?.tempFilePath ||
+              (item as ImageProps)?.url ||
               (item as string)
             }
           />

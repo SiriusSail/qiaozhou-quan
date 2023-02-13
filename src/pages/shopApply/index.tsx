@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, navigateTo, navigateBack, showToast } from 'remax/wechat';
-import styles from './index.less';
-import Textarea from '@/components/Textarea';
+import { navigateBack, showToast } from 'remax/wechat';
 import enums from '@/stores/enums';
 import user from '@/stores/userInfo';
 import BottomButton from '@/components/bottomButton';
@@ -13,29 +11,10 @@ import MapLocation from '@/components/mapLocation';
 import { merchantApply } from '@/apis/merchant';
 import { useRequest } from 'ahooks';
 import Picker from '@/components/picker';
-import Form, { useForm, Field } from 'rc-field-form';
-import { Tabs, Input, Cell } from 'anna-remax-ui';
-import LoginPlugin from '@/plugins/loginPlugin';
+import Form, { useForm } from 'rc-field-form';
+import { Input, Cell } from 'anna-remax-ui';
+import LoginLayout from '@/layout/loginLayout';
 import { usePageEvent } from 'remax/macro';
-
-const tabs = [
-  {
-    key: '0',
-    title: '进行中',
-  },
-  {
-    key: '1',
-    title: '已过期',
-  },
-];
-
-const { TabContent } = Tabs;
-
-const options = [
-  { key: '1', value: '现金红包' },
-  { key: '2', value: '折扣券' },
-  { key: '3', value: '代金券' },
-];
 
 const Index = () => {
   const [form] = useForm();
@@ -61,13 +40,15 @@ const Index = () => {
     getMerchant();
   });
 
+  console.log();
+
   return (
-    <LoginPlugin>
+    <LoginLayout>
       <Form component={false} form={form}>
-        <Field name='userId' initialValue={userInfo?.id} />
+        {/* <Field name='userId' /> */}
         <Cell label='头像'>
           <FormItem
-            name='avatarurl'
+            name='merAvatarurl'
             trigger='onChange'
             rules={[{ required: true }]}>
             <AvatarUpload />
@@ -123,20 +104,32 @@ const Index = () => {
           <Input label='联系电话' placeholder='请输入联系电话' />
         </FormItem>
         <Cell label='店铺地址'>
-          <FormItem name='file' trigger='onChange' rules={[{ required: true }]}>
+          <FormItem
+            name='merAddress'
+            trigger='onChange'
+            rules={[{ required: true }]}>
             <MapLocation />
           </FormItem>
         </Cell>
         <FormItem
-          name='merAddress'
+          padding={20}
+          name='doorPhoto'
           trigger='onChange'
-          rules={[{ required: true }]}>
-          <ImageUpload label='店铺照片上传(至少三张)' />
+          rules={[{ required: true, message: '请选择店铺门牌照' }]}>
+          <ImageUpload maxCount={1} label='店铺门牌照' />
         </FormItem>
         <FormItem
+          padding={20}
+          name='file'
+          trigger='onChange'
+          rules={[{ required: true, message: '请选择店铺相关照片上传' }]}>
+          <ImageUpload label='店铺相关照片上传(至少三张)' />
+        </FormItem>
+        <FormItem
+          padding={20}
           name='aptitude'
           trigger='onChange'
-          rules={[{ required: true }]}>
+          rules={[{ required: true, message: '请选择店铺资质上传' }]}>
           <ImageUpload label='店铺资质上传' />
         </FormItem>
 
@@ -144,9 +137,18 @@ const Index = () => {
           loading={loading}
           size='large'
           onTap={() => {
-            form.validateFields().then((value) => {
+            form.validateFields().then(async (value) => {
               console.log(value);
-              run(value);
+              const { file, merAvatarurl, doorPhoto, aptitude, ...params } =
+                value;
+              run({
+                ...params,
+                userId: userInfo?.id,
+                file: file.map((item: any) => item.url),
+                aptitude: aptitude.map((item: any) => item.url),
+                merAvatarurl: merAvatarurl.url,
+                doorPhoto: doorPhoto?.[0]?.url,
+              });
             });
           }}
           type='primary'
@@ -155,7 +157,7 @@ const Index = () => {
           确认修改
         </BottomButton>
       </Form>
-    </LoginPlugin>
+    </LoginLayout>
   );
 };
 export default Index;

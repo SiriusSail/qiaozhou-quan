@@ -4,8 +4,9 @@ import styles from './index.less';
 import Image from '@/components/image';
 import Block from '@/components/block';
 import userInfoStores from '@/stores/userInfo';
-import { Card, Tag, Row, Col, Icon } from 'anna-remax-ui';
-import IconFont from '@/components/iconfont';
+import { Tag, Row, Col, Icon } from 'anna-remax-ui';
+import UserCard from '@/components/userCard';
+import { usePageEvent } from 'remax/macro';
 
 type TagItemProps = {
   onTap?: () => void;
@@ -37,45 +38,23 @@ const TagItem: React.FC<TagItemProps> = ({
 };
 
 const Index = () => {
-  const { userInfo } = userInfoStores.useContainer();
+  const { userInfo, getUserInfo, isVip } = userInfoStores.useContainer();
+  usePageEvent('onShow', getUserInfo);
   return (
     <View className={styles.my}>
-      <View className={styles.info}>
-        <Card
-          style={{
-            backgroundColor: '#ffe7a3',
-            padding: '30rpx 30rpx 10rpx',
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 0,
-          }}
-          title={userInfo?.nickname || '请登录或注册您的账号'}
-          description={
-            <View className={styles['info-title']}>
-              <View>
-                {userInfo ? (
-                  <IconFont size={60} color='red' name='qz-tipvip' />
-                ) : (
-                  <Tag color='#000000'>点击登录/注册</Tag>
-                )}
-              </View>
-              <View className={styles['info-browse']}>暂时没什么可以看</View>
-            </View>
-          }
-          cover={
-            <Image
-              height='160rpx'
-              width='160rpx'
-              style={{ overflow: 'hidden', borderRadius: '50%' }}
-              src={userInfo?.avatarurl || '/images/test/nouser.jpg'}
-            />
-          }
-          direction='horizontal'
-        />
-      </View>
-      <View className={styles.title}>
-        <View>开通会员获，获得更多惊喜权益</View>
-        <Tag color='yellow'>开通会员</Tag>
-      </View>
+      <UserCard />
+      {isVip || (
+        <View
+          className={styles.title}
+          onTap={() =>
+            navigateTo({
+              url: '/pages/vips/index',
+            })
+          }>
+          <View>开通会员获，获得更多惊喜权益</View>
+          <Tag color='yellow'>开通会员</Tag>
+        </View>
+      )}
       <View className={styles.body}>
         <Block title='我的账户'>
           <Row gutter={16}>
@@ -91,7 +70,7 @@ const Index = () => {
             <TagItem
               onTap={() =>
                 navigateTo({
-                  url: '/pages/activitySetting/index',
+                  url: '/pages/vips/index',
                 })
               }
               icon='vip'
@@ -101,15 +80,19 @@ const Index = () => {
         </Block>
         <Block title='商家服务'>
           <Row gutter={16}>
-            <TagItem
-              text='添加活动'
-              icon='activity'
-              onTap={() =>
-                navigateTo({
-                  url: '/pages/activitySetting/index',
-                })
-              }
-            />
+            {userInfo?.roleName === '商家' ? (
+              <TagItem
+                text='添加活动'
+                icon='activity'
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/activitySetting/index',
+                  })
+                }
+              />
+            ) : (
+              <View />
+            )}
             {userInfo?.roleName === '商家' ? (
               <TagItem
                 icon='shop'

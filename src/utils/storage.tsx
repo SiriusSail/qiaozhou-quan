@@ -5,7 +5,7 @@ import {
   clearStorageSync,
 } from 'remax/wechat';
 
-type Keys = 'token' | 'oldPath';
+type Keys = 'token' | 'oldPath' | 'campu';
 
 interface Storage {
   get: {

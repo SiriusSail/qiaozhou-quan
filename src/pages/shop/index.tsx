@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
-import Image from '@/components/image';
 import Iconfont from '@/components/iconfont';
+import Image from '@/components/image';
 import Block from '@/components/block';
 import Voucher from '@/components/voucher';
-import userInfoStores from '@/stores/userInfo';
+import { getActivityListByMerchantId } from '@/apis/activity';
+import type { ActivityInfo, ActivetyAmountInfo } from '@/apis/activity';
+import LoginLayout from '@/layout/loginLayout';
 import { Space, Card, Grid, Popup, Icon } from 'anna-remax-ui';
+import { useRequest } from 'ahooks';
+import { useQuery } from 'remax';
 
-const RenderGridItem = (col: any) => {
+const RenderGridItem = (props: ActivetyAmountInfo) => {
   const [show, setShow] = useState(false);
   const [voucher, setVoucher] = useState(false);
   return (
-    <View>
+    <>
       <View className={styles['demo-grid-item']} onTap={() => setShow(true)}>
-        <Iconfont name='qz-hongbao' size={200} />
+        <Image height='205rpx' width='164rpx' src={'/images/hongbao.png'} />
       </View>
       <Popup
         closeable={false}
@@ -30,7 +34,7 @@ const RenderGridItem = (col: any) => {
               setShow(false);
               setVoucher(true);
             }}>
-            <Iconfont name='qz-hongbao' size={600} />
+            <Image height='410rpx' width='328rpx' src={'/images/hongbao.png'} />
           </View>
         </View>
       </Popup>
@@ -43,23 +47,27 @@ const RenderGridItem = (col: any) => {
         }}>
         <View className={styles['voucher-content']}>
           <View className={styles['voucher-title']}>恭喜您获得了</View>
-          <Voucher />
+          <Voucher {...props} type='new' />
         </View>
       </Popup>
-    </View>
+    </>
   );
 };
 
-const Item = () => {
+const Item = (props: ActivityInfo) => {
   return (
     <Card
       style={{ padding: '20rpx 0', margin: '30rpx 0' }}
       shadow={true}
       cover={
         <Card
-          title={'现金红包'}
-          description='阳光正好，带上好心情到店吃饭！'
-          extra={<View className={styles.coverExtra}>未领取</View>}
+          title={props.actContent}
+          description={props.description}
+          extra={
+            <View className={styles.coverExtra}>
+              {props?.pickUpStatus || '未领取'}
+            </View>
+          }
           direction='horizontal'>
           <View className={styles.coverRow}>
             <div></div>
@@ -67,7 +75,7 @@ const Item = () => {
         </Card>
       }>
       <View className={styles.envelopes}>
-        <Grid data={['1', '2', '3']} columns={3} gutter={16}>
+        <Grid data={props.list} columns={3} gutter={16}>
           {(col, index) => <RenderGridItem {...col} />}
         </Grid>
       </View>
@@ -76,7 +84,9 @@ const Item = () => {
 };
 
 const Index = () => {
-  const { userInfo } = userInfoStores.useContainer();
+  const { id } = useQuery<{ id: string }>();
+
+  const { data } = useRequest(() => getActivityListByMerchantId(id));
   return (
     <View className={styles.shop}>
       <View
@@ -87,11 +97,11 @@ const Index = () => {
         <View className={styles.absolute}>
           <View className={styles.content}>
             <Space direction='vertical'>
-              <View className={styles.title}>乡村基(解放碑店)</View>
-              <View>店铺简介：好好吃饭好好睡觉</View>
-              <View>联系电话：112331233</View>
+              <View className={styles.title}>{data?.merchantName}</View>
+              <View>店铺简介：{data?.merDescribe || '暂无简介'}</View>
+              <View>联系电话：{data?.merchantName || '-'}</View>
               <View>
-                地址：解放碑环球大厦 <Icon type='location' />
+                地址：{data?.merchantAddress} <Icon type='location' />
               </View>
             </Space>
           </View>
@@ -99,7 +109,9 @@ const Index = () => {
       </View>
       <Block title='店铺活动'>
         <View className={styles.welfare}>
-          <Item />
+          {data?.activityListResList.map((item) => (
+            <Item key={item.actId} {...item} />
+          ))}
         </View>
       </Block>
     </View>

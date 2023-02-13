@@ -25,3 +25,12 @@
 .anna-search_bar-input-value {
   text-align: left;
 }
+
+.anna-btn-look-orange {
+  color: #fdfffd;
+  background-color: #fa8c16 !important;
+  border-color: #fa8c16 !important;
+}
+.anna-result-icon-status .icon-loading {
+  animation: loading 1s linear infinite;
+}

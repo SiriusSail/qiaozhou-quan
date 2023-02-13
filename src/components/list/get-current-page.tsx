@@ -1,5 +1,3 @@
-import qs from 'qs';
-
 const Index = () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -7,7 +5,7 @@ const Index = () => {
     query: {},
   };
   return `${route}${
-    Object.keys(query).length ? `?${qs.stringify(query)}` : ''
+    Object.keys(query).length ? `?${query?.tostring?.()}` : ''
   }`;
 };
 export default Index;

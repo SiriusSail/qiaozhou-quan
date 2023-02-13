@@ -68,13 +68,6 @@
                     "scene": null
                 },
                 {
-                    "name": "商家",
-                    "pathName": "pages/shop/index",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "修改认证信息",
                     "pathName": "pages/userIdea/index",
                     "query": "",
@@ -87,8 +80,40 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "商家",
+                    "pathName": "pages/shop/index",
+                    "query": "id=289f64b3e21a4e2389d067c6f94b6f6c",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "会员",
+                    "pathName": "pages/vips/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "福利袋",
+                    "pathName": "pages/bag/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/check/index",
+                    "query": "id=ba34eaa5be074a5e9b2587157017ca29",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
+    },
+    "setting": {
+        "useIsolateContext": true,
+        "bigPackageSizeSupport": true
     }
 }

@@ -5,6 +5,7 @@ import { previewImage, chooseMedia } from 'remax/wechat';
 import { sync, to, deepClone } from 'anna-remax-ui/esm/_util';
 import { getPrefixCls } from 'anna-remax-ui/esm/common';
 import Icon from 'anna-remax-ui/esm/icon';
+import apis from '@/apis/index';
 import classnames from 'classnames';
 
 const prefixCls = getPrefixCls('avatar-upload');
@@ -46,7 +47,6 @@ const ImageUpload = (props: ImageUploadProps) => {
   const [files, setFiles] = useState(_value);
   const filesRef = useRef(JSON.stringify(_value));
   useEffect(() => {
-    console.log(filesRef.current, JSON.stringify(_value));
     if (filesRef.current !== JSON.stringify(_value)) {
       filesRef.current = JSON.stringify(_value);
       setFiles(_value);
@@ -55,7 +55,6 @@ const ImageUpload = (props: ImageUploadProps) => {
 
   const onChange = useCallback(
     (v: DataItem) => {
-      console.log(v);
       filesRef.current = JSON.stringify(v);
       setFiles(v);
       _onChange?.(v);
@@ -100,7 +99,9 @@ const ImageUpload = (props: ImageUploadProps) => {
       return;
     }
     const targetFiles = resc.filePaths ? resc.filePaths[0] : resc.tempFiles[0];
-    onChange(targetFiles);
+    apis.uploadFile(targetFiles.tempFilePath).then((res) => {
+      onChange?.({ ...targetFiles, url: res.data });
+    });
   };
   return (
     <View className={classnames(prefixCls, className)}>
@@ -114,8 +115,8 @@ const ImageUpload = (props: ImageUploadProps) => {
             height='50rpx'
             width='50rpx'
             src={
-              (files as ImageProps).url ||
               (files as any).tempFilePath ||
+              (files as ImageProps).url ||
               (files as string)
             }
           />

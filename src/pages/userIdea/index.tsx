@@ -1,25 +1,26 @@
-import React from 'react';
-import { View, navigateTo, navigateBack, showToast } from 'remax/wechat';
+import React, { useEffect } from 'react';
+import { View, navigateBack, showToast } from 'remax/wechat';
 import enums from '@/stores/enums';
 import user from '@/stores/userInfo';
 import BottomButton from '@/components/bottomButton';
 import FormItem from '@/components/formItem';
-import AvatarUpload from '@/components/avatarUpload';
 import MapLocation from '@/components/mapLocation';
-import { merchantApply } from '@/apis/merchant';
+import { updateCampus } from '@/apis/user';
 import { useRequest } from 'ahooks';
 import Form, { useForm, Field } from 'rc-field-form';
-import { Input, Cell } from 'anna-remax-ui';
-import LoginPlugin from '@/plugins/loginPlugin';
+import { Cell } from 'anna-remax-ui';
+import LoginLayout from '@/layout/loginLayout';
 import { usePageEvent } from 'remax/macro';
+import ModailMultipleSelect from '@/components/modailMultipleSelect';
 
 const Index = () => {
   const [form] = useForm();
-  const { run, loading } = useRequest(merchantApply, {
+  const { userInfo } = user.useContainer();
+  const { run, loading } = useRequest(updateCampus, {
     manual: true,
     onSuccess: () => {
       showToast({
-        title: '商加申请成功',
+        title: '修改成功',
         duration: 2000,
         icon: 'success',
         success: () => {
@@ -29,52 +30,61 @@ const Index = () => {
     },
   });
 
-  const { getCampusPage, getMerchant, merchant, campus } = enums.useContainer();
-  const { userInfo } = user.useContainer();
+  const { getCampusPage, campus } = enums.useContainer();
 
   usePageEvent('onShow', () => {
     getCampusPage();
-    getMerchant();
   });
 
-  console.log(1123123);
+  useEffect(() => {
+    if (!userInfo) return;
+    form.setFieldsValue({
+      merAddress: userInfo.province
+        ? `${userInfo.province}-${userInfo.city || ''}`
+        : undefined,
+      campusId: userInfo.campusId ? [userInfo.campusId] : undefined,
+      province: userInfo.province,
+      city: userInfo.city,
+    });
+  }, [form, userInfo]);
+
   return (
-    <LoginPlugin>
+    <LoginLayout>
       <Form component={false} form={form}>
         <View>
-          <Field name='userId' initialValue={userInfo?.id} />
-          {/* <Cell label='头像'>
+          <Field name='province' />
+          <Field name='city' />
+
+          <Cell label='区域'>
             <FormItem
-              name='avatarurl'
+              name='campusId'
               trigger='onChange'
               rules={[{ required: true }]}>
-              <AvatarUpload />
+              <ModailMultipleSelect
+                title='请选择校区'
+                maxLength={1}
+                placeholder='请选择校区'
+                options={campus?.data}
+              />
             </FormItem>
-          </Cell> */}
-
-          <FormItem
-            name='nickname'
-            trigger='onChange'
-            rules={[{ required: true }]}>
-            <Input label='昵称' placeholder='请输入联系人' />
-          </FormItem>
-          <FormItem
-            name='mobile'
-            trigger='onChange'
-            rules={[
-              { required: true },
-              {
-                max: 11,
-                pattern: /^1[3456789]\d{9}$/,
-                message: '手机号格式错误',
-                // validator: this.checkValue
-              },
-            ]}>
-            <Input label='手机号' placeholder='请输入联系电话' />
-          </FormItem>
-          <FormItem name='file' trigger='onChange' rules={[{ required: true }]}>
-            <MapLocation />
-          </FormItem>
+          </Cell>
+          <Cell label='地址'>
+            <FormItem
+              name='merAddress'
+              trigger='onSelect'
+              validateTrigger='onSelect'
+              normalize={(val) => {
+                console.log(val, 'val');
+                form.setFieldsValue({
+                  province: val.province,
+                  city: val.city,
+                });
+                return `${val.province}-${val.city}`;
+              }}
+              rules={[{ required: true }]}>
+              <MapLocation />
+            </FormItem>
+          </Cell>
         </View>
 
         <BottomButton
@@ -83,7 +93,13 @@ const Index = () => {
           onTap={() => {
             form.validateFields().then((value) => {
               console.log(value);
-              run(value);
+              run({
+                campusId: value?.campusId?.[0],
+                city: value?.city,
+                country: value?.country,
+                province: value?.province,
+                userId: userInfo?.id,
+              });
             });
           }}
           type='primary'
@@ -92,7 +108,7 @@ const Index = () => {
           修改信息
         </BottomButton>
       </Form>
-    </LoginPlugin>
+    </LoginLayout>
   );
 };
 export default Index;

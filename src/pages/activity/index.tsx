@@ -3,7 +3,7 @@ import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
 import BottomButton from '@/components/bottomButton';
 import { getActivityListByUserId } from '@/apis/activity';
-import LoginPlugin from '@/plugins/loginPlugin';
+import LoginLayout from '@/layout/loginLayout';
 import { Tabs, Cell, Space } from 'anna-remax-ui';
 import userInfoStores from '@/stores/userInfo';
 import AutoList from '@/components/autoList';
@@ -25,7 +25,7 @@ const Index = () => {
   const [stateKey, setStateKey] = React.useState('0');
   const { userInfo } = userInfoStores.useContainer();
   return (
-    <LoginPlugin>
+    <LoginLayout>
       <View className={styles.setting}>
         <Tabs onTabClick={({ key }) => setStateKey(key)} activeKey={stateKey}>
           {tabs.map((tab) => (
@@ -56,7 +56,7 @@ const Index = () => {
           创建活动
         </BottomButton>
       </View>
-    </LoginPlugin>
+    </LoginLayout>
   );
 };
 export default Index;

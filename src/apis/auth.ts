@@ -4,12 +4,11 @@ import { request } from '@/apis';
 /**
  * 获取微信手机号
  */
-export const bindPhone = (data) =>
+export const bindPhone = (data: { code: string }) =>
   request<string>({
     method: 'POST',
     url: '/wx/api/auth/bindPhone',
     data,
-    dataType: 'json',
   });
 /**
  * 获取当前登录用户信息

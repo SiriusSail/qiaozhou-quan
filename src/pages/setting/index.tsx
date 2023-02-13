@@ -2,11 +2,13 @@ import React from 'react';
 import { View, redirectTo, showModal } from 'remax/wechat';
 import styles from './index.less';
 import Block from '@/components/block';
-import LoginPlugin from '@/plugins/loginPlugin';
+import { makePhoneCall } from 'remax/wechat';
+import LoginLayout from '@/layout/loginLayout';
 import { logout } from '@/apis/auth';
 import { useRequest } from 'ahooks';
 import userInfoStores from '@/stores/userInfo';
 import { Cell, Button } from 'anna-remax-ui';
+import Agreement from '@/components/agreement';
 import storage from '@/utils/storage';
 
 const Index = () => {
@@ -14,17 +16,29 @@ const Index = () => {
   const { getUserInfo } = userInfoStores.useContainer();
 
   return (
-    <LoginPlugin>
+    <LoginLayout>
       <View className={styles.setting}>
         <Cell label='用户协议' arrow>
-          点击查看
+          <Agreement type='用户服务协议' textRender={() => '点击查看'} />
         </Cell>
-        <Cell label='隐私权政策' arrow />
-        <Cell label='会员服务协议' arrow />
-        <Cell label='商户服务协议' arrow />
-        <Cell label='企业资质' arrow />
-        <Cell label='联系客服' arrow />
-        <Cell label='切换用户' arrow />
+        <Cell label='隐私权政策' arrow>
+          <Agreement type='隐私协议' textRender={() => '点击查看'} />
+        </Cell>
+        <Cell label='商户服务协议' arrow>
+          <Agreement type='平台商户服务规范' textRender={() => '点击查看'} />
+        </Cell>
+        <Cell label='会员服务协议' arrow>
+          <Agreement type='会员服务协议' textRender={() => '点击查看'} />
+        </Cell>
+        <Cell
+          label='联系客服'
+          arrow
+          onTap={() => {
+            makePhoneCall({
+              phoneNumber: '18883350586',
+            });
+          }}></Cell>
+        {/* <Cell label='切换用户' arrow /> */}
 
         <Block contentStyle={{ padding: '0 30rpx' }}>
           <Button
@@ -53,7 +67,7 @@ const Index = () => {
           </Button>
         </Block>
       </View>
-    </LoginPlugin>
+    </LoginLayout>
   );
 };
 export default Index;

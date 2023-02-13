@@ -12,9 +12,7 @@ import './index.less';
 import type { PopupProps } from 'anna-remax-ui/esm/popup';
 
 export interface NewPopupProps extends PopupProps {
-  button?:
-    | ((value?: string, item?: API.OptionsType) => React.ReactNode)
-    | React.ReactNode;
+  buttonRender?: (value?: string, item?: API.OptionsType) => React.ReactNode;
   value?: string;
   onChange?: (value?: string) => void;
   onClick?: () => void;
@@ -24,6 +22,7 @@ export interface NewPopupProps extends PopupProps {
     ref: { close: () => void }
   ) => void;
   options: API.OptionsType[];
+  initOpen?: boolean;
 }
 
 export const Img: React.FC<NewPopupProps> = ({
@@ -34,10 +33,11 @@ export const Img: React.FC<NewPopupProps> = ({
   onClose,
   onSelect,
   onClick,
-  button,
+  initOpen = false,
+  buttonRender,
   ...props
 }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(initOpen);
 
   // 选择结果
   const [value, setValue] = useState<string>();
@@ -97,7 +97,7 @@ export const Img: React.FC<NewPopupProps> = ({
           onClick?.();
           setShow(true);
         }}>
-        {typeof button === 'function' ? button(value, select) : button}
+        {buttonRender?.(value, select) || select?.value}
       </View>
       <Popup
         position={position}

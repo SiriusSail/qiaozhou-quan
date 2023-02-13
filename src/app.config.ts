@@ -3,19 +3,23 @@ import { AppConfig } from 'remax/wechat';
 const config: AppConfig = {
   pages: [
     'pages/index/index', // 首页
+    'pages/login/index', // 登录
+    'pages/activity/index', // 活动管理
+    'pages/activityDetails/index', // 活动详情
+    'pages/activitySetting/index', // 活动活动设置
     'pages/my/index', // 我的
     'pages/bag/index', // 福利袋
     'pages/setting/index', // 设置
-    'pages/activity/index', // 活动管理
-    'pages/activityDetails/index', // 活动详情
     'pages/shop/index', // 店铺
     'pages/shopInfo/index', // 商家信息
     'pages/shopIdea/index', // 商家修改
     'pages/shopApply/index', // 商家申请
-    'pages/userInfo/index', // 认证信息
     'pages/userIdea/index', // 修改认证信息
-    'pages/activitySetting/index', // 活动活动设置
-    'pages/login/index', // 登录
+    'pages/userInfo/index', // 认证信息
+    'pages/vips/index', // 会员中心
+    'pages/voucher/index', // 红包二维码
+    'pages/qrcodeEntrance/index', // 扫码入口
+    'pages/check/index', // 扫码入口
   ],
   window: {
     navigationBarTitleText: '抢券小程序',
@@ -60,6 +64,9 @@ const config: AppConfig = {
       desc: '你的位置信息将用于小程序定位',
     },
   },
+  requiredBackgroundModes: ['chooseAddress', 'chooseLocation'],
+  requiredPrivateInfos: ['chooseAddress', 'chooseLocation'],
+  lazyCodeLoading: 'requiredComponents',
 };
 
 export default config;

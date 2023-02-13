@@ -6,7 +6,7 @@ import React, {
   useCallback,
 } from 'react';
 import { View } from 'remax/wechat';
-import { Popup, SearchBar, Cell } from 'anna-remax-ui';
+import { Popup, SearchBar, Cell, Space, Tag, Icon } from 'anna-remax-ui';
 import NoData from '../no-data';
 import './index.less';
 import type { PopupProps } from 'anna-remax-ui/esm/popup';
@@ -20,6 +20,7 @@ export interface NewPopupProps extends PopupProps {
   onChange?: (value?: string[]) => void;
   onClick?: () => void;
   disabled?: boolean;
+  maxLength?: number;
   options?: API.OptionsType[];
 }
 
@@ -32,6 +33,7 @@ export const Img: React.FC<NewPopupProps> = ({
   onClose,
   disabled,
   onClick,
+  maxLength,
   button,
   ...props
 }) => {
@@ -45,7 +47,7 @@ export const Img: React.FC<NewPopupProps> = ({
   const updateKey = useCallback(() => {
     setKey(key + 1);
   }, [key]);
-  const valueRef = useRef(_value);
+  const valueRef = useRef(JSON.stringify(_value));
   // 输入文字的结果
   const [thenValue, setThenValue] = useState<string>();
 
@@ -60,35 +62,31 @@ export const Img: React.FC<NewPopupProps> = ({
     );
   }, [_options, thenValue]);
 
-  // 选择项
-  const select = useMemo(() => {
-    if (!value) {
-      return undefined;
-    }
-    return (
-      _options?.find(
-        (item) => item?.key?.includes(value) || item?.value?.includes(value)
-      ) || { key: value, value: value }
-    );
-  }, [_options, value]);
-
   useEffect(() => {
-    if (valueRef.current !== _value) {
+    if (valueRef.current !== JSON.stringify(_value)) {
       setValue(_value);
     }
   }, [_value]);
-
-  const close = useCallback(() => {
-    setShow(false);
-    onClose?.();
-  }, [onClose]);
 
   const clearThenValue = useCallback(() => {
     setThenValue(undefined);
     updateKey();
   }, [updateKey]);
 
-  const onChange = useCallback((v: string[]) => {}, []);
+  const close = useCallback(() => {
+    setShow(false);
+    onClose?.();
+    clearThenValue?.();
+  }, [clearThenValue, onClose]);
+
+  const onChange = useCallback(
+    (v: string[]) => {
+      setValue(v);
+      valueRef.current = JSON.stringify(v);
+      _onChange?.(v);
+    },
+    [_onChange]
+  );
 
   const addValues = useCallback(
     (v: API.OptionsType) => {
@@ -96,11 +94,48 @@ export const Img: React.FC<NewPopupProps> = ({
         return;
       }
       const val = v.key || v.value;
+      if (value?.includes(val)) return;
       const newValues = value?.concat(val) || [val];
+      onChange(maxLength ? newValues.slice(-maxLength) : newValues);
+    },
+    [disabled, maxLength, onChange, value]
+  );
+
+  const delValues = useCallback(
+    (v: string) => {
+      if (disabled) {
+        return;
+      }
+      const newValues = value?.filter((val) => val !== v) || [];
       onChange(newValues);
     },
     [disabled, onChange, value]
   );
+
+  const selectCloseTab = useMemo(() => {
+    return value?.map((key) => {
+      const find = _options?.find((item) => item.key === key);
+      return (
+        <Tag key={key} size='large' onTap={() => delValues(key)}>
+          <Space>
+            <View>{find?.value || key}</View>
+            <Icon type='close' />
+          </Space>
+        </Tag>
+      );
+    });
+  }, [_options, delValues, value]);
+
+  const selectTab = useMemo(() => {
+    return value?.map((key) => {
+      const find = _options?.find((item) => item.key === key);
+      return (
+        <Tag key={key} size='large' className='modail-multiple-select-tag'>
+          {find?.value || key}
+        </Tag>
+      );
+    });
+  }, [_options, value]);
 
   return (
     <View className={'modail-select'}>
@@ -110,7 +145,7 @@ export const Img: React.FC<NewPopupProps> = ({
           setShow(true);
         }}>
         {value ? (
-          value
+          <Space>{selectTab}</Space>
         ) : (
           <View className='anna-form-value-placeholder'>{placeholder}</View>
         )}
@@ -135,6 +170,7 @@ export const Img: React.FC<NewPopupProps> = ({
             }}
             style={{ marginBottom: '30px' }}
           />
+          <Space style={{ width: '100vw' }}>{selectCloseTab}</Space>
           <View>
             {options?.length === 0 ? (
               <NoData />
@@ -142,15 +178,11 @@ export const Img: React.FC<NewPopupProps> = ({
               options?.map((item) => {
                 return (
                   <Cell
+                    key={item.key || item.value}
                     label={item.value}
                     border
                     onTap={() => {
-                      const val = item.key || item.value;
-                      clearThenValue();
-                      setValue(val);
-                      valueRef.current = val;
-                      onChange?.(val);
-                      updateKey();
+                      addValues(item);
                     }}
                   />
                 );

@@ -9,6 +9,8 @@ declare module '*.scss';
 declare module '*.sass';
 declare module '*.styl';
 
+declare module 'wxbarcode';
+
 declare namespace API {
   type PropsType<T = any> = {
     code: keyof typeof codeMessage;
@@ -74,6 +76,10 @@ declare namespace API {
      * 用户id
      */
     id: string;
+    /**
+     * 区域
+     */
+    campusId: string;
     /**
      * 会员到期时间
      */
