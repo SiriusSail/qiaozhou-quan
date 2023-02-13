@@ -166,7 +166,7 @@ const Index = () => {
           </View>
           <View className={styles.br} />
           <View className={styles.footer}>
-            <View className={styles.content}>我得专属权益</View>
+            <View className={styles.content}>我的专属权益</View>
           </View>
           <Row gutter={16}>
             <TagItem

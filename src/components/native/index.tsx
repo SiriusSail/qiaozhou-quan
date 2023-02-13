@@ -72,10 +72,9 @@ export default forwardRef<NativeInstance, Props>(
               newReturns.setData(initData);
             }
           }
-        }}
-      >
+        }}>
         {children}
       </div>
     );
-  },
+  }
 );

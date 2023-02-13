@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Swiper, SwiperItem, navigateTo } from 'remax/wechat';
 import { Icon, Space, Grid, Card } from 'anna-remax-ui';
 import NoticeBar from '@/components/notice-bar';
@@ -15,6 +15,7 @@ import type { ActivetyUser } from '@/apis/activity';
 import LoginLayout from '@/layout/loginLayout';
 import { updateCampus } from '@/apis/user';
 import { usePageEvent } from 'remax/macro';
+import Native from '@/components/native';
 
 const RenderGridItem = (props: { activityId: string; favorable: 3.5 }) => (
   <View className={styles['demo-grid-item']}>
@@ -28,13 +29,13 @@ const Item = (props: ActivetyUser) => {
     <Card
       style={{ padding: '20rpx 0', margin: '30rpx 0' }}
       shadow={true}
-      onTap={() => {
-        navigateTo({
-          url: `/pages/shop/index?id=${props.merchantId}`,
-        });
-      }}
       cover={
         <Card
+          onTap={() => {
+            navigateTo({
+              url: `/pages/shop/index?id=${props.merchantId}`,
+            });
+          }}
           title={
             <View className={styles['card-title']}>{props.merchantName}</View>
           }
@@ -56,9 +57,7 @@ const Item = (props: ActivetyUser) => {
       foot={
         <View className={styles['card-footer']}>
           <Space>
-            <Icon type='like' size='40px' />
-            <Icon type='favor' size='40px' />
-            <Icon type='comment' size='40px' />
+            <Icon type='forward' size='40px' />
           </Space>
         </View>
       }>
@@ -86,28 +85,30 @@ const Index = () => {
   return (
     <View className={styles.app}>
       <View className={styles.top}>
-        <ModailSelect
-          title='选择校区'
-          onSelect={(val, item, { close }) => {
-            close();
-            setCampu(val!);
-            storage.set('campu', val);
-            userInfo?.id &&
-              updateCampus({ userId: userInfo?.id, campusId: val });
-          }}
-          initOpen={!campu}
-          options={campus?.data || []}
-          onClick={getCampusPage}
-          buttonRender={(val, valueData) => (
-            <Space>
-              <Icon type='location' size='36px' />
-              <View>
-                {campus?.data.find((item) => item.key === campu)?.value ||
-                  '请选择校区'}
-              </View>
-            </Space>
-          )}
-        />
+        <Native>
+          <ModailSelect
+            title='选择校区'
+            onSelect={(val, item, { close }) => {
+              close();
+              setCampu(val!);
+              storage.set('campu', val);
+              userInfo?.id &&
+                updateCampus({ userId: userInfo?.id, campusId: val });
+            }}
+            initOpen={!campu}
+            options={campus?.data || []}
+            onClick={getCampusPage}
+            buttonRender={(val, valueData) => (
+              <Space>
+                <Icon type='location' size='36px' />
+                <View>
+                  {campus?.data.find((item) => item.key === campu)?.value ||
+                    '请选择校区'}
+                </View>
+              </Space>
+            )}
+          />
+        </Native>
       </View>
       <View className={styles.body}>
         {/* <Swiper indicatorDots={true} autoplay={true} interval={5000}>
@@ -122,21 +123,25 @@ const Index = () => {
           </SwiperItem>
         </Swiper>
         <NoticeBar title='温馨提示'> 这里是通知信息栏</NoticeBar> */}
-        <AutoList<ActivetyUser>
-          getList={(params) => {
-            if (!campu) {
-              return Promise.resolve({ records: [], current: 1 });
-            }
-            return getActivityListByUserId({
-              ...params,
-              userId: userInfo?.id,
-              campusId: campu,
-            });
-          }}
-          renderItem={(res, index) => {
-            return <Item key={index} {...res} />;
-          }}
-        />
+        {useMemo(() => {
+          return (
+            <AutoList<ActivetyUser>
+              getList={(params) => {
+                if (!campu) {
+                  return Promise.resolve({ records: [], current: 1 });
+                }
+                return getActivityListByUserId({
+                  ...params,
+                  userId: userInfo?.id,
+                  campusId: campu,
+                });
+              }}
+              renderItem={(res, index) => {
+                return <Item key={index} {...res} />;
+              }}
+            />
+          );
+        }, [campu, userInfo?.id])}
       </View>
     </View>
   );

@@ -68,7 +68,7 @@ const Index = () => {
             label='经营类别'
             options={merchant?.data}
             border
-            placeholder='请输入活动类型'
+            placeholder='请输入经营类别'
           />
         </FormItem>
         <Cell label='区域'>

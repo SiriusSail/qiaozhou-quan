@@ -91,7 +91,7 @@ const Index = () => {
     <View className={styles.shop}>
       <View
         className={styles.back}
-        style={{ backgroundImage: `url(${'/images/test/123.jpg'})` }}
+        style={{ backgroundImage: `url(${data?.doorPhoto})` }}
       />
       <View className={styles.info}>
         <View className={styles.absolute}>
