@@ -38,7 +38,8 @@ const TagItem: React.FC<TagItemProps> = ({
 };
 
 const Index = () => {
-  const { userInfo, getUserInfo, isVip } = userInfoStores.useContainer();
+  const { userInfo, getUserInfo, isVip, merchant } =
+    userInfoStores.useContainer();
   usePageEvent('onShow', getUserInfo);
   // 点击成为商家
   const handleMechart = () => {
@@ -105,7 +106,7 @@ const Index = () => {
         </Block>
         <Block title='商家服务'>
           <Row gutter={16}>
-            {userInfo?.roleName === '商家' ? (
+            {merchant?.examine === 1 ? (
               <TagItem
                 text='添加活动'
                 icon='activity'

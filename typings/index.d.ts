@@ -104,6 +104,10 @@ declare namespace API {
      * 角色
      */
     roleName: string;
+    /**
+     * 商户ID
+     */
+    merchantId: string;
   };
 
   type ReqOptions = {

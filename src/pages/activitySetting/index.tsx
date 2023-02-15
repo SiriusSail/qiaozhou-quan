@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  showToast,
-  navigateBack,
-  showModal,
-  navigateTo,
-} from 'remax/wechat';
+import { View, showToast, navigateBack } from 'remax/wechat';
 import styles from './index.less';
 import Textarea from '@/components/Textarea';
 import { createActivity } from '@/apis/activity';
@@ -26,21 +20,17 @@ const Index = () => {
         title: '活动创建成功',
         duration: 2000,
         icon: 'success',
-        success: () => {
-          navigateBack();
-        },
       });
+      setTimeout(() => {
+        navigateBack();
+      }, 2000);
     },
     onError: (e) => {
-      showModal({
-        title: '提示',
-        content: e.message,
-        confirmText: '去充值',
-        success: (e) => {
-          if (e.confirm) {
-            navigateTo({ url: '/pages/vips/index' });
-          }
-        },
+      console.log(e);
+      showToast({
+        title: e.message || '活动创建失败',
+        duration: 2000,
+        icon: 'error',
       });
     },
   });
@@ -117,7 +107,11 @@ const Index = () => {
           loading={loading}
           onTap={() => {
             form.validateFields().then(async (value) => {
-              run({ ...value, userId: userInfo?.id ,merchantId: userInfo?.merchantId});
+              run({
+                ...value,
+                userId: userInfo?.id,
+                merchantId: userInfo?.merchantId,
+              });
             });
           }}
           type='primary'

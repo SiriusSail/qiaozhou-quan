@@ -3,7 +3,9 @@ import useApi from '@/apis';
 import storage from '@/utils/storage';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
+import { getMerchantByUserId } from '@/apis/merchant';
+import type { MerchantApplyParams } from '@/apis/merchant';
 
 export default createContainer(() => {
   const { data: userInfo, run: getUserInfo } = useRequest(
@@ -23,9 +25,24 @@ export default createContainer(() => {
     [userInfo]
   );
 
+  const { data: merchant, run: getMerchant } = useRequest(
+    () => {
+      if (!userInfo!.id) {
+        return Promise.resolve({} as MerchantApplyParams);
+      }
+      return getMerchantByUserId(userInfo!.id);
+    },
+    {
+      manual: !userInfo?.id,
+      refreshDeps: [userInfo?.id],
+    }
+  );
+
   return {
     userInfo,
     isVip,
+    merchant,
     getUserInfo,
+    getMerchant,
   };
 });

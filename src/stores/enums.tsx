@@ -1,7 +1,6 @@
 import { createContainer } from 'unstated-next';
-import { getMerchantType } from '@/apis/merchant';
+import { getMerchantType as getMerchantTypeAPI } from '@/apis/merchant';
 import { campusPage } from '@/apis/campus';
-import storage from '@/utils/storage';
 import { useRequest } from 'ahooks';
 
 export default createContainer(() => {
@@ -9,8 +8,8 @@ export default createContainer(() => {
    * @merchant
    * 经营类别
    */
-  const { data: merchant, run: getMerchant } = useRequest(() =>
-    getMerchantType().then((res) => ({
+  const { data: merchantType, run: getMerchantType } = useRequest(() =>
+    getMerchantTypeAPI().then((res) => ({
       data: res.map((item) => ({
         key: item.dataCode,
         value: item.dataValue,
@@ -36,12 +35,12 @@ export default createContainer(() => {
     /**
      * 经营类别
      */
-    merchant,
+    merchantType,
     /**
      * 校区
      */
     campus,
     getCampusPage,
-    getMerchant,
+    getMerchantType,
   };
 });

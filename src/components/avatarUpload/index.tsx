@@ -32,26 +32,24 @@ export interface ImageUploadProps {
 
 const initFiles: any = undefined;
 
-const ImageUpload = (props: ImageUploadProps) => {
-  const {
-    value: _value = initFiles,
-    onChange: _onChange,
-    multiple,
-    multipleCount,
-    sizeType,
-    sourceType,
-    disabled,
-    className,
-  } = props;
-
-  const [files, setFiles] = useState(_value);
-  const filesRef = useRef(JSON.stringify(_value));
+const ImageUpload = ({
+  value = initFiles,
+  onChange: _onChange,
+  multiple,
+  multipleCount,
+  sizeType,
+  sourceType,
+  disabled,
+  className,
+}: ImageUploadProps) => {
+  const [files, setFiles] = useState(value);
+  const filesRef = useRef(JSON.stringify(value));
   useEffect(() => {
-    if (filesRef.current !== JSON.stringify(_value)) {
-      filesRef.current = JSON.stringify(_value);
-      setFiles(_value);
+    if (filesRef.current !== JSON.stringify(value)) {
+      filesRef.current = JSON.stringify(value);
+      setFiles(value);
     }
-  }, [_value]);
+  }, [value]);
 
   const onChange = useCallback(
     (v: DataItem) => {

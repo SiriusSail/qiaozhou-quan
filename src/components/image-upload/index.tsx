@@ -34,21 +34,19 @@ export interface ImageUploadProps {
 
 const initFiles: any[] = [];
 
-const ImageUpload = (props: ImageUploadProps) => {
-  const {
-    value: _value = initFiles,
-    onChange: _onChange,
-    multiple,
-    multipleCount,
-    sizeType,
-    sourceType,
-    deletable = true,
-    disabled,
-    maxCount,
-    className,
-    children,
-  } = props;
-
+const ImageUpload = ({
+  value: _value = initFiles,
+  onChange: _onChange,
+  multiple,
+  multipleCount,
+  sizeType,
+  sourceType,
+  deletable = true,
+  disabled,
+  maxCount,
+  className,
+  children,
+}: ImageUploadProps) => {
   const [files, setFiles] = useState(_value);
   const filesRef = useRef(JSON.stringify(_value));
   useEffect(() => {
@@ -145,7 +143,6 @@ const ImageUpload = (props: ImageUploadProps) => {
     sourceType,
   ]);
 
-  console.log(files, 333333);
   return (
     <View className={classnames(prefixCls, className)}>
       {files?.map?.((item: DataItem, index: number) => (

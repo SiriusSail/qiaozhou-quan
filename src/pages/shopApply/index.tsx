@@ -8,40 +8,51 @@ import ImageUpload from '@/components/imageUpload';
 import AvatarUpload from '@/components/avatarUpload';
 import ModailMultipleSelect from '@/components/modailMultipleSelect';
 import MapLocation from '@/components/mapLocation';
-import { merchantApply } from '@/apis/merchant';
+import { merchantApply, reApplyMerchant } from '@/apis/merchant';
+import type { MerchantApplyParams } from '@/apis/merchant';
 import { useRequest } from 'ahooks';
 import Picker from '@/components/picker';
 import Form, { useForm } from 'rc-field-form';
 import { Input, Cell } from 'anna-remax-ui';
 import LoginLayout from '@/layout/loginLayout';
 import { usePageEvent } from 'remax/macro';
+import { useQuery } from 'remax';
 
 const Index = () => {
+  const { isReApply } = useQuery<{ isReApply: string }>();
   const [form] = useForm();
-  const { run, loading } = useRequest(merchantApply, {
-    manual: true,
-    onSuccess: () => {
-      showToast({
-        title: '商加申请成功',
-        duration: 2000,
-        icon: 'success',
-        success: () => {
-          setTimeout(() => {
-            navigateBack();
-          }, 1000);
-        },
-      });
+  const { getCampusPage, getMerchantType, merchantType, campus } =
+    enums.useContainer();
+  const { userInfo, merchant } = user.useContainer();
+  const { run, loading } = useRequest(
+    (params: MerchantApplyParams) => {
+      if (isReApply) {
+        params.merchantId = userInfo?.merchantId || merchant?.merchantId;
+        return reApplyMerchant(params);
+      }
+      return merchantApply(params);
     },
-  });
-  const { getCampusPage, getMerchant, merchant, campus } = enums.useContainer();
-  const { userInfo } = user.useContainer();
+    {
+      manual: true,
+      onSuccess: () => {
+        showToast({
+          title: '商加申请成功',
+          duration: 2000,
+          icon: 'success',
+          success: () => {
+            setTimeout(() => {
+              navigateBack();
+            }, 1000);
+          },
+        });
+      },
+    }
+  );
 
   usePageEvent('onShow', () => {
     getCampusPage();
-    getMerchant();
+    getMerchantType();
   });
-
-  console.log();
 
   return (
     <LoginLayout>
@@ -67,7 +78,7 @@ const Index = () => {
           rules={[{ required: true }]}>
           <Picker
             label='经营类别'
-            options={merchant?.data}
+            options={merchantType?.data}
             border
             placeholder='请输入经营类别'
           />
@@ -155,7 +166,7 @@ const Index = () => {
           type='primary'
           shape='square'
           block>
-          确认修改
+          提交申请
         </BottomButton>
       </Form>
     </LoginLayout>

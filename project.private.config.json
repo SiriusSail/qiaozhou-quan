@@ -40,7 +40,7 @@
                     "scene": null
                 },
                 {
-                    "name": "商家信息",
+                    "name": "认证信息",
                     "pathName": "pages/userInfo/index",
                     "query": "",
                     "launchMode": "default",

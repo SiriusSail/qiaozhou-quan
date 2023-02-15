@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Grid } from 'anna-remax-ui';
+import { Row, Col } from 'anna-remax-ui';
 import ImageUpload from '@/components/image-upload';
 import { View } from 'remax/wechat';
 import styles from './index.less';
@@ -12,12 +12,14 @@ interface NewImageUploadProps extends ImageUploadProps {
 export const Img: React.FC<NewImageUploadProps> = ({ label, ...props }) => {
   return (
     <View className={styles.image}>
-      <Grid
-        columns={1}
-        gutter={[16, 16]}
-        data={[<View>{label}</View>, <ImageUpload {...props} />]}>
-        {(col) => col}
-      </Grid>
+      <Row gutter={16}>
+        <Col span={24}>{label}</Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={24}>
+          <ImageUpload {...props} />
+        </Col>
+      </Row>
     </View>
   );
 };

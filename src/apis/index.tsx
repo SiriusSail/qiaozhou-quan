@@ -74,7 +74,6 @@ const apis = {
       data,
       dataType: 'json',
     }).then((response) => {
-      console.log(response, 33333);
       storage.set('token', response);
       navigateBack();
       return response;
