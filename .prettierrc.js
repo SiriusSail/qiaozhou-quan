@@ -4,5 +4,6 @@ module.exports = {
   semi: true,
   singleQuote: true,
   jsxSingleQuote: true,
-  jsxBracketSameLine: true
+  jsxBracketSameLine: true,
+  endOfLine: 'auto'      //避免报错delete (cr)的错
 };

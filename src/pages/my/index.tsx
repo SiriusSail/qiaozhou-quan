@@ -42,11 +42,11 @@ const Index = () => {
   usePageEvent('onShow', getUserInfo);
   // 点击成为商家
   const handleMechart = () => {
-    console.log(userInfo)
-    if (userInfo.memberName) {
+    console.log(userInfo);
+    if (userInfo && userInfo.memberName) {
       navigateTo({
         url: '/pages/shopApply/index',
-      })
+      });
     } else {
       showModal({
         title: '提示',
@@ -54,18 +54,17 @@ const Index = () => {
         confirmText: '去开通',
         success(res) {
           if (res.confirm) {
-            console.log('用户点击确定')
+            console.log('用户点击确定');
             navigateTo({
               url: '/pages/vips/index',
-            })
+            });
           } else if (res.cancel) {
-            console.log('用户点击取消')
+            console.log('用户点击取消');
           }
-        }
-      })
+        },
+      });
     }
-
-  }
+  };
   return (
     <View className={styles.my}>
       <UserCard />
@@ -130,11 +129,7 @@ const Index = () => {
                 }
               />
             ) : (
-              <TagItem
-                icon='shop'
-                text='成为商家'
-                onTap={handleMechart}
-              />
+              <TagItem icon='shop' text='成为商家' onTap={handleMechart} />
             )}
           </Row>
         </Block>
