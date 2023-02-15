@@ -26,12 +26,13 @@ const Index = () => {
         duration: 2000,
         icon: 'success',
         success: () => {
-          navigateBack();
+          setTimeout(() => {
+            navigateBack();
+          }, 1000);
         },
       });
     },
   });
-
   const { getCampusPage, getMerchant, merchant, campus } = enums.useContainer();
   const { userInfo } = user.useContainer();
 
@@ -123,14 +124,14 @@ const Index = () => {
           name='file'
           trigger='onChange'
           rules={[{ required: true, message: '请选择店铺相关照片上传' }]}>
-          <ImageUpload label='店铺相关照片上传(至少三张)' />
+          <ImageUpload maxCount={3} label='店铺相关照片上传(最多三张)' />
         </FormItem>
         <FormItem
           padding={20}
           name='aptitude'
           trigger='onChange'
           rules={[{ required: true, message: '请选择店铺资质上传' }]}>
-          <ImageUpload label='店铺资质上传' />
+          <ImageUpload maxCount={2} label='店铺资质上传(最多两张)' />
         </FormItem>
 
         <BottomButton

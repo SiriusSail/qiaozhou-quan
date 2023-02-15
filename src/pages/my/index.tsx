@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, navigateTo } from 'remax/wechat';
+import { View, navigateTo, showModal } from 'remax/wechat';
 import styles from './index.less';
 import Image from '@/components/image';
 import Block from '@/components/block';
@@ -40,6 +40,32 @@ const TagItem: React.FC<TagItemProps> = ({
 const Index = () => {
   const { userInfo, getUserInfo, isVip } = userInfoStores.useContainer();
   usePageEvent('onShow', getUserInfo);
+  // 点击成为商家
+  const handleMechart = () => {
+    console.log(userInfo)
+    if (userInfo.memberName) {
+      navigateTo({
+        url: '/pages/shopApply/index',
+      })
+    } else {
+      showModal({
+        title: '提示',
+        content: '您未成为会员，需开通才能成为商家',
+        confirmText: '去开通',
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            navigateTo({
+              url: '/pages/vips/index',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
+
+  }
   return (
     <View className={styles.my}>
       <UserCard />
@@ -107,11 +133,7 @@ const Index = () => {
               <TagItem
                 icon='shop'
                 text='成为商家'
-                onTap={() =>
-                  navigateTo({
-                    url: '/pages/shopApply/index',
-                  })
-                }
+                onTap={handleMechart}
               />
             )}
           </Row>

@@ -117,7 +117,7 @@ const Index = () => {
           loading={loading}
           onTap={() => {
             form.validateFields().then(async (value) => {
-              run({ ...value, userId: userInfo?.id });
+              run({ ...value, userId: userInfo?.id ,merchantId: userInfo?.merchantId});
             });
           }}
           type='primary'
