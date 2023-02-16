@@ -42,9 +42,6 @@ interceptors.response.use(
   ) => {
     if (code === 401) {
       storage.del('token');
-      navigateTo({
-        url: '/pages/login/index',
-      });
     }
     if (code === 200) {
       data.data = data.data || { ...data };

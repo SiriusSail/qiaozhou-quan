@@ -108,6 +108,13 @@
                     "query": "id=ba34eaa5be074a5e9b2587157017ca29",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "测试商家",
+                    "pathName": "pages/shop/index",
+                    "query": "id=33637b06c502c0c1b71d83e5ff1e0150",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

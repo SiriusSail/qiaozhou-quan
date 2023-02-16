@@ -103,7 +103,7 @@ const Index = () => {
         title: (
           <View className={styles.tab}>
             未使用
-            <Text className={styles.total}>7</Text>
+            {/* <Text className={styles.total}>7</Text> */}
           </View>
         ),
       },
@@ -123,21 +123,26 @@ const Index = () => {
           <TabContent key={tab.key} tab={tab.title} />
         ))}
       </Tabs>
-      <AutoList<CampusItem>
-        getList={(params) => {
-          if (!userInfo?.id) {
-            return Promise.resolve({ records: [], current: 1 });
-          }
-          return updateCampus({
-            ...params,
-            // userId: userInfo?.id,
-            status,
-          });
-        }}
-        renderItem={(res, index) => {
-          return <BagItem key={index} {...res} />;
-        }}
-      />
+
+      {useMemo(() => {
+        return (
+          <AutoList<CampusItem>
+            getList={(params) => {
+              if (!userInfo?.id) {
+                return Promise.resolve({ records: [], current: 1 });
+              }
+              return updateCampus({
+                ...params,
+                // userId: userInfo?.id,
+                status,
+              });
+            }}
+            renderItem={(res, index) => {
+              return <BagItem key={index} {...res} />;
+            }}
+          />
+        );
+      }, [status, userInfo?.id])}
     </View>
   );
 };

@@ -38,31 +38,14 @@ const TagItem: React.FC<TagItemProps> = ({
 };
 
 const Index = () => {
-  const { userInfo, getUserInfo, isVip, merchant } =
+  const { userInfo, getUserInfo, isVip, merchant, valiVip } =
     userInfoStores.useContainer();
   usePageEvent('onShow', getUserInfo);
   // 点击成为商家
   const handleMechart = () => {
-    console.log(userInfo);
-    if (userInfo && userInfo.memberName) {
+    if (valiVip({ content: '您未成为会员，需开通才能成为商家' })) {
       navigateTo({
         url: '/pages/shopApply/index',
-      });
-    } else {
-      showModal({
-        title: '提示',
-        content: '您未成为会员，需开通才能成为商家',
-        confirmText: '去开通',
-        success(res) {
-          if (res.confirm) {
-            console.log('用户点击确定');
-            navigateTo({
-              url: '/pages/vips/index',
-            });
-          } else if (res.cancel) {
-            console.log('用户点击取消');
-          }
-        },
       });
     }
   };

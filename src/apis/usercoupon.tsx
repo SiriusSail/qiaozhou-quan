@@ -4,7 +4,7 @@ import { request } from '@/apis';
 /**
  * 用户领券
  */
-export const receiveCoupon = (data) =>
+export const receiveCoupon = (data: ReceiveCouponParmas) =>
   request<string>({
     method: 'POST',
     url: '/wx/api/usercoupon/receiveCoupon',
@@ -14,6 +14,29 @@ export const receiveCoupon = (data) =>
 
 type UpdateCampusParams = {
   status?: number;
+  userId?: string;
+};
+
+export type ReceiveCouponParmas = {
+  /**
+   * 活动id
+   */
+  activityId?: string;
+  /**
+   * 红包金额
+   */
+  favorable?: number;
+  /**
+   * 商家编号
+   */
+  merNo?: string;
+  /**
+   * 商户id
+   */
+  merchantId?: string;
+  /**
+   * 用戶id
+   */
   userId?: string;
 };
 export type CampusItem = {
@@ -26,6 +49,7 @@ export type CampusItem = {
 export type CampusVoucherItem = {
   couponId?: string;
   couponName?: string;
+  activityId?: string;
   couponNo?: string;
   effectiveTime?: string;
   favorable: number;
