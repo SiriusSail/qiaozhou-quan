@@ -64,24 +64,22 @@ export default createContainer(() => {
   const valiVip = useCallback(
     ({ isHideModal, content }: { isHideModal?: boolean; content?: string }) => {
       if (!valiLoading()) return false;
-      if (!isVip) {
-        if (isHideModal) {
-          showModal({
-            title: '提示',
-            content,
-            confirmText: '去充值',
-            success: (e) => {
-              if (e.confirm) {
-                navigateTo({
-                  url: '/pages/vpis/index',
-                });
-              }
-            },
-          });
-        }
-        return false;
+      if (isVip) return true;
+      if (!isHideModal) {
+        showModal({
+          title: '提示',
+          content,
+          confirmText: '去充值',
+          success: (e) => {
+            if (e.confirm) {
+              navigateTo({
+                url: '/pages/vips/index',
+              });
+            }
+          },
+        });
       }
-      return true;
+      return false;
     },
     [isVip, valiLoading]
   );

@@ -1,5 +1,6 @@
 import Request from './request';
 import storage from '@/utils/storage';
+import { showModal } from 'remax/wechat';
 import { navigateBack, uploadFile, navigateTo } from 'remax/wechat';
 import { baseUrl } from '@/consts/index';
 
@@ -42,6 +43,20 @@ interceptors.response.use(
   ) => {
     if (code === 401) {
       storage.del('token');
+    }
+    if (code === 407) {
+      showModal({
+        title: '提示',
+        content: data?.message || '您不是会员',
+        confirmText: '去充值',
+        success: (e) => {
+          if (e.confirm) {
+            navigateTo({
+              url: '/pages/vpis/index',
+            });
+          }
+        },
+      });
     }
     if (code === 200) {
       data.data = data.data || { ...data };

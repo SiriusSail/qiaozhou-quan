@@ -48,7 +48,7 @@ const RenderGridItem = (props: ActivetyAmountInfo) => {
   const [show, setShow] = useState(false);
   const [voucher, setVoucher] = useState(false);
   const { valiVip } = user.useContainer();
-  const { receive, data } = Store.useContainer();
+  const { receive } = Store.useContainer();
   const showPopup = useCallback(() => {
     if (valiVip({ content: 'VIP用户才可以领取' })) {
       setShow(true);
@@ -73,10 +73,10 @@ const RenderGridItem = (props: ActivetyAmountInfo) => {
               receive(props)
                 .then?.(() => {
                   setShow(false);
+                  setVoucher(true);
                 })
                 .catch(() => {
                   setShow(false);
-                  setVoucher(true);
                 });
             }}>
             <Image height='410rpx' width='328rpx' src={'/images/hongbao.png'} />

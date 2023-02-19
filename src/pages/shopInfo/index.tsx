@@ -16,7 +16,6 @@ const Index = () => {
     !!data && getMerchant();
   });
 
-  console.log(data);
   return (
     <LoginLayout>
       <View className={styles.setting}>
