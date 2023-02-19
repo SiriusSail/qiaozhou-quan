@@ -82,7 +82,6 @@ const Index = () => {
         ...params,
         userId: userInfo!.id,
       }).then((res) => {
-        console.log(res, 34234234);
         requestPayment({
           timeStamp: res.timeStamp,
           nonceStr: res.nonceStr,

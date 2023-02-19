@@ -75,7 +75,6 @@ const Index = () => {
               trigger='onSelect'
               validateTrigger='onSelect'
               normalize={(val) => {
-                console.log(val, 'val');
                 form.setFieldsValue({
                   province: val.province,
                   city: val.city,
@@ -93,7 +92,6 @@ const Index = () => {
           size='large'
           onTap={() => {
             form.validateFields().then((value) => {
-              console.log(value);
               run({
                 campusId: value?.campusId?.[0],
                 city: value?.city,
