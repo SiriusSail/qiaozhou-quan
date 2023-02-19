@@ -15,12 +15,7 @@ type TagItemProps = {
   icon?: string;
 };
 
-const TagItem: React.FC<TagItemProps> = ({
-  text,
-  icon,
-  image = '/images/test/123.jpg',
-  onTap,
-}) => {
+const TagItem: React.FC<TagItemProps> = ({ text, icon, image, onTap }) => {
   return (
     <Col span={6}>
       <View onTap={onTap}>

@@ -10,10 +10,10 @@ const Index = () => {
           <span wechat-style='font-weight:bold'>会员</span>
           <span wechat-style='font-weight:bold'>服务协议</span>
         </View>
-        <h2 wechat-style='margin-top:14pt; margin-bottom:14pt; font-size:14pt; background-color:#ffffff'>
+        <h2 wechat-style='margin-top:14pt; margin-bottom:14pt; background-color:#ffffff'>
           <span>【重要须知】</span>
         </h2>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-indent:28pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-indent:28pt; text-align:justify; background-color:#ffffff'>
           <span>为使用</span>
           <span wechat-style='font-weight:bold'>饕餮校园</span>
           <span>付费会员服务，请您仔细阅读、理解并遵守</span>
@@ -28,25 +28,25 @@ const Index = () => {
             协议中与您的权益有重大利害关系的条款，包括但不限于免除或限制责任有关的条款、对用户权利进行限制的条款、约定争议解决方式和司法管辖的条款等，均可能以黑体加粗、颜色标记或其他合理方式提示您注意并请您重点阅读。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-indent:28pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-indent:28pt; text-align:justify; background-color:#ffffff'>
           <span>
             如果您不同意本协议的任意或全部条款内容，请不要开通或使用本服务。如您选择本服务，您可以通过接受本服务的方式（包括但不限于点击同意、开通或续费，或您进行与付费会员服务相关的交易，接受赠予、参加活动、采用任何其他形式的确认操作，统称为：接受服务的形式）进行下一步操作或使用本服务，以表示您已阅读、理解并同意签署本协议，并自愿接受并遵守本协议的全部约定。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-indent:28pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-indent:28pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>
             如果您未满18周岁，请在法定监护人的陪同下阅读本协议，并特别注意未成年人使用条款。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>一、协议的定义及说明</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>1.1【</span>
           <span wechat-style='font-weight:bold'>饕餮校园</span>
           <span wechat-style='font-weight:bold'>付费会员及账号】</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>（1）您如果需要使用和享受</span>
           <span>饕餮校园</span>
           <span>付费会员服务，则您需要将您享有使用权的</span>
@@ -71,7 +71,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>在相关页面对服务及活动的具体说明。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.2本协议被视为</span>
           <span wechat-style='color:#000000'>《用户协议》</span>
           <span> </span>
@@ -79,7 +79,7 @@ const Index = () => {
             的补充协议，是以上协议不可分割的组成部分，与其构成统一整体。本协议与上述协议存在冲突的，以本协议为准。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>本协议内容同时包括</span>
           <span>嘿呦科技</span>
           <span>
@@ -92,7 +92,7 @@ const Index = () => {
             为您提供服务的范围非常广泛，因此会增加及适用一些附加条款或产品要求（包括但不限于年龄要求等）。相关条款会在提供服务时一同提供，您使用这些服务，相关条款将成为本协议的一部分。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.3 </span>
           <span>饕餮校园</span>
           <span>付费会员服务，即</span>
@@ -125,7 +125,7 @@ const Index = () => {
           <span>饕餮校园</span>
           <span>付费会员服务”。本协议下又称“付费会员服务”或“本服务”。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.4 会员规则，即</span>
           <span>饕餮校园</span>
           <span>服务提供方不时发布并修订的关于</span>
@@ -136,7 +136,7 @@ const Index = () => {
           <span>邮件</span>
           <span>等内容。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.5 服务提供方，指向您提供</span>
           <span>饕餮校园</span>
           <span>及其服务的</span>
@@ -151,14 +151,14 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.6 会员数据，指您在使用</span>
           <span>饕餮校园</span>
           <span>
             过程中产生的被服务器记录的各种数据，包括但不限于登录记录、浏览记录、收听记录、下载缓存记录、上传文件（包括但不限于文件、音乐、视频等）记录、虚拟物品数据、操作行为日志、购买日志、充值记录、留言、评论、会员等级、会员期限、会员资产等数据。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.7 知识产权。</span>
           <span>嘿呦科技</span>
           <span>是</span>
@@ -191,7 +191,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>将以适当方式向您告知该要求，您应当一并遵守。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.8 协议修改。</span>
           <span>嘿呦科技</span>
           <span>
@@ -204,7 +204,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>客服。更新后的本协议自更新版本发布之日起生效。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.9 您在使用</span>
           <span>饕餮校园</span>
           <span>
@@ -215,7 +215,7 @@ const Index = () => {
             一旦合理地认为用户存在上述行为的，可以在任何时候，不经事先通知终止向该用户提供服务。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>1.10 如您在</span>
           <span>饕餮校园</span>
           <span>上看到</span>
@@ -224,10 +224,10 @@ const Index = () => {
             付费会员服务以外的其他付费服务，并且想了解相关服务，请您仔细阅读相关服务页面的规则或服务协议，并请关注服务提供方；如您需要开通该类服务，将由对应服务提供方向您提供服务，后续对于该服务有任何问题，请您联系服务提供方。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>二、账号管理及使用</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             2.1
             出于向您提供服务的必要性，您在申请开通付费会员服务过程中，需要填写一些必要的信息，请保持这些信息的真实性，并及时更新，以便
@@ -239,7 +239,7 @@ const Index = () => {
             若您的信息不完整或不准确，则可能无法使用服务或在使用过程中受到限制。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             2.2
             您应确保账号注册资料的真实性。如果因您的个人信息不真实而引起对您不利的后果，
@@ -253,14 +253,14 @@ const Index = () => {
             公司有权停止该账号的服务功能，并取消该账号的付费会员资格而无须给予任何补偿和退还费用。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>2.3 </span>
           <span>嘿呦科技</span>
           <span>
             公司特别提醒您应妥善保管您的账号和密码。当您使用完毕后，应安全退出。因您保管不善可能导致遭受盗号、密码失窃、虚拟财产被使用/转移，责任由您自行承担。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>2.4 </span>
           <span>嘿呦科技</span>
           <span>公司与用户一同致力于个人信息的保护，保护用户个人信息是</span>
@@ -273,7 +273,7 @@ const Index = () => {
             以外的任何公司、组织和个人披露您的个人信息，但法律法规及本协议另有规定的除外。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>2.5 如发生下列任一情况，</span>
           <span>嘿呦科技</span>
           <span>公司有权对用户的信息予以披露或处理：</span>
@@ -306,7 +306,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司可以披露的情形。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>2.6 您理解并同意，为更好地为用户提供服务，</span>
           <span>嘿呦科技</span>
           <span>公司可以：</span>
@@ -323,19 +323,19 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>服务中的第三方提供的服务向您本人、其他用户展示。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>
             三、付费会员服务的获得及终止
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>3.1 您应通过</span>
           <span>嘿呦科技</span>
           <span>
             公司已有和未来新增的官方指定渠道获得付费会员服务。在您具体使用某种方式开通付费会员服务时，须仔细核对账号、开通服务类型、期限、价格、所享有的会员权益等具体信息，并确认同意相关的协议和使用方法。开通完成后，不可进行转让或要求退费。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>3.2 您不得通过以下任何方式为自己或他人开通本服务：</span>
 
           <span>
@@ -362,7 +362,7 @@ const Index = () => {
             （6）通过其他违反相关法律、行政法规、国家政策、公序良俗等方式为自己或他人开通本服务。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             3.3 本服务的期限以您自行选择并成功开通后显示的期限为准，您也可以登陆
           </span>
@@ -377,7 +377,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司将停止向您提供付费会员服务。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>3.4 您理解、知悉并同意，本服务的服务期间，因非</span>
           <span>嘿呦科技</span>
           <span>公司的故意行为包含</span>
@@ -390,7 +390,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>另行补偿。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>3.5 成为付费会员后，在非</span>
           <span>嘿呦科技</span>
           <span>
@@ -403,7 +403,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司提供的各项付费会员特权服务及增值服务。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>3.6 双方同意，若发生下列任何一种情形，</span>
           <span>嘿呦科技</span>
           <span>
@@ -420,7 +420,7 @@ const Index = () => {
 
           <span>（4）出于安全的原因或其他必要的情形。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>3.7 若您以非法的方式或不正当手段或使用非</span>
           <span>嘿呦科技</span>
           <span>
@@ -433,10 +433,10 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司概不负责。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>四、付费会员服务特别约定</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.1【会员类别】</span>
 
           <span>（1）付费会员服务包括“</span>
@@ -495,18 +495,18 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司的调整，应立即停止使用付费会员服务。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             4.2【会员等级】在您开通会员服务后，根据您选择的会员种类、充值记录及您参加的相关活动，将会有会员成长值等级的晋升，晋升后您将会享有更多的服务及福利赠送体验，具体以相关服务页面公布、实际提供的内容为准。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.3【服务限制】基于</span>
           <span>功能</span>
           <span>的要求，您在开通付费会员服务期</span>
           <span>外，可以继续使用未核销优惠红包。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.4【虚拟产品】</span>
 
           <span>（1）</span>
@@ -521,7 +521,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>有权单方收回并终止相应服务。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.5【设备及系统差异】 您通过</span>
           <span>嘿呦科技</span>
           <span>
@@ -530,7 +530,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>的相关责任。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.6【广告服务】</span>
 
           <span>（1）您理解并同意，您在使用</span>
@@ -594,7 +594,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>决定。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.8【使用准则】</span>
 
           <span>
@@ -623,13 +623,13 @@ const Index = () => {
             （6）不得利用本服务从事任何违反法律法规、政策及公序良俗、社会公德等的行为。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             4.9
             您充分了解并同意，您必须为自己登录账号下的一切行为负责，包括但不限于您所发表的任何内容以及由此产生的任何后果。您应对本服务中的内容自行加以判断，并承担因使用内容而引起的所有风险，包括因对内容的正确性、完整性或实用性的依赖而产生的风险。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.10 您理解并同意，</span>
           <span>嘿呦科技</span>
           <span>公司向您提供的服务，可能包含</span>
@@ -646,7 +646,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司无需承担任何责任。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.11【付费会员额外付费】</span>
 
           <span>
@@ -669,7 +669,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>有权提供给其他会员/用户免费收听/播放。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.12 付费会员权益可在用户绑定的</span>
           <span>饕餮校园</span>
           <span>
@@ -678,7 +678,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>实际提供的服务为准。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>4.13 如果</span>
           <span>嘿呦科技</span>
           <span>公司发现或收到他人举报您发布的信息违反本协议约定，</span>
@@ -693,10 +693,10 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司因此遭受损失的，您也应当一并赔偿。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>五、责任限制</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>5.1 您知悉并同意，用户在</span>
           <span>嘿呦科技</span>
           <span>平台上上传、发布或传输的内容，为用户的个人行为，且</span>
@@ -709,7 +709,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>的相关责任。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>5.2 在法律允许的范围内，</span>
           <span>嘿呦科技</span>
           <span>
@@ -732,7 +732,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>过错，且无法控制或无法合理预见的情形。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             5.3
             您如果接触到违法、违规、使人感到不适不快甚至产生恐惧、厌恶情绪的内容，请您及时联系
@@ -740,7 +740,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>进行处理，非常感谢您的协助。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             5.4
             您在进行相关信息及内容的使用、观赏、分享、转载、转发、转述等行为（“使用行为”）时，应进行独立判断并合法使用，因您的使用行为造成任何自身损害及对第三方的损害，
@@ -748,7 +748,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>不承担任何责任。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>5.5 </span>
           <span>嘿呦科技</span>
           <span>依据本协议约定获得处理违法违规内容的权利，该权利不构成</span>
@@ -761,7 +761,7 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司发布的有关防范诈骗犯罪的提示。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>5.6 您理解并同意，</span>
           <span>嘿呦科技</span>
           <span>
@@ -774,10 +774,10 @@ const Index = () => {
           <span>嘿呦科技</span>
           <span>公司无需承担任何责任。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>六、协议的变更及终止</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>6.1 本服务的中止或终止包含如下情况：</span>
 
           <span>（1）用户主动中止或终止，包括但不限于到期未进行续费等；</span>
@@ -792,7 +792,7 @@ const Index = () => {
 
           <span>（4）其他根据法律法规应中止或终止服务的。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             6.2 由于互联网服务的特殊性、合法合规要求或授权情况的变化，
           </span>
@@ -809,7 +809,7 @@ const Index = () => {
             将尽量降低变更行为对您造成的影响。变更行为发生后，当您发现无法登录或享受服务时，可以咨询我们的客服人员。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>6.3 中止或终止后的处理</span>
 
           <span>（1）除法律规定的责任外，</span>
@@ -828,10 +828,10 @@ const Index = () => {
             将根据情况合理判断，是否继续进行或终止相关交易，并视情况决定是否进行退费或扣除相关费用作为违约金。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>七、未成年人使用条款</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>
             7.1
             若您未满18周岁，则为未成年人，应在监护人监护、指导下阅读本协议和使用付费会员服务，并且已经获得监护人之同意。
@@ -861,10 +861,10 @@ const Index = () => {
             7.4 监护人、学校均应对未成年人使用付费会员服务时多做引导。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span wechat-style='font-weight:bold'>八、其他约定</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>8.1【通知】</span>
 
           <span>（1）本协议项下</span>
@@ -887,50 +887,50 @@ const Index = () => {
             可通过上述方式之一或其中若干向您送达各类通知，而此类通知的内容或将对您产生重大有利或不利影响，请您务必确保联系方式为有效并请及时关注。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>8.2 本协议签订地为中华人民共和国广东省</span>
           <span>重庆市</span>
           <span>南山区。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             8.3
             本协议的成立、生效、履行、解释及纠纷解决，适用中华人民共和国大陆地区法律（不包括冲突法）。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>8.4 若您和</span>
           <span>嘿呦科技</span>
           <span>
             公司之间发生任何纠纷或争议，首先应友好协商解决；协商不成的，您同意将纠纷或争议提交本协议签订地有管辖权的人民法院管辖。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             8.5
             若您欲开通付费会员服务的自动续费功能，需额外阅读并同意《自动续费服务协议》。自动续费服务协议为本协议的补充协议，您对补充协议、具体业务规则的接受，即视为您对本协议全部的接受。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             8.6
             本协议条款无论因何种原因部分无效或不可执行，其余条款仍有效，对双方具有约束力。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>
             8.7
             本协议所有条款的标题仅为阅读方便，本身并无实际涵义，不能作为本协议涵义解释的依据。
           </span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>8.8 如果您对本协议内容有任何疑问，请通过</span>
           <span>饕餮校园</span>
           <span>客户端“帮助与反馈“进行反馈，也可以关注”</span>
           <span>嘿呦科技</span>
           <span>客服“微信公众号进行咨询。</span>
         </View>
-        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:14pt; background-color:#ffffff'>
+        <View wechat-style='margin-top:0pt; margin-bottom:0pt; text-align:justify; background-color:#ffffff'>
           <span>&nbsp;</span>
         </View>
       </View>

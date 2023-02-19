@@ -1,31 +1,48 @@
 import React, { useState, useMemo } from 'react';
-import { View, Swiper, SwiperItem, navigateTo } from 'remax/wechat';
+import { View, Swiper, SwiperItem, navigateTo, showModal } from 'remax/wechat';
 import { Icon, Space, Grid, Card } from 'anna-remax-ui';
-import NoticeBar from '@/components/notice-bar';
 import Image from '@/components/image';
 import storage from '@/utils/storage';
 import styles from './index.less';
 import userInfoStores from '@/stores/userInfo';
 import apis from '@/apis/index';
 import enums from '@/stores/enums';
-import Iconfont from '@/components/iconfont';
+import RedEnvelope from '@/components/redEnvelope';
+import Banner from '@/components/banner';
 import AutoList from '@/components/autoList';
 import ModailSelect from '@/components/modailSelect';
 import { getActivityListByUserId } from '@/apis/activity';
 import type { ActivetyUser } from '@/apis/activity';
-import LoginLayout from '@/layout/loginLayout';
 import { updateCampus } from '@/apis/user';
 import { useRequest } from 'ahooks';
 import Native from '@/components/native';
-
-const RenderGridItem = (props: { activityId: string; favorable: 3.5 }) => (
-  <View className={styles['demo-grid-item']}>
-    {/* <Iconfont name='qz-hongbao' size={200} /> */}
-    <Image height='205rpx' width='164rpx' src={'/images/hongbao.png'} />
-  </View>
-);
+import { receiveCoupon } from '@/apis/usercoupon';
+import type { ActivetyAmountInfo } from '@/apis/activity';
 
 const Item = (props: ActivetyUser) => {
+  const { userInfo } = userInfoStores.useContainer();
+
+  const { runAsync: receive, loading } = useRequest(
+    (params: ActivetyAmountInfo) => {
+      return receiveCoupon({
+        ...params,
+        merNo: props?.merNo,
+        merchantId: props.merchantId,
+        userId: userInfo?.id,
+      });
+    },
+    {
+      manual: true,
+      onError: (e) => {
+        showModal({
+          showCancel: false,
+          title: '提示',
+          content: e.message,
+        });
+      },
+    }
+  );
+
   return (
     <Card
       style={{ padding: '20rpx 0', margin: '30rpx 0' }}
@@ -64,7 +81,13 @@ const Item = (props: ActivetyUser) => {
       }>
       <View className={styles.envelopes}>
         <Grid data={props.list} columns={3} gutter={16}>
-          {(col) => <RenderGridItem {...col} />}
+          {(col) => (
+            <RedEnvelope
+              receive={() => receive(col)}
+              couponName={props.actContent}
+              {...col}
+            />
+          )}
         </Grid>
       </View>
     </Card>
@@ -76,17 +99,8 @@ const Index = () => {
   const [campu, setCampu] = useState(storage.get('campu'));
 
   const { campus, getCampusPage } = enums.useContainer();
-  const { data: banner } = useRequest(apis.findIndexBannerList);
-
-  // usePageEvent('onShow', () => {
-  //   // if (!campus?.data || campus?.data.length <= 0) {
-  //   //   return;
-  //   // }
-  //   getCampusPage();
-  // });
-  console.log(banner);
   return (
-    <View className={styles.app}>
+    <View>
       <View className={styles.top}>
         <Native>
           <ModailSelect
@@ -113,22 +127,21 @@ const Index = () => {
           />
         </Native>
       </View>
+      <Banner />
+      {/* <NoticeBar title='温馨提示'> 这里是通知信息栏</NoticeBar> */}
       <View className={styles.body}>
-        <Swiper indicatorDots={true} autoplay={true} interval={5000}>
-          <SwiperItem className={styles['seiper-item']}>
-            <View>推广图1</View>
-          </SwiperItem>
-          <SwiperItem className={styles['seiper-item']}>
-            <View>推广图2</View>
-          </SwiperItem>
-          <SwiperItem className={styles['seiper-item']}>
-            <View>推广图3</View>
-          </SwiperItem>
-        </Swiper>
-        {/* <NoticeBar title='温馨提示'> 这里是通知信息栏</NoticeBar> */}
         {useMemo(() => {
           return (
             <AutoList<ActivetyUser>
+              loadingTip={
+                <View
+                  style={{
+                    padding: '50rpx',
+                    textAlign: 'center',
+                  }}>
+                  店家正在赶来…
+                </View>
+              }
               getList={(params) => {
                 if (!campu) {
                   return Promise.resolve({ records: [], current: 1 });

@@ -127,6 +127,15 @@ const Index = () => {
       {useMemo(() => {
         return (
           <AutoList<CampusItem>
+            loadingTip={
+              <View
+                style={{
+                  padding: '50rpx',
+                  textAlign: 'center',
+                }}>
+                正在查找您的红包～
+              </View>
+            }
             getList={(params) => {
               if (!userInfo?.id) {
                 return Promise.resolve({ records: [], current: 1 });

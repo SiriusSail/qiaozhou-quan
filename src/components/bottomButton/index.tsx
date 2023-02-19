@@ -16,7 +16,7 @@ export const BottomButton: React.FC<ButtonPropsType> = (props) => {
     <View className='bottom-button'>
       <View className='bottom-button-height'></View>
       <View className='bottom-button-content'>
-        <Button {...props} />
+        <Button look='orange' {...props} />
       </View>
     </View>
   );

@@ -15,7 +15,7 @@ import ModailMultipleSelect from '@/components/modailMultipleSelect';
 
 const Index = () => {
   const [form] = useForm();
-  const { userInfo } = user.useContainer();
+  const { userInfo, getUserInfo } = user.useContainer();
   const { run, loading } = useRequest(updateCampus, {
     manual: true,
     onSuccess: () => {
@@ -24,6 +24,7 @@ const Index = () => {
         duration: 2000,
         icon: 'success',
         success: () => {
+          getUserInfo();
           navigateBack();
         },
       });

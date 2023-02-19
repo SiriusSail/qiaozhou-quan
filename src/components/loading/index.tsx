@@ -11,7 +11,7 @@ export interface Props {
 }
 
 const Index = ({ content = '加载中' }: Props) => {
-  return <View>loading</View>;
+  return <View className={styles.loading}>加载中</View>;
 };
 
 export default Index;

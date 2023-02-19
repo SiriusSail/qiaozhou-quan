@@ -1,7 +1,7 @@
 import { PageConfig } from 'remax/wechat';
 
 const config: PageConfig = {
-  navigationBarTitleText: '福利袋',
+  navigationBarTitleText: '红包',
   enablePullDownRefresh: true,
 };
 

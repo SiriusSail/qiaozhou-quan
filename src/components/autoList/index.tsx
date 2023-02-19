@@ -13,6 +13,11 @@ export type PropsType<D = any> = {
       }>
     | undefined;
   renderItemHeight?: (data: D, index: number) => number;
+  /**
+   * 加载中的提示元素
+   * @default <Loading top/>
+   */
+  loadingTip?: React.ReactNode;
 };
 
 const Index = <D,>({
@@ -20,6 +25,7 @@ const Index = <D,>({
   isDownRefresh = true,
   renderItem,
   renderItemHeight,
+  loadingTip,
   cacheKey,
 }: PropsType<D>) => {
   const ref = useRef<{
@@ -59,6 +65,7 @@ const Index = <D,>({
       ref={ref}
       renderItemHeight={renderItemHeight}
       defaultLimit={20}
+      loadingTip={loadingTip}
       getList={requestList}
       renderItem={renderItem}
       cacheKey={cacheKey}

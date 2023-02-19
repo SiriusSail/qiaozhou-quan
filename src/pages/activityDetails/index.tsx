@@ -72,7 +72,7 @@ const Index = () => {
             height: '400px',
             padding: '0 24px',
           }}>
-          优惠券使用规则3312313123123
+          优惠券使用规则
         </View>
       </Popup>
       <Popup
@@ -88,7 +88,7 @@ const Index = () => {
             height: '400px',
             padding: '0 24px',
           }}>
-          活动文案阐述123123123
+          活动文案阐述
         </View>
       </Popup>
     </View>

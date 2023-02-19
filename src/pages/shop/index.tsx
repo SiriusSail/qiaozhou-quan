@@ -1,14 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import { View, navigateTo, showModal } from 'remax/wechat';
+import React from 'react';
+import { View, showModal } from 'remax/wechat';
 import styles from './index.less';
-import Image from '@/components/image';
 import Block from '@/components/block';
-import Voucher from '@/components/voucher';
+import RedEnvelope from '@/components/redEnvelope';
 import { getActivityListByMerchantId } from '@/apis/activity';
 import type { ActivityInfo, ActivetyAmountInfo } from '@/apis/activity';
 import { receiveCoupon } from '@/apis/usercoupon';
 import user from '@/stores/userInfo';
-import { Space, Card, Grid, Popup, Icon } from 'anna-remax-ui';
+import { Space, Card, Grid, Icon } from 'anna-remax-ui';
 import { useRequest } from 'ahooks';
 import { useQuery } from 'remax';
 import { createContainer } from 'unstated-next';
@@ -44,62 +43,8 @@ const Store = createContainer(() => {
   };
 });
 
-const RenderGridItem = (props: ActivetyAmountInfo) => {
-  const [show, setShow] = useState(false);
-  const [voucher, setVoucher] = useState(false);
-  const { valiVip } = user.useContainer();
-  const { receive } = Store.useContainer();
-  const showPopup = useCallback(() => {
-    if (valiVip({ content: 'VIP用户才可以领取' })) {
-      setShow(true);
-    }
-  }, [valiVip]);
-  return (
-    <>
-      <View className={styles['demo-grid-item']} onTap={showPopup}>
-        <Image height='205rpx' width='164rpx' src={'/images/hongbao.png'} />
-      </View>
-      <Popup
-        closeable={false}
-        style={{ background: 'transparent' }}
-        open={show}
-        onClose={() => {
-          setShow(false);
-        }}>
-        <View className={styles['popup-content']}>
-          <View
-            className={styles['change-size']}
-            onTap={() => {
-              receive(props)
-                .then?.(() => {
-                  setShow(false);
-                  setVoucher(true);
-                })
-                .catch(() => {
-                  setShow(false);
-                });
-            }}>
-            <Image height='410rpx' width='328rpx' src={'/images/hongbao.png'} />
-          </View>
-        </View>
-      </Popup>
-      <Popup
-        closeable={false}
-        style={{ background: 'transparent' }}
-        open={voucher}
-        onClose={() => {
-          setVoucher(false);
-        }}>
-        <View className={styles['voucher-content']}>
-          <View className={styles['voucher-title']}>恭喜您获得了</View>
-          <Voucher couponNo={props.activityId} {...props} type='new' />
-        </View>
-      </Popup>
-    </>
-  );
-};
-
 const Item = (props: ActivityInfo) => {
+  const { receive } = Store.useContainer();
   return (
     <Card
       style={{ padding: '20rpx 0', margin: '30rpx 0' }}
@@ -121,7 +66,11 @@ const Item = (props: ActivityInfo) => {
       }>
       <Grid data={props.list} columns={3} gutter={16}>
         {(col, index) => (
-          <RenderGridItem couponName={props.actContent} {...col} />
+          <RedEnvelope
+            receive={() => receive(col)}
+            couponName={props.actContent}
+            {...col}
+          />
         )}
       </Grid>
     </Card>

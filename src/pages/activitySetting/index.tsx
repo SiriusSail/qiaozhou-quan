@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, showToast, navigateBack } from 'remax/wechat';
+import { View, showToast, navigateBack, showModal } from 'remax/wechat';
 import styles from './index.less';
 import Textarea from '@/components/Textarea';
 import { createActivity } from '@/apis/activity';
@@ -27,10 +27,10 @@ const Index = () => {
     },
     onError: (e) => {
       console.log(e);
-      showToast({
-        title: e.message || '活动创建失败',
-        duration: 2000,
-        icon: 'error',
+      showModal({
+        title: '提示',
+        content: e.message || '活动创建失败',
+        showCancel: false,
       });
     },
   });
