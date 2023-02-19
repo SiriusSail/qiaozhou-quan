@@ -77,6 +77,25 @@ export type LoginReq = {
   province?: string;
 };
 
+export type Banner = {
+  /**
+   * id
+   */
+  id: string;
+  /**
+   * 跳转链接
+   */
+  jumpLink: string;
+  /**
+   * 标题
+   */
+  title: string;
+  /**
+   * 轮播图url
+   */
+  url: string;
+};
+
 const apis = {
   // 登录
   login: (data: LoginReq) => {
@@ -96,6 +115,12 @@ const apis = {
     return request<API.UserInfo>({
       method: 'GET',
       url: '/wx/api/auth/info',
+    });
+  },
+  findIndexBannerList: () => {
+    return request<Banner[]>({
+      method: 'GET',
+      url: '/wx/api/index/findIndexBannerList',
     });
   },
   uploadFile: (path: string) => {

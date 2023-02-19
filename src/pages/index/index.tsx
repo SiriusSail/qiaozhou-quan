@@ -6,6 +6,7 @@ import Image from '@/components/image';
 import storage from '@/utils/storage';
 import styles from './index.less';
 import userInfoStores from '@/stores/userInfo';
+import apis from '@/apis/index';
 import enums from '@/stores/enums';
 import Iconfont from '@/components/iconfont';
 import AutoList from '@/components/autoList';
@@ -14,7 +15,7 @@ import { getActivityListByUserId } from '@/apis/activity';
 import type { ActivetyUser } from '@/apis/activity';
 import LoginLayout from '@/layout/loginLayout';
 import { updateCampus } from '@/apis/user';
-import { usePageEvent } from 'remax/macro';
+import { useRequest } from 'ahooks';
 import Native from '@/components/native';
 
 const RenderGridItem = (props: { activityId: string; favorable: 3.5 }) => (
@@ -75,6 +76,7 @@ const Index = () => {
   const [campu, setCampu] = useState(storage.get('campu'));
 
   const { campus, getCampusPage } = enums.useContainer();
+  const { data: banner } = useRequest(apis.findIndexBannerList);
 
   // usePageEvent('onShow', () => {
   //   // if (!campus?.data || campus?.data.length <= 0) {
@@ -82,6 +84,7 @@ const Index = () => {
   //   // }
   //   getCampusPage();
   // });
+  console.log(banner);
   return (
     <View className={styles.app}>
       <View className={styles.top}>
@@ -111,7 +114,7 @@ const Index = () => {
         </Native>
       </View>
       <View className={styles.body}>
-        {/* <Swiper indicatorDots={true} autoplay={true} interval={5000}>
+        <Swiper indicatorDots={true} autoplay={true} interval={5000}>
           <SwiperItem className={styles['seiper-item']}>
             <View>推广图1</View>
           </SwiperItem>
@@ -122,7 +125,7 @@ const Index = () => {
             <View>推广图3</View>
           </SwiperItem>
         </Swiper>
-        <NoticeBar title='温馨提示'> 这里是通知信息栏</NoticeBar> */}
+        {/* <NoticeBar title='温馨提示'> 这里是通知信息栏</NoticeBar> */}
         {useMemo(() => {
           return (
             <AutoList<ActivetyUser>
