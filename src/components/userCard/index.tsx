@@ -5,6 +5,7 @@ import Image from '@/components/image';
 import userInfoStores from '@/stores/userInfo';
 import { Card, Tag, Space } from 'anna-remax-ui';
 import IconFont from '@/components/iconfont';
+import avatarSrc from './images/avatar.jpg';
 import dayjs from 'dayjs';
 
 const Index = () => {
@@ -19,7 +20,7 @@ const Index = () => {
           borderBottomRightRadius: 0,
           borderBottomLeftRadius: 0,
         }}
-        title={userInfo?.nickname || '请登录或注册您的账号'}
+        title={userInfo?.userNo || '请登录或注册您的账号'}
         description={
           <View className={styles['info-title']}>
             <Space>
@@ -49,7 +50,7 @@ const Index = () => {
                 </View>
               )}
             </Space>
-            <View className={styles['info-browse']}>暂时没什么可以看</View>
+            {/* <View className={styles['info-browse']}>暂时没什么可以看</View> */}
           </View>
         }
         cover={
@@ -57,7 +58,7 @@ const Index = () => {
             height='160rpx'
             width='160rpx'
             style={{ overflow: 'hidden', borderRadius: '50%' }}
-            src={userInfo?.avatarurl || '/images/test/nouser.jpg'}
+            src={avatarSrc}
           />
         }
         direction='horizontal'

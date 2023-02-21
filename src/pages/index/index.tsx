@@ -1,6 +1,12 @@
-import React, { useState, useMemo } from 'react';
-import { View, Swiper, SwiperItem, navigateTo, showModal } from 'remax/wechat';
-import { Icon, Space, Grid, Card } from 'anna-remax-ui';
+import React, { useRef, useState, useMemo } from 'react';
+import {
+  View,
+  showShareMenu,
+  Button,
+  navigateTo,
+  showModal,
+} from 'remax/wechat';
+import { Icon, Space, Grid, Card, Tag } from 'anna-remax-ui';
 import Image from '@/components/image';
 import storage from '@/utils/storage';
 import styles from './index.less';
@@ -18,9 +24,10 @@ import { useRequest } from 'ahooks';
 import Native from '@/components/native';
 import { receiveCoupon } from '@/apis/usercoupon';
 import type { ActivetyAmountInfo } from '@/apis/activity';
+import { usePageEvent } from 'remax/macro';
 
 const Item = (props: ActivetyUser) => {
-  const { userInfo } = userInfoStores.useContainer();
+  const { userInfo, share } = userInfoStores.useContainer();
 
   const { runAsync: receive, loading } = useRequest(
     (params: ActivetyAmountInfo) => {
@@ -42,6 +49,7 @@ const Item = (props: ActivetyUser) => {
       },
     }
   );
+  const url = useRef(`/pages/shop/index?id=${props.merchantId}`);
 
   return (
     <Card
@@ -51,18 +59,28 @@ const Item = (props: ActivetyUser) => {
         <Card
           onTap={() => {
             navigateTo({
-              url: `/pages/shop/index?id=${props.merchantId}`,
+              url: url.current,
             });
           }}
           title={
             <View className={styles['card-title']}>{props.merchantName}</View>
           }
-          description={props.merDescribe || '暂无简介'}
-          // extra={<View className={styles.coverExtra}>🏖</View>}
+          description={
+            <View className={styles.description}>
+              {props.merDescribe || '暂无简介'}
+            </View>
+          }
+          extra={
+            props.pickUpStatus ? (
+              <Tag color='yellow'>{props.pickUpStatus}</Tag>
+            ) : (
+              ''
+            )
+          }
           cover={
             <Image
-              height='180rpx'
-              width='180rpx'
+              height='120rpx'
+              width='120rpx'
               src={props.merAvatarurl || '/images/test/nouser.jpg'}
             />
           }
@@ -74,8 +92,20 @@ const Item = (props: ActivetyUser) => {
       }
       foot={
         <View className={styles['card-footer']}>
+          <View className={styles.browse}>浏览量： 10</View>
           <Space>
-            <Icon type='forward' size='40px' />
+            <Button
+              openType='share'
+              className={styles.share}
+              onTap={() => {
+                share.current = {
+                  title: props.merchantName,
+                  imageUrl: props.doorPhoto || props.merAvatarurl,
+                  path: url.current,
+                };
+              }}>
+              <Icon type='forward' size='40px' />
+            </Button>
           </Space>
         </View>
       }>
@@ -95,10 +125,25 @@ const Item = (props: ActivetyUser) => {
 };
 
 const Index = () => {
-  const { userInfo } = userInfoStores.useContainer();
+  const { userInfo, share } = userInfoStores.useContainer();
   const [campu, setCampu] = useState(storage.get('campu'));
 
   const { campus, getCampusPage } = enums.useContainer();
+  usePageEvent('onLoad', () => {
+    showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline'],
+    });
+  });
+
+  usePageEvent('onShareAppMessage', (res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target);
+      return share.current || {};
+    }
+    return {};
+  });
   return (
     <View>
       <View className={styles.top}>
@@ -118,7 +163,7 @@ const Index = () => {
             buttonRender={(val, valueData) => (
               <Space>
                 <Icon type='location' size='36px' />
-                <View>
+                <View className={styles['campus-text']}>
                   {campus?.data.find((item) => item.key === campu)?.value ||
                     '请选择校区'}
                 </View>

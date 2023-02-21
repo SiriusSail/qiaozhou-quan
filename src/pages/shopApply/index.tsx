@@ -39,12 +39,11 @@ const Index = () => {
           title: '商加申请成功',
           duration: 2000,
           icon: 'success',
-          success: () => {
-            setTimeout(() => {
-              navigateBack();
-            }, 1000);
-          },
         });
+
+        setTimeout(() => {
+          navigateBack();
+        }, 2000);
       },
     }
   );

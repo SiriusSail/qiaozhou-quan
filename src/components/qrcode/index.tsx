@@ -2,31 +2,32 @@ import React, { useEffect } from 'react';
 import { View } from 'remax/one';
 import { Canvas } from 'remax/wechat';
 import styles from './index.less';
-import wxbarcode from 'wxbarcode';
+import wxbarcode from './utils/index';
 
 const Index = ({
-  code,
+  url,
   width = 450,
   height = 450,
+  text,
+  logo,
+  logoSize,
 }: {
-  code: string;
+  text?: string;
+  logo?: string;
+  url: string;
+  logoSize?: number;
   width?: number;
   height?: number;
 }) => {
   useEffect(() => {
     setTimeout(() => {
-      wxbarcode.qrcode(
-        'qrcodeMini',
-        `http://www.chqheiyou.com/qrcode/check/id=${code}`,
-        width,
-        height
-      );
+      wxbarcode.qrcode('qrcodeMini', url, width, height, logo, logoSize);
     }, 500);
-  }, [code, width, height]);
+  }, [width, height, logo, logoSize, url]);
   return (
     <View className={styles.qrcode}>
-      <Canvas style={{ height: height - 30, width }} canvasId='qrcodeMini' />
-      <View>{code.toLocaleUpperCase()}</View>
+      <Canvas style={{ height: height, width }} canvasId='qrcodeMini' />
+      {text && <View>{text.toLocaleUpperCase()}</View>}
     </View>
   );
 };

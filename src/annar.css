@@ -6,12 +6,20 @@
   flex-direction: column;
 }
 .anna-card-cover {
-  padding-left: 20rpx;
-  padding-right: 20rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
 }
 
+
+.anna-card-content {
+  padding: 0 10rpx;
+}
 .anna-cell-container-main-left {
   flex: none;
+}
+
+.anna-card-content-head {
+  padding: 0;
 }
 
 .anna-form-value, .anna-form-value-placeholder {

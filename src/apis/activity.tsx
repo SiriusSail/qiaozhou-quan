@@ -78,6 +78,8 @@ export type ActionShopInfo = {
   merchantId: string;
   /**	商家名称	*/
   merchantName: string;
+  /**	商家电话	*/
+  merPersonTel: string;
   /**	商家背景	*/
   doorPhoto: string;
   /**	描述	*/

@@ -4,9 +4,28 @@ import storage from '@/utils/storage';
 import { navigateTo, showModal } from 'remax/wechat';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
-import { useMemo, useEffect, useCallback } from 'react';
+import { useMemo, useRef, useCallback } from 'react';
 import { getMerchantByUserId } from '@/apis/merchant';
 import type { MerchantApplyParams } from '@/apis/merchant';
+
+type ShareType = {
+  /**
+   * 	转发标题	当前小程序名称
+   */
+  title?: string;
+  /**
+   * 	转发路径	当前页面 path ，必须是以 / 开头的完整路径
+   */
+  path?: string;
+  /**
+   * 	自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持 PNG 及JPG。显示图片长宽比是 5:4。	使用默认截图	1.5.0
+   */
+  imageUrl?: string;
+  /**
+   * 	如果该参数存在，则以 resolve 结果为准，如果三秒内不 resolve，分享会使用上面传入的默认参数		2.12.0
+   */
+  promise?: Promise<any>;
+};
 
 export default createContainer(() => {
   const { data: userInfo, run: getUserInfo } = useRequest(
@@ -25,6 +44,8 @@ export default createContainer(() => {
     () => dayjs(userInfo?.memberEndTime).diff(dayjs()) > 0,
     [userInfo]
   );
+
+  const share = useRef<ShareType>();
 
   const { data: merchant, run: getMerchant } = useRequest(
     () => {
@@ -90,6 +111,7 @@ export default createContainer(() => {
     valiLoading,
     valiVip,
     merchant,
+    share,
     getUserInfo,
     getMerchant,
   };

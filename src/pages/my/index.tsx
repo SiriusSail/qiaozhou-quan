@@ -13,15 +13,22 @@ type TagItemProps = {
   text?: React.ReactNode;
   image?: string;
   icon?: string;
+  iconColor?: string;
 };
 
-const TagItem: React.FC<TagItemProps> = ({ text, icon, image, onTap }) => {
+const TagItem: React.FC<TagItemProps> = ({
+  text,
+  icon,
+  image,
+  onTap,
+  iconColor = '#666',
+}) => {
   return (
     <Col span={6}>
       <View onTap={onTap}>
         <View className={styles['tag-image']}>
           {icon ? (
-            <Icon type={icon} size='60rpx' color='#666' />
+            <Icon type={icon} size='60rpx' color={iconColor} />
           ) : (
             <Image height='100rpx' width='100rpx' src={image} />
           )}
@@ -63,6 +70,7 @@ const Index = () => {
         <Block title='我的账户'>
           <Row gutter={16}>
             <TagItem
+              iconColor='#41de87'
               onTap={() =>
                 navigateTo({
                   url: '/pages/userInfo/index',
@@ -72,6 +80,7 @@ const Index = () => {
               text='个人认证'
             />
             <TagItem
+              iconColor='#41de87'
               onTap={() =>
                 navigateTo({
                   url: '/pages/vips/index',
@@ -86,6 +95,7 @@ const Index = () => {
           <Row gutter={16}>
             {merchant?.examine === 1 ? (
               <TagItem
+                iconColor='#e65656'
                 text='添加活动'
                 icon='activity'
                 onTap={() =>
@@ -98,23 +108,42 @@ const Index = () => {
               <View />
             )}
             {userInfo?.roleName === '商家' ? (
-              <TagItem
-                icon='shop'
-                text='商家信息'
-                onTap={() =>
-                  navigateTo({
-                    url: '/pages/shopInfo/index',
-                  })
-                }
-              />
+              <>
+                <TagItem
+                  iconColor='#e65656'
+                  icon='form'
+                  text='商家信息'
+                  onTap={() =>
+                    navigateTo({
+                      url: '/pages/shopInfo/index',
+                    })
+                  }
+                />
+                <TagItem
+                  iconColor='#e65656'
+                  icon='shop'
+                  text='我的店铺'
+                  onTap={() =>
+                    navigateTo({
+                      url: `/pages/shop/index?id=${userInfo?.merchantId}`,
+                    })
+                  }
+                />
+              </>
             ) : (
-              <TagItem icon='shop' text='成为商家' onTap={handleMechart} />
+              <TagItem
+                iconColor='#e65656'
+                icon='shop'
+                text='商家入驻'
+                onTap={handleMechart}
+              />
             )}
           </Row>
         </Block>
         <Block title='其他服务'>
           <Row gutter={16}>
             <TagItem
+              iconColor='#fa8c16'
               icon='settings'
               text='设置'
               onTap={() =>

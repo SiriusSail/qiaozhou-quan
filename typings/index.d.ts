@@ -93,6 +93,10 @@ declare namespace API {
      */
     mobile: string;
     /**
+     * 用户区域
+     */
+    campusName: string;
+    /**
      * 用户昵称
      */
     nickname: string;
@@ -108,6 +112,10 @@ declare namespace API {
      * 商户ID
      */
     merchantId: string;
+    /**
+     * 用户号码
+     */
+    userNo: string;
   };
 
   type ReqOptions = {

@@ -11,7 +11,10 @@ const Index = () => {
   return (
     <LoginLayout>
       <View>
-        <Qrcode code={id} />
+        <Qrcode
+          text={id}
+          url={`https://www.chqheiyou.com/qrcode/check?id=${id}`}
+        />
         <View className={styles['voucher-tip']}>请到店内消费</View>
         <View className={styles['voucher-body']}>
           <Space direction='vertical' size={15}>

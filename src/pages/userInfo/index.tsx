@@ -31,7 +31,7 @@ const Index = () => {
         </Cell>
         <Cell label='昵称'>{userInfo?.nickname}</Cell>
         <Cell label='手机号'>{userInfo?.mobile}</Cell>
-        <Cell label='区域'>区域</Cell>
+        <Cell label='区域'>{userInfo?.campusName}</Cell>
         {/* <Cell label='地址'>环球大厦</Cell> */}
         <BottomButton
           size='large'

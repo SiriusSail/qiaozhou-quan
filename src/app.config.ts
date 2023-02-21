@@ -28,7 +28,7 @@ const config: AppConfig = {
     backgroundColor: '#fff',
   },
   tabBar: {
-    color: '#f9d46c',
+    color: '#666666',
     selectedColor: '#fa8c16',
     backgroundColor: '#FFFFFF',
     borderStyle: 'white',
@@ -37,7 +37,7 @@ const config: AppConfig = {
         pagePath: 'pages/index/index',
         iconPath: './images/index0.png',
         selectedIconPath: './images/index.png',
-        text: '商家',
+        text: '首页',
       },
       {
         pagePath: 'pages/bag/index',
@@ -49,7 +49,7 @@ const config: AppConfig = {
         pagePath: 'pages/my/index',
         iconPath: './images/my0.png',
         selectedIconPath: './images/my.png',
-        text: '我得',
+        text: '我的',
       },
     ],
   },

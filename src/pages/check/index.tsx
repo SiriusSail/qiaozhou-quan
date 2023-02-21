@@ -5,6 +5,7 @@ import { Result, Button, SearchBar } from 'anna-remax-ui';
 import { useRequest } from 'ahooks';
 import { coupon } from '@/apis/usercoupon';
 import userInfoStores from '@/stores/userInfo';
+import LoginLayout from '@/layout/loginLayout';
 
 const Index: React.SFC = () => {
   const { id } = useQuery();
@@ -32,16 +33,16 @@ const Index: React.SFC = () => {
   );
   console.log(data);
   return (
-    <View>
+    <LoginLayout>
       <Result
         height='1000px'
         status={data?.success ? 'success' : 'error'}
         title={
           loading
             ? '正在核销'
-            : data?.message || data?.success
+            : data?.success
             ? '核销成功'
-            : '核销失败'
+            : data?.message || '核销失败'
         }
         icon={
           loading
@@ -71,14 +72,14 @@ const Index: React.SFC = () => {
                   value={couponNo}
                   onInput={(v: any) => setCouponNo(v)}
                   onClear={() => setCouponNo('')}
-                  onSubmit={() => run()}
+                  onActionClick={() => run()}
                 />
               </View>
             )}
           </View>
         }
       />
-    </View>
+    </LoginLayout>
   );
 };
 

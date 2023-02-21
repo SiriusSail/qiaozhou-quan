@@ -97,6 +97,9 @@ export const Img: React.FC<NewPopupProps> = ({
       if (value?.includes(val)) return;
       const newValues = value?.concat(val) || [val];
       onChange(maxLength ? newValues.slice(-maxLength) : newValues);
+      if (maxLength === 1) {
+        setShow(false);
+      }
     },
     [disabled, maxLength, onChange, value]
   );

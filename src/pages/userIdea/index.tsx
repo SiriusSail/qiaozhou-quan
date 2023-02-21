@@ -104,7 +104,7 @@ const Index = () => {
           type='primary'
           shape='square'
           block>
-          修改信息
+          完善个人信息
         </BottomButton>
       </Form>
     </LoginLayout>
