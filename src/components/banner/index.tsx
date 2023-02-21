@@ -12,7 +12,11 @@ const Index = () => {
   );
 
   if (!banner || banner.length === 0) {
-    <Swiper indicatorDots={true} autoplay={true} interval={5000}>
+    <Swiper
+      indicatorDots={true}
+      autoplay={true}
+      style={{ height: '50vw' }}
+      interval={5000}>
       <SwiperItem className={styles['seiper-item']}>
         <View
           className={styles['banner-src']}
@@ -23,7 +27,11 @@ const Index = () => {
   }
 
   return (
-    <Swiper indicatorDots={true} autoplay={true} interval={5000}>
+    <Swiper
+      indicatorDots={true}
+      autoplay={true}
+      style={{ height: '50vw' }}
+      interval={5000}>
       {banner?.map((item) => (
         <SwiperItem className={styles['seiper-item']}>
           <View
@@ -32,12 +40,6 @@ const Index = () => {
           />
         </SwiperItem>
       ))}
-      <SwiperItem className={styles['seiper-item']}>
-        <View
-          className={styles['banner-src']}
-          style={{ backgroundImage: `url(/images/banner.png)` }}
-        />
-      </SwiperItem>
     </Swiper>
   );
 };
