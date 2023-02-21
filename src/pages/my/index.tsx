@@ -93,7 +93,7 @@ const Index = () => {
         </Block>
         <Block title='商家服务'>
           <Row gutter={16}>
-            {merchant?.examine === 1 ? (
+            {merchant?.examine === 1 && (
               <TagItem
                 iconColor='#e65656'
                 text='添加活动'
@@ -104,8 +104,6 @@ const Index = () => {
                   })
                 }
               />
-            ) : (
-              <View />
             )}
             {userInfo?.roleName === '商家' ? (
               <>
