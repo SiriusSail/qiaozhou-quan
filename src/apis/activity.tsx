@@ -55,6 +55,8 @@ export type ActivetyUser = {
   list: ActivetyAmountInfo[];
   maxAmount: number;
   merAvatarurl: string;
+  doorPhoto: string;
+  getNum: string;
   description: string;
   merNo: string;
   merchantAddress: string;
@@ -109,10 +111,15 @@ export const getHistoryActivity = (userId: string) =>
 /**
  * 通过商户id查询商家活动
  */
-export const getActivityListByMerchantId = (merchantId: string) => {
+export const getActivityListByMerchantId = (
+  merchantId: string,
+  userId?: string
+) => {
   return request<ActionShopInfo>({
     method: 'GET',
-    url: `/wx/api/activity/getActivityListByMerchantId/${merchantId}`,
+    url: `/wx/api/activity/getActivityListByMerchantId/${merchantId}${
+      userId ? `?userId=${userId}` : ''
+    }`,
   });
 };
 

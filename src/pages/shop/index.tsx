@@ -19,8 +19,10 @@ import Qrcode from '@/components/qrcode';
 
 const Store = createContainer(() => {
   const { id } = useQuery<{ id: string }>();
-  const { data } = useRequest(() => getActivityListByMerchantId(id));
   const { userInfo } = user.useContainer();
+  const { data } = useRequest(() =>
+    getActivityListByMerchantId(id, userInfo?.id)
+  );
 
   const { runAsync: receive, loading } = useRequest(
     (params: ActivetyAmountInfo) => {

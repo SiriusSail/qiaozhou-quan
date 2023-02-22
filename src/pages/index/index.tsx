@@ -92,7 +92,7 @@ const Item = (props: ActivetyUser) => {
       }
       foot={
         <View className={styles['card-footer']}>
-          <View className={styles.browse}>浏览量： 10</View>
+          <View className={styles.browse}>领取量: {props.getNum}</View>
           <Space>
             <Button
               openType='share'
