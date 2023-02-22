@@ -23,7 +23,11 @@ const Index = () => {
   }
 
   return (
-    <Swiper indicatorDots={true} autoplay={true} interval={5000}>
+    <Swiper
+      indicatorDots={true}
+      autoplay={true}
+      style={{ height: '50vw' }}
+      interval={5000}>
       {banner?.map((item) => (
         <SwiperItem className={styles['seiper-item']}>
           <View

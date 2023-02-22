@@ -62,7 +62,7 @@ export type ActivetyUser = {
   merchantName: string;
   merDescribe: string;
   minAmount: number;
-  pickUpStatus: number;
+  pickUpStatus: string;
 };
 
 export type ActionShopInfo = {

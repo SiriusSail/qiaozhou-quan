@@ -71,7 +71,7 @@ const Item = (props: ActivetyUser) => {
             </View>
           }
           extra={
-            props.pickUpStatus ? (
+            props.pickUpStatus === '已领取' ? (
               <Tag color='yellow'>{props.pickUpStatus}</Tag>
             ) : (
               ''

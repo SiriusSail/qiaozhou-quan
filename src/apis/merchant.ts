@@ -26,6 +26,7 @@ export const reApplyMerchant = (data: MerchantApplyParams) => {
     method: 'POST',
     url: '/wx/api/merchant/reApplyMerchant',
     data,
+    dataType: 'json',
   });
 };
 
@@ -37,6 +38,7 @@ export const merchantApply = (data: MerchantApplyParams) => {
     method: 'POST',
     url: '/wx/api/merchant/merchantApply',
     data,
+    dataType: 'json',
   });
 };
 /**
