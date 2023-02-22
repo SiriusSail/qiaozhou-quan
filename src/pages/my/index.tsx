@@ -93,7 +93,7 @@ const Index = () => {
         </Block>
         <Block title='商家服务'>
           <Row gutter={16}>
-            {userInfo?.roleName === '商家' ? (
+            {merchant?.examine ? (
               <>
                 <TagItem
                   iconColor='#e65656'
