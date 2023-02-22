@@ -142,7 +142,7 @@ const Index = () => {
               }
               return updateCampus({
                 ...params,
-                // userId: userInfo?.id,
+                userId: userInfo?.id,
                 status,
               });
             }}
