@@ -93,20 +93,6 @@ const Index = () => {
         </Block>
         <Block title='商家服务'>
           <Row gutter={16}>
-            {merchant?.examine === 1 ? (
-              <TagItem
-                iconColor='#e65656'
-                text='添加活动'
-                icon='activity'
-                onTap={() =>
-                  navigateTo({
-                    url: '/pages/activitySetting/index',
-                  })
-                }
-              />
-            ) : (
-              <View />
-            )}
             {userInfo?.roleName === '商家' ? (
               <>
                 <TagItem
@@ -137,6 +123,21 @@ const Index = () => {
                 text='商家入驻'
                 onTap={handleMechart}
               />
+            )}
+
+            {merchant?.examine === 1 ? (
+              <TagItem
+                iconColor='#e65656'
+                text='添加活动'
+                icon='activity'
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/activitySetting/index',
+                  })
+                }
+              />
+            ) : (
+              <View />
             )}
           </Row>
         </Block>

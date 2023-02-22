@@ -156,12 +156,14 @@ const Shop = () => {
           style={{
             padding: '80px',
           }}>
-          <Qrcode
-            url={`https://www.chqheiyou.com/qrcode/shop?id=${id}`}
-            logo={avatarSrc}
-            text={'12312312312'}
-            logoSize={80}
-          />
+          {openQr && (
+            <Qrcode
+              url={`https://www.chqheiyou.com/qrcode/shop?id=${id}`}
+              logo={avatarSrc}
+              text={'12312312312'}
+              logoSize={80}
+            />
+          )}
         </View>
       </Popup>
     </View>
