@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, navigateTo } from 'remax/wechat';
+import { View, navigateTo, redirectTo } from 'remax/wechat';
 import { Row, Col, Button, Tag } from 'anna-remax-ui';
 import styles from './index.less';
 import classnames from 'classnames';
@@ -34,7 +34,14 @@ const Index = (item: CampusVoucherItem & { type: 'new' | 'see' }) => {
       <Col span={6}>
         <View className={styles['bag-item-right']}>
           {item.type === 'new' ? (
-            <Button type='primary' onTap={toVoucher} danger>
+            <Button
+              type='primary'
+              onTap={() =>
+                redirectTo({
+                  url: `/pages/bag/index`,
+                })
+              }
+              danger>
               去使用
             </Button>
           ) : item.status === 0 ? (

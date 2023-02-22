@@ -22,7 +22,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
         <View
           onTap={() =>
             navigateTo({
-              url: `/pages/shop/index?id=${props.merchantId}`,
+              url: `/pages/shop/index?id=${props.couponNo}`,
             })
           }
           className={styles['bag-item-title']}>

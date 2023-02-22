@@ -44,6 +44,7 @@ export type CampusItem = {
   list: CampusVoucherItem[];
   merAvatarurl?: string;
   merchantId?: string;
+  couponNo?: string;
   merchantName?: string;
 };
 export type CampusVoucherItem = {
