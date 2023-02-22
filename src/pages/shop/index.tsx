@@ -20,8 +20,11 @@ import Qrcode from '@/components/qrcode';
 const Store = createContainer(() => {
   const { id } = useQuery<{ id: string }>();
   const { userInfo } = user.useContainer();
-  const { data } = useRequest(() =>
-    getActivityListByMerchantId(id, userInfo?.id)
+  const { data } = useRequest(
+    () => getActivityListByMerchantId(id, userInfo?.id),
+    {
+      refreshDeps: [userInfo?.id],
+    }
   );
 
   const { runAsync: receive, loading } = useRequest(

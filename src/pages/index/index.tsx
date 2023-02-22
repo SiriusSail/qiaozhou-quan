@@ -67,7 +67,7 @@ const Item = (props: ActivetyUser) => {
           }
           description={
             <View className={styles.description}>
-              {props.merDescribe || '暂无简介'}
+              {props.actDescribe || '暂无简介'}
             </View>
           }
           extra={

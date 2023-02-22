@@ -62,6 +62,7 @@ export type ActivetyUser = {
   merchantAddress: string;
   merchantId: string;
   merchantName: string;
+  actDescribe: string;
   merDescribe: string;
   minAmount: number;
   pickUpStatus: string;
