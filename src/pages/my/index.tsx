@@ -80,7 +80,7 @@ const Index = () => {
               text='个人认证'
             />
             <TagItem
-              iconColor='#41de87'
+              iconColor='#e91e63'
               onTap={() =>
                 navigateTo({
                   url: '/pages/vips/index',
