@@ -165,7 +165,6 @@ const Shop = () => {
             <Qrcode
               url={`https://www.chqheiyou.com/qrcode/shop?id=${id}`}
               logo={avatarSrc}
-              text={'12312312312'}
               logoSize={80}
             />
           )}
