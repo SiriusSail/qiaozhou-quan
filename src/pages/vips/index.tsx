@@ -111,7 +111,7 @@ const Index = () => {
   const data = useRef<CardProps[]>([
     {
       title: '日会员卡',
-      amount: '0.01',
+      amount: '0.99',
       text: '试用一天到期自动续费',
       params: {
         memberType: 'DAY',
