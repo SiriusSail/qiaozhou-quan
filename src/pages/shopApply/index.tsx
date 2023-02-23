@@ -17,6 +17,7 @@ import { Input, Cell } from 'anna-remax-ui';
 import LoginLayout from '@/layout/loginLayout';
 import { usePageEvent } from 'remax/macro';
 import { useQuery } from 'remax';
+import Textarea from '@/components/Textarea';
 
 const Index = () => {
   const { isReApply } = useQuery<{ isReApply: string }>();
@@ -112,7 +113,7 @@ const Index = () => {
               // validator: this.checkValue
             },
           ]}>
-          <Input label='联系电话' placeholder='请输入联系电话' />
+          <Input label='联系电话' type='number' placeholder='请输入联系电话' />
         </FormItem>
         <Cell label='店铺地址'>
           <FormItem
@@ -122,6 +123,17 @@ const Index = () => {
             <MapLocation />
           </FormItem>
         </Cell>
+        <FormItem
+          padding={130}
+          name='merDescribe'
+          trigger='onChange'
+          rules={[{ required: true }]}>
+          <Textarea
+            style={{ padding: '10rpx' }}
+            label='店铺简介'
+            placeholder='请输入店铺简介'
+          />
+        </FormItem>
         <FormItem
           padding={20}
           name='doorPhoto'

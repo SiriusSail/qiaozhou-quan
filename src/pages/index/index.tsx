@@ -28,6 +28,7 @@ import { usePageEvent } from 'remax/macro';
 
 const Item = (props: ActivetyUser) => {
   const { userInfo, share } = userInfoStores.useContainer();
+  const [getNum, setGetNum] = useState(0);
 
   const { runAsync: receive, loading } = useRequest(
     (params: ActivetyAmountInfo) => {
@@ -40,6 +41,9 @@ const Item = (props: ActivetyUser) => {
     },
     {
       manual: true,
+      onSuccess: (e) => {
+        setGetNum(1);
+      },
       onError: (e) => {
         showModal({
           showCancel: false,
@@ -92,7 +96,9 @@ const Item = (props: ActivetyUser) => {
       }
       foot={
         <View className={styles['card-footer']}>
-          <View className={styles.browse}>领取量: {props.getNum || 0}</View>
+          <View className={styles.browse}>
+            已领取: {parseInt(props.getNum || 0) + getNum}
+          </View>
           <Space>
             <Button
               openType='share'

@@ -46,35 +46,68 @@ const Index = () => {
               placeholder='请输入活动类型'
             />
           </FormItem> */}
-          <FormItem
+          {/* <FormItem
             padding={130}
             name='actName'
             trigger='onChange'
             rules={[{ required: true }]}>
             <Input label='活动名称' placeholder='请输入活动名称' />
+          </FormItem> */}
+          <FormItem
+            padding={130}
+            name='minAmount'
+            type='digit'
+            trigger='onChange'
+            rules={[
+              { required: true },
+              {
+                required: true,
+                message: '最低金额不得少于1元',
+                validator: (rule, value, callback) => {
+                  if (value >= 1) {
+                    callback();
+                  } else {
+                    callback('最低金额不得少于1元');
+                  }
+                },
+              },
+            ]}>
+            <Input
+              label='最低金额'
+              type='digit'
+              placeholder='请输入最低金额 最低1元'
+            />
           </FormItem>
+
           <FormItem
             padding={130}
             name='maxAmount'
             trigger='onChange'
-            rules={[{ required: true }]}>
-            <Input label='最高金额' placeholder='请输入最高金额' />
+            rules={[
+              { required: true },
+              {
+                required: true,
+                message: '不小低于最低金额',
+                validator: (rule, value, callback) => {
+                  const minAmount = form.getFieldValue('minAmount');
+                  if (value >= minAmount) {
+                    callback();
+                  } else {
+                    callback('不小低于最低金额');
+                  }
+                },
+              },
+            ]}>
+            <Input label='最高金额' type='digit' placeholder='请输入最高金额' />
           </FormItem>
-          <FormItem
-            padding={130}
-            name='minAmount'
-            trigger='onChange'
-            rules={[{ required: true }]}>
-            <Input label='最低金额' placeholder='请输入最低金额' />
-          </FormItem>
-          <FormItem
+          {/* <FormItem
             padding={130}
             name='total'
             trigger='onChange'
             rules={[{ required: true }]}>
             <Input label='红包个数' placeholder='请输入红包个数' />
-          </FormItem>
-          <FormItem
+          </FormItem> */}
+          {/* <FormItem
             padding={130}
             name='actContent'
             trigger='onChange'
@@ -84,7 +117,7 @@ const Index = () => {
               label='优惠券使用规则'
               placeholder='请输入优惠券使用规则'
             />
-          </FormItem>
+          </FormItem> */}
           <FormItem
             padding={130}
             name='actDescribe'
@@ -98,7 +131,8 @@ const Index = () => {
           </FormItem>
         </View>
         <View className={styles.text}>
-          注：商家活动设置时间为每天00：00-09：30, 过期当日不能设置活动,
+          注：
+          {/* 商家活动设置时间为每天00：00-09：30, 过期当日不能设置活动, */}
           活动有效至当晚24：00 自动失效
         </View>
 

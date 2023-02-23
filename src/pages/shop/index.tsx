@@ -62,7 +62,7 @@ const Item = (props: ActivityInfo) => {
       shadow={true}
       cover={
         <Card
-          title={props.actContent}
+          title={props.actDescribe}
           description={props.description}
           extra={
             <View className={styles['cover-extra']}>

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
 import BottomButton from '@/components/bottomButton';
 import LoginLayout from '@/layout/loginLayout';
 import Image from '@/components/image';
 import userInfoStores from '@/stores/userInfo';
-import { Cell, Popup, Space, ImageUpload } from 'anna-remax-ui';
+import { Cell } from 'anna-remax-ui';
 import { useAppEvent } from 'remax/macro';
+import avatarSrc from '@/components/userCard/images/avatar.jpg';
 
 const Index = () => {
   const { userInfo, getUserInfo } = userInfoStores.useContainer();
@@ -26,10 +27,10 @@ const Index = () => {
               overflow: 'hidden',
               borderRadius: '50%',
             }}
-            src={userInfo?.avatarurl || '/images/test/nouser.jpg'}
+            src={avatarSrc}
           />
         </Cell>
-        <Cell label='昵称'>{userInfo?.nickname}</Cell>
+        <Cell label='昵称'>{userInfo?.userNo}</Cell>
         <Cell label='手机号'>{userInfo?.mobile}</Cell>
         <Cell label='区域'>{userInfo?.campusName}</Cell>
         {/* <Cell label='地址'>环球大厦</Cell> */}

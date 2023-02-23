@@ -15,6 +15,7 @@ import Form, { useForm } from 'rc-field-form';
 import { Input, Cell } from 'anna-remax-ui';
 import LoginLayout from '@/layout/loginLayout';
 import { usePageEvent } from 'remax/macro';
+import Textarea from '@/components/Textarea';
 
 const Index = () => {
   const [form] = useForm();
@@ -96,20 +97,32 @@ const Index = () => {
               // validator: this.checkValue
             },
           ]}>
-          <Input label='联系电话' placeholder='请输入联系电话' />
+          <Input label='联系电话' type='number' placeholder='请输入联系电话' />
         </FormItem>
         <Cell label='店铺地址'>
           <FormItem name='merAddress' rules={[{ required: true }]}>
             <MapLocation />
           </FormItem>
         </Cell>
+
+        <FormItem
+          padding={130}
+          name='merDescribe'
+          trigger='onChange'
+          rules={[{ required: true }]}>
+          <Textarea
+            style={{ padding: '10rpx' }}
+            label='店铺简介'
+            placeholder='请输入店铺简介'
+          />
+        </FormItem>
         <FormItem
           padding={20}
           name='doorPhoto'
           rules={[{ required: true, message: '请选择店铺门牌照' }]}>
           <ImageUpload maxCount={1} label='店铺门牌照' />
         </FormItem>
-        <FormItem
+        {/* <FormItem
           padding={20}
           name='file'
           rules={[{ required: true, message: '请选择店铺相关照片上传' }]}>
@@ -120,7 +133,7 @@ const Index = () => {
           name='aptitude'
           rules={[{ required: true, message: '请选择店铺资质上传' }]}>
           <ImageUpload maxCount={2} label='店铺资质上传(最多两张)' />
-        </FormItem>
+        </FormItem> */}
 
         <BottomButton
           loading={loading}
@@ -133,8 +146,8 @@ const Index = () => {
               run({
                 ...params,
                 userId: userInfo?.id,
-                file: file.map((item: any) => item.url || item),
-                aptitude: aptitude.map((item: any) => item.url || item),
+                // file: file.map((item: any) => item.url || item),
+                // aptitude: aptitude.map((item: any) => item.url || item),
                 merAvatarurl: merAvatarurl.url || merAvatarurl,
                 doorPhoto: doorPhoto?.[0]?.url || doorPhoto?.[0],
               });

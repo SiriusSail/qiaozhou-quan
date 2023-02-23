@@ -22,7 +22,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
         <View
           onTap={() =>
             navigateTo({
-              url: `/pages/shop/index?id=${props.couponNo}`,
+              url: `/pages/shop/index?id=${props.merchantId}`,
             })
           }
           className={styles['bag-item-title']}>
@@ -72,7 +72,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
                       danger
                       onTap={() => {
                         navigateTo({
-                          url: `/pages/voucher/index?id=${item.couponId}`,
+                          url: `/pages/voucher/index?id=${item.couponNo}`,
                         });
                       }}>
                       使用

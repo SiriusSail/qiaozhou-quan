@@ -30,6 +30,7 @@ const Index = () => {
         <Cell label='联系电话'>{data?.merPersonTel}</Cell>
         <Cell label='店铺地址'>{data?.merAddress}</Cell>
         <Cell label='审核状态'>{data?.examineStatus}</Cell>
+        <Cell label='店铺简介'>{data?.merDescribe}</Cell>
         <Block contentStyle={{ padding: '0 30rpx' }} title='门头照'>
           <ImageUpload
             files={[data?.doorPhotoUrl || '']}

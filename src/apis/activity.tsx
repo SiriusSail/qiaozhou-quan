@@ -27,6 +27,8 @@ export type ActivityInfo = {
   actContent: string;
   /**	活动ID	*/
   actId: string;
+  /**	活动ID	*/
+  actDescribe: string;
   /**	领取的优惠券id	*/
   couponId: string;
   /**	随机红包	array	*/

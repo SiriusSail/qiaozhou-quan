@@ -62,6 +62,10 @@ export type MerchantApplyParams = {
    */
   merAddress?: string;
   /**
+   * 	店铺简介
+   */
+  merDescribe?: string;
+  /**
    * 	审批结果
    */
   examine?: 1 | 2 | 3;
