@@ -31,7 +31,10 @@ export default createContainer(() => {
   const { data: userInfo, run: getUserInfo } = useRequest(
     () => {
       if (storage.get('token')) {
-        return useApi.userInfo();
+        return useApi.userInfo().then((res) => {
+          res.campusId && storage.set('campu', res.campusId);
+          return res;
+        });
       } else {
         return Promise.resolve(undefined);
       }

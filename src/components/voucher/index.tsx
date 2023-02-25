@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, navigateTo, redirectTo } from 'remax/wechat';
+import { View, navigateTo, redirectTo, switchTab } from 'remax/wechat';
 import { Row, Col, Button, Tag } from 'anna-remax-ui';
 import styles from './index.less';
 import classnames from 'classnames';
@@ -37,7 +37,7 @@ const Index = (item: CampusVoucherItem & { type: 'new' | 'see' }) => {
             <Button
               type='primary'
               onTap={() =>
-                redirectTo({
+                switchTab({
                   url: `/pages/bag/index`,
                 })
               }

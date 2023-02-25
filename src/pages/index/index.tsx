@@ -5,6 +5,7 @@ import {
   Button,
   navigateTo,
   showModal,
+  startPullDownRefresh,
 } from 'remax/wechat';
 import { Icon, Space, Grid, Card, Tag } from 'anna-remax-ui';
 import Image from '@/components/image';
@@ -132,6 +133,7 @@ const Item = (props: ActivetyUser) => {
 
 const Index = () => {
   const { userInfo, share } = userInfoStores.useContainer();
+  const campuRef = useRef(storage.get('campu'));
   const [campu, setCampu] = useState(storage.get('campu'));
 
   const { campus, getCampusPage } = enums.useContainer();
@@ -140,6 +142,14 @@ const Index = () => {
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline'],
     });
+  });
+  usePageEvent('onShow', () => {
+    const storageCampu = storage.get('campu');
+    if (storageCampu && campuRef.current !== storageCampu) {
+      campuRef.current = storageCampu;
+      setCampu(storageCampu);
+      startPullDownRefresh();
+    }
   });
 
   usePageEvent('onShareAppMessage', (res) => {
@@ -158,15 +168,17 @@ const Index = () => {
             title='选择校区'
             onSelect={(val, item, { close }) => {
               close();
+              campuRef.current = val!;
               setCampu(val!);
               storage.set('campu', val);
               userInfo?.id &&
                 updateCampus({ userId: userInfo?.id, campusId: val });
+              startPullDownRefresh();
             }}
-            initOpen={!campu}
+            initOpen={!campuRef.current}
             options={campus?.data || []}
             onClick={getCampusPage}
-            buttonRender={(val, valueData) => (
+            buttonRender={() => (
               <Space>
                 <Icon type='location' size='36px' />
                 <View className={styles['campus-text']}>
@@ -194,13 +206,13 @@ const Index = () => {
                 </View>
               }
               getList={(params) => {
-                if (!campu) {
+                if (!campuRef.current) {
                   return Promise.resolve({ records: [], current: 1 });
                 }
                 return getActivityListByUserId({
                   ...params,
                   userId: userInfo?.id,
-                  campusId: campu,
+                  campusId: campuRef.current,
                 });
               }}
               renderItem={(res, index) => {
@@ -208,7 +220,7 @@ const Index = () => {
               }}
             />
           );
-        }, [campu, userInfo?.id])}
+        }, [userInfo?.id])}
       </View>
     </View>
   );

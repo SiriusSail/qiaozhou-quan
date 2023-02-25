@@ -37,13 +37,7 @@ const Index: React.SFC = () => {
       <Result
         height='1000px'
         status={data?.success ? 'success' : 'error'}
-        title={
-          loading
-            ? '正在核销'
-            : data?.success
-            ? '核销成功'
-            : data?.message || '核销失败'
-        }
+        title={loading ? '正在核销' : data?.message}
         icon={
           loading
             ? {

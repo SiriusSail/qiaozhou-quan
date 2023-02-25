@@ -8,6 +8,7 @@ import React, {
 import { View } from 'remax/wechat';
 import { Popup, SearchBar, Cell } from 'anna-remax-ui';
 import NoData from '../no-data';
+import styles from './index.module.less';
 import './index.less';
 import type { PopupProps } from 'anna-remax-ui/esm/popup';
 
@@ -105,21 +106,24 @@ export const Img: React.FC<NewPopupProps> = ({
         {...props}
         open={show}
         onClose={close}>
-        <View>
-          <SearchBar
-            key={key}
-            placeholder='搜索'
-            value={thenValue}
-            hideActionButton
-            onInput={(e) => setThenValue(e)}
-            onClear={clearThenValue}
-            inputStyle={{
-              border: '2px solid #FF7777',
-              backgroundColor: '#FDFFFD',
-            }}
-            style={{ marginBottom: '30px' }}
-          />
-          <View>
+        <View className={styles.content}>
+          <View className={styles.serchbar}>
+            <SearchBar
+              key={key}
+              placeholder='搜索'
+              value={thenValue}
+              hideActionButton
+              onInput={(e) => setThenValue(e)}
+              onClear={clearThenValue}
+              inputStyle={{
+                border: '2px solid #FF7777',
+                backgroundColor: '#FDFFFD',
+              }}
+              style={{ marginBottom: '30px' }}
+            />
+          </View>
+          {/* <View style={{ flex: 1 }}> */}
+          <View className={styles['options-content']}>
             {options?.length === 0 ? (
               <NoData />
             ) : (
@@ -144,6 +148,7 @@ export const Img: React.FC<NewPopupProps> = ({
               })
             )}
           </View>
+          {/* </View> */}
         </View>
       </Popup>
     </View>

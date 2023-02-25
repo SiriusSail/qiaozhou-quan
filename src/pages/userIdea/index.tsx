@@ -12,11 +12,12 @@ import { Cell } from 'anna-remax-ui';
 import LoginLayout from '@/layout/loginLayout';
 import { usePageEvent } from 'remax/macro';
 import ModailMultipleSelect from '@/components/modailMultipleSelect';
+import storage from '@/utils/storage';
 
 const Index = () => {
   const [form] = useForm();
   const { userInfo, getUserInfo } = user.useContainer();
-  const { run, loading } = useRequest(updateCampus, {
+  const { runAsync, loading } = useRequest(updateCampus, {
     manual: true,
     onSuccess: () => {
       showToast({
@@ -92,12 +93,14 @@ const Index = () => {
           size='large'
           onTap={() => {
             form.validateFields().then((value) => {
-              run({
+              runAsync({
                 campusId: value?.campusId?.[0],
                 city: value?.city,
                 country: value?.country,
                 province: value?.province,
                 userId: userInfo?.id,
+              }).then((res) => {
+                storage.set('campu', value?.campusId?.[0]);
               });
             });
           }}
