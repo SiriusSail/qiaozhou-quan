@@ -10,7 +10,7 @@ const Index = () => {
   const { id } = useQuery<{ id: string }>();
   return (
     <LoginLayout>
-      <View>
+      <View className={styles['qr-code']}>
         <Qrcode
           text={id}
           url={`https://www.chqheiyou.com/qrcode/check?id=${id}`}

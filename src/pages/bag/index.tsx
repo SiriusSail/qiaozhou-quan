@@ -46,7 +46,10 @@ const BagItem: React.FC<CampusItem> = (props) => {
                     styles['bag-item-up'],
                     styles['font-size-80']
                   )}>
-                  {item.favorable}
+                  <Space size={0}>
+                    <View>{(item.favorable * 1).toFixed(2)}</View>
+                    <View className={styles.unit}>￥</View>
+                  </Space>
                 </View>
                 <View className={styles['bag-item-down']}>
                   <Tag color='red'>{item.couponName}</Tag>

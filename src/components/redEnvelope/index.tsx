@@ -59,7 +59,7 @@ const Index = (props: Props) => {
         }}>
         <View className={styles['voucher-content']}>
           <View className={styles['voucher-title']}>恭喜您获得了</View>
-          <Voucher {...props} type='new' />
+          <Voucher {...props} type='new' onClose={() => setVoucher(false)} />
         </View>
       </Popup>
     </View>

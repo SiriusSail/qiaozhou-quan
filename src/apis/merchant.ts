@@ -22,35 +22,44 @@ export const getMerchantByUserId = (userId: string) =>
  * 重新申请商家
  */
 export const reApplyMerchant = (data: MerchantApplyParams) => {
-  return request({
-    method: 'POST',
-    url: '/wx/api/merchant/reApplyMerchant',
-    data,
-    dataType: 'json',
-  });
+  return request(
+    {
+      method: 'POST',
+      url: '/wx/api/merchant/reApplyMerchant',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 };
 
 /**
  * 商家申请
  */
 export const merchantApply = (data: MerchantApplyParams) => {
-  return request({
-    method: 'POST',
-    url: '/wx/api/merchant/merchantApply',
-    data,
-    dataType: 'json',
-  });
+  return request(
+    {
+      method: 'POST',
+      url: '/wx/api/merchant/merchantApply',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 };
 /**
- * 通过用户id修改商家所属校区
+ * 修改商家
  */
 export const updateMerchantCampus = (data: MerchantApplyParams) =>
-  request({
-    method: 'POST',
-    url: '/wx/api/merchant/updateMerchantCampus',
-    data,
-    dataType: 'json',
-  });
+  request(
+    {
+      method: 'POST',
+      url: '/wx/api/merchant/updateMerchantCampus',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 
 export type MerchantApplyParams = {
   /**

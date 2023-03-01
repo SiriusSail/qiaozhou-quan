@@ -38,21 +38,27 @@ type UpdateCampusParams = {
  * 通过用户id修改校区
  */
 export const updateCampus = (data: UpdateCampusParams) =>
-  request<string>({
-    method: 'POST',
-    url: '/wx/api/user/updateCampus',
-    data,
-    dataType: 'json',
-  });
+  request<string>(
+    {
+      method: 'POST',
+      url: '/wx/api/user/updateCampus',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 /**
  * 用户充值
  */
 export const userRecharge = (data) =>
-  request<string>({
-    method: 'POST',
-    url: '/wx/api/user/userRecharge',
-    data,
-    dataType: 'json',
-  });
+  request<string>(
+    {
+      method: 'POST',
+      url: '/wx/api/user/userRecharge',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 
 export default {};

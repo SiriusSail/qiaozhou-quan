@@ -23,11 +23,11 @@
 }
 
 .anna-form-value, .anna-form-value-placeholder {
-  text-align: right !important;
+  text-align: right;
 }
 
 .anna-cell-container-main-right-value .anna-input-container .anna-input {
-  text-align: right !important;
+  text-align: right;
 }
 
 .anna-search_bar-input-value {
@@ -41,4 +41,15 @@
 }
 .anna-result-icon-status .icon-loading {
   animation: loading 1s linear infinite;
+}
+
+.anna-picker .anna-form-value {
+  text-align: right !important;
+}
+.anna-picker .anna-form-value, .anna-form-value-placeholder {
+  text-align: right !important;
+}
+
+.anna-switch-checked-small + .anna-switch-checkbox {
+  background-color: #fa8c16 !important;
 }

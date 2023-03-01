@@ -42,7 +42,9 @@ const TagItem: React.FC<TagItemProps> = ({
 const Index = () => {
   const { userInfo, getUserInfo, isVip, merchant, valiVip } =
     userInfoStores.useContainer();
-  usePageEvent('onShow', getUserInfo);
+  usePageEvent('onShow', () => {
+    getUserInfo();
+  });
   // 点击成为商家
   const handleMechart = () => {
     if (valiVip({ content: '您未成为会员，需开通才能成为商家' })) {
@@ -105,16 +107,6 @@ const Index = () => {
                     })
                   }
                 />
-                <TagItem
-                  iconColor='#e65656'
-                  icon='shop'
-                  text='我的店铺'
-                  onTap={() =>
-                    navigateTo({
-                      url: `/pages/shop/index?id=${userInfo?.merchantId}`,
-                    })
-                  }
-                />
               </>
             ) : (
               <TagItem
@@ -126,16 +118,38 @@ const Index = () => {
             )}
 
             {merchant?.examine === 1 ? (
-              <TagItem
-                iconColor='#e65656'
-                text='添加活动'
-                icon='activity'
-                onTap={() =>
-                  navigateTo({
-                    url: '/pages/activitySetting/index',
-                  })
-                }
-              />
+              <>
+                <TagItem
+                  iconColor='#e65656'
+                  icon='shop'
+                  text='我的店铺'
+                  onTap={() =>
+                    navigateTo({
+                      url: `/pages/shop/index?id=${userInfo?.merchantId}`,
+                    })
+                  }
+                />
+                <TagItem
+                  iconColor='#e65656'
+                  text='活动信息'
+                  icon='activity'
+                  onTap={() =>
+                    navigateTo({
+                      url: '/pages/activitySetting/index',
+                    })
+                  }
+                />
+                <TagItem
+                  iconColor='#e65656'
+                  text='核销优惠券'
+                  icon='ticket'
+                  onTap={() =>
+                    navigateTo({
+                      url: '/pages/check/index',
+                    })
+                  }
+                />
+              </>
             ) : (
               <View />
             )}

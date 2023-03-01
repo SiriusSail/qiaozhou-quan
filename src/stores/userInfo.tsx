@@ -4,9 +4,10 @@ import storage from '@/utils/storage';
 import { navigateTo, showModal } from 'remax/wechat';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
-import { useMemo, useRef, useCallback } from 'react';
+import { useMemo, useRef, useCallback, useState } from 'react';
 import { getMerchantByUserId } from '@/apis/merchant';
 import type { MerchantApplyParams } from '@/apis/merchant';
+import { updateCampus } from '@/apis/user';
 
 type ShareType = {
   /**
@@ -28,19 +29,31 @@ type ShareType = {
 };
 
 export default createContainer(() => {
+  const [invalidToken, setInvalidToken] = useState(false);
   const { data: userInfo, run: getUserInfo } = useRequest(
     () => {
       if (storage.get('token')) {
-        return useApi.userInfo().then((res) => {
-          res.campusId && storage.set('campu', res.campusId);
-          return res;
-        });
+        return useApi.userInfo();
       } else {
-        return Promise.resolve(undefined);
+        return Promise.reject(undefined);
       }
     },
     {
       manual: !storage.get('token'),
+      onError: () => {
+        setInvalidToken(true);
+      },
+      onSuccess: (e) => {
+        setInvalidToken(false);
+        const campu = storage.get('campu');
+        if (!e.campusId) {
+          if (campu) {
+            updateCampus({ userId: userInfo?.id, campusId: campu });
+          }
+        } else {
+          storage.set('campu', e.campusId);
+        }
+      },
     }
   );
   const isVip = useMemo(
@@ -59,7 +72,7 @@ export default createContainer(() => {
     },
     {
       manual: !userInfo?.id,
-      refreshDeps: [userInfo?.id],
+      refreshDeps: [userInfo],
     }
   );
 
@@ -112,6 +125,7 @@ export default createContainer(() => {
     userInfo,
     isVip,
     valiLoading,
+    invalidToken,
     valiVip,
     merchant,
     share,

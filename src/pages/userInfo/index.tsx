@@ -18,35 +18,33 @@ const Index = () => {
 
   return (
     <LoginLayout>
-      <View className={styles.setting}>
-        <Cell label='头像'>
-          <Image
-            height='50'
-            width='50'
-            style={{
-              overflow: 'hidden',
-              borderRadius: '50%',
-            }}
-            src={avatarSrc}
-          />
-        </Cell>
-        <Cell label='昵称'>{userInfo?.userNo}</Cell>
-        <Cell label='手机号'>{userInfo?.mobile}</Cell>
-        <Cell label='区域'>{userInfo?.campusName}</Cell>
-        {/* <Cell label='地址'>环球大厦</Cell> */}
-        <BottomButton
-          size='large'
-          onTap={() => {
-            navigateTo({
-              url: '/pages/userIdea/index',
-            });
+      <Cell label='头像'>
+        <Image
+          height='50'
+          width='50'
+          style={{
+            overflow: 'hidden',
+            borderRadius: '50%',
           }}
-          type='primary'
-          shape='square'
-          block>
-          修改信息
-        </BottomButton>
-      </View>
+          src={avatarSrc}
+        />
+      </Cell>
+      <Cell label='昵称'>{userInfo?.userNo}</Cell>
+      <Cell label='手机号'>{userInfo?.mobile}</Cell>
+      <Cell label='区域'>{userInfo?.campusName}</Cell>
+      {/* <Cell label='地址'>环球大厦</Cell> */}
+      <BottomButton
+        size='large'
+        onTap={() => {
+          navigateTo({
+            url: '/pages/userIdea/index',
+          });
+        }}
+        type='primary'
+        shape='square'
+        block>
+        修改信息
+      </BottomButton>
     </LoginLayout>
   );
 };

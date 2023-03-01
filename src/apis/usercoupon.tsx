@@ -5,12 +5,15 @@ import { request } from '@/apis';
  * 用户领券
  */
 export const receiveCoupon = (data: ReceiveCouponParmas) =>
-  request<string>({
-    method: 'POST',
-    url: '/wx/api/usercoupon/receiveCoupon',
-    data,
-    dataType: 'json',
-  });
+  request<string>(
+    {
+      method: 'POST',
+      url: '/wx/api/usercoupon/receiveCoupon',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 
 type UpdateCampusParams = {
   status?: number;
@@ -76,11 +79,14 @@ type UseCouponParams = {
  * 核销优惠券
  */
 export const coupon = (data: UseCouponParams) =>
-  request<string>({
-    method: 'POST',
-    url: '/wx/api/usercoupon/useCoupon',
-    data,
-    dataType: 'json',
-  });
+  request<string>(
+    {
+      method: 'POST',
+      url: '/wx/api/usercoupon/useCoupon',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 
 export default {};

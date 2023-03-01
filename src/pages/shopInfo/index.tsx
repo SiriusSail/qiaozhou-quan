@@ -62,9 +62,15 @@ const Index = () => {
           size='large'
           disabled={data?.examine === 2}
           onTap={() => {
-            navigateTo({
-              url: '/pages/shopIdea/index',
-            });
+            if (data?.examine === 3) {
+              navigateTo({
+                url: '/pages/shopApply/index?isReApply=1',
+              });
+            } else {
+              navigateTo({
+                url: '/pages/shopIdea/index',
+              });
+            }
           }}
           type='primary'
           shape='square'

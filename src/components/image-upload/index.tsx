@@ -109,6 +109,8 @@ const ImageUpload = ({
     if (multiple) {
       params.multiple = true;
       params.count = 99;
+    } else {
+      params.multiple = false;
     }
     if (multipleCount) {
       params.count = multipleCount;

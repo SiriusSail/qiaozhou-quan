@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react';
 import { View, navigateTo, redirectTo, switchTab } from 'remax/wechat';
-import { Row, Col, Button, Tag } from 'anna-remax-ui';
+import { Row, Col, Button, Tag, Space } from 'anna-remax-ui';
 import styles from './index.less';
 import classnames from 'classnames';
 import type { CampusVoucherItem } from '@/apis/usercoupon';
 
-const Index = (item: CampusVoucherItem & { type: 'new' | 'see' }) => {
+const Index = (
+  item: CampusVoucherItem & { type: 'new' | 'see'; onClose?: () => void }
+) => {
   const toVoucher = useCallback(() => {
     navigateTo({
       url: `/pages/voucher/index?id=${item.couponNo}`,
@@ -16,7 +18,10 @@ const Index = (item: CampusVoucherItem & { type: 'new' | 'see' }) => {
       <Col span={7} className={styles['bag-item-left']}>
         <View
           className={classnames(styles['bag-item-up'], styles['font-size-80'])}>
-          {item.favorable}
+          <Space size={0}>
+            <View>{(item.favorable * 1).toFixed(2)}</View>
+            <View className={styles.unit}>￥</View>
+          </Space>
         </View>
         <View className={styles['bag-item-down']}>
           <Tag color='red'>{item.couponName || '随机红包'}</Tag>
@@ -36,11 +41,12 @@ const Index = (item: CampusVoucherItem & { type: 'new' | 'see' }) => {
           {item.type === 'new' ? (
             <Button
               type='primary'
-              onTap={() =>
+              onTap={() => {
+                item.onClose?.();
                 switchTab({
                   url: `/pages/bag/index`,
-                })
-              }
+                });
+              }}
               danger>
               去使用
             </Button>

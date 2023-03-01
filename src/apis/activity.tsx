@@ -10,6 +10,25 @@ export const createActivity = (data: any) =>
     dataType: 'json',
   });
 /**
+ * 通过商家获取活动信息
+ */
+export const getActivityByMerchantId = (merchantId?: string) =>
+  request<ActivityInfo>({
+    method: 'POST',
+    url: `/wx/api/activity/getActivityByMerchantId/${merchantId}`,
+    dataType: 'json',
+  });
+/**
+ * 通过商家获取活动信息
+ */
+export const updateActivity = (data?: ActivityInfo) =>
+  request<ActivityInfo>({
+    method: 'POST',
+    url: `/wx/api/activity/updateActivity`,
+    data,
+    dataType: 'json',
+  });
+/**
  * 活动管理接口
  */
 export const getActivityById = (activityId: string) =>
@@ -118,12 +137,15 @@ export const getActivityListByMerchantId = (
   merchantId: string,
   userId?: string
 ) => {
-  return request<ActionShopInfo>({
-    method: 'GET',
-    url: `/wx/api/activity/getActivityListByMerchantId/${merchantId}${
-      userId ? `?userId=${userId}` : ''
-    }`,
-  });
+  return request<ActionShopInfo>(
+    {
+      method: 'GET',
+      url: `/wx/api/activity/getActivityListByMerchantId/${merchantId}${
+        userId ? `?userId=${userId}` : ''
+      }`,
+    },
+    true
+  );
 };
 
 export default {};

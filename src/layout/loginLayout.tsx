@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'remax/wechat';
 import { usePageEvent } from 'remax/macro';
 import storage from '@/utils/storage';
 import { navigateTo } from 'remax/wechat';
 import { Icon, Button } from 'anna-remax-ui';
+import userInfoStores from '@/stores/userInfo';
 
 const style: React.CSSProperties = {
   position: 'fixed',
@@ -20,9 +21,15 @@ const style: React.CSSProperties = {
 };
 const Index: React.FC = ({ children }) => {
   const [token, setToken] = useState(storage.get('token'));
+  const { invalidToken } = userInfoStores.useContainer();
   usePageEvent('onShow', () => {
     setToken(storage.get('token'));
   });
+  useEffect(() => {
+    if (invalidToken) {
+      setToken('');
+    }
+  }, [invalidToken]);
   if (!token) {
     return (
       <View style={style}>
@@ -44,6 +51,6 @@ const Index: React.FC = ({ children }) => {
       </View>
     );
   }
-  return <View>{children}</View>;
+  return children;
 };
 export default Index;

@@ -2,18 +2,68 @@ import React from 'react';
 import { View, showToast, navigateBack, showModal } from 'remax/wechat';
 import styles from './index.less';
 import Textarea from '@/components/Textarea';
-import { createActivity } from '@/apis/activity';
+import {
+  createActivity,
+  getActivityByMerchantId,
+  updateActivity,
+} from '@/apis/activity';
 import BottomButton from '@/components/bottomButton';
-import Form, { useForm } from 'rc-field-form';
+import Switch from '@/components/switch';
+import Form, { useForm, Field } from 'rc-field-form';
 import FormItem from '@/components/formItem';
-import { Input } from 'anna-remax-ui';
+import { Input, Cell } from 'anna-remax-ui';
 import { useRequest } from 'ahooks';
 import userInfoStores from '@/stores/userInfo';
 
 const Index = () => {
   const [form] = useForm();
   const { userInfo } = userInfoStores.useContainer();
-  const { run, loading } = useRequest(createActivity, {
+  const { data } = useRequest(
+    () => {
+      if (!userInfo?.merchantId) {
+        return Promise.resolve(undefined);
+      }
+      return getActivityByMerchantId(userInfo?.merchantId);
+    },
+    {
+      refreshDeps: [userInfo?.merchantId],
+      onSuccess: (e) => {
+        if (e) {
+          form.setFieldsValue(e);
+        }
+      },
+      onError: (e) => {
+        console.log(e);
+        showModal({
+          title: '提示',
+          content: '活动信息获取失败',
+          showCancel: false,
+        });
+      },
+    }
+  );
+  const { run: update, loading: updateLoading } = useRequest(updateActivity, {
+    manual: true,
+    onSuccess: () => {
+      showToast({
+        title: '活动创建成功',
+        duration: 2000,
+        icon: 'success',
+      });
+      setTimeout(() => {
+        navigateBack();
+      }, 2000);
+    },
+    onError: (e) => {
+      console.log(e);
+      showModal({
+        title: '提示',
+        content: e.message || '活动创建失败',
+        showCancel: false,
+      });
+    },
+  });
+  const { run: create, loading: createLoading } = useRequest(createActivity, {
     manual: true,
     onSuccess: () => {
       showToast({
@@ -38,6 +88,7 @@ const Index = () => {
     <View className={styles.setting}>
       <Form component={false} form={form}>
         <View>
+          <Field name='id' />
           {/* <FormItem padding={130} name='a' trigger='onChange' rules={[{ required: true }]}>
             <Picker
               label='活动类型'
@@ -100,6 +151,21 @@ const Index = () => {
             ]}>
             <Input label='最高金额' type='digit' placeholder='请输入最高金额' />
           </FormItem>
+
+          <Cell
+            label='开启活动'
+            valueStyle={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}>
+            <FormItem
+              padding={130}
+              name='actStatus'
+              initialValue={1}
+              trigger='onChange'>
+              <Switch />
+            </FormItem>
+          </Cell>
           {/* <FormItem
             padding={130}
             name='total'
@@ -130,18 +196,16 @@ const Index = () => {
             />
           </FormItem>
         </View>
-        <View className={styles.text}>
-          注：
-          {/* 商家活动设置时间为每天00：00-09：30, 过期当日不能设置活动, */}
-          活动有效至当晚24：00 自动失效
-        </View>
 
         <BottomButton
           size='large'
-          loading={loading}
+          loading={createLoading || updateLoading}
           onTap={() => {
             form.validateFields().then(async (value) => {
-              run({
+              if (value.id) {
+                return update(value);
+              }
+              create({
                 ...value,
                 userId: userInfo?.id,
                 merchantId: userInfo?.merchantId,
@@ -151,7 +215,7 @@ const Index = () => {
           type='primary'
           shape='square'
           block>
-          确认创建
+          保存活动信息
         </BottomButton>
       </Form>
     </View>

@@ -42,12 +42,15 @@ export const logout = () =>
  * 修改用户密码
  */
 export const updatePassword = (data) =>
-  request<string>({
-    method: 'POST',
-    url: '/wx/api/auth/updatePassword',
-    data,
-    dataType: 'json',
-  });
+  request<string>(
+    {
+      method: 'POST',
+      url: '/wx/api/auth/updatePassword',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 /**
  * 通过用户id修改商家所属校区微信一键登录
  */

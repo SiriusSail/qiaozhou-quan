@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Picker } from 'anna-remax-ui';
+import { View } from 'remax/wechat';
 import type { PickerProps } from 'anna-remax-ui/esm/picker';
 
 export const Img: React.FC<PickerProps> = ({
@@ -15,15 +16,17 @@ export const Img: React.FC<PickerProps> = ({
     }
   }, [_value]);
   return (
-    <Picker
-      value={value}
-      onChange={(v) => {
-        valueRef.current = v.key;
-        setValue(v.key);
-        onChange?.(v.key);
-      }}
-      {...props}
-    />
+    <View className='anna-picker'>
+      <Picker
+        value={value}
+        onChange={(v) => {
+          valueRef.current = v.key;
+          setValue(v.key);
+          onChange?.(v.key);
+        }}
+        {...props}
+      />
+    </View>
   );
 };
 

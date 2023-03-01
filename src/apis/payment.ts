@@ -17,12 +17,15 @@ type PayReq = {
  * 支付
  */
 export const pay = (data: PayParams) =>
-  request<PayReq>({
-    method: 'POST',
-    url: '/wx/api/payment/pay',
-    data,
-    dataType: 'json',
-  });
+  request<PayReq>(
+    {
+      method: 'POST',
+      url: '/wx/api/payment/pay',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 /**
  * 支付回调
  */

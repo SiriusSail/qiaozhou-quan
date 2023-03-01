@@ -1,73 +1,154 @@
-import React, { useState } from 'react';
-import { View, redirectTo } from 'remax/one';
+import React, { useState, useRef, useCallback } from 'react';
+import {
+  View,
+  switchTab,
+  navigateTo,
+  scanCode,
+  showModal,
+  // openSetting,
+  // getSetting,
+} from 'remax/wechat';
 import { useQuery } from 'remax';
-import { Result, Button, SearchBar } from 'anna-remax-ui';
+import { Result, Button, Input, Icon, Space } from 'anna-remax-ui';
 import { useRequest } from 'ahooks';
 import { coupon } from '@/apis/usercoupon';
 import userInfoStores from '@/stores/userInfo';
+import styles from './index.less';
 import LoginLayout from '@/layout/loginLayout';
+import { usePageEvent } from 'remax/macro';
 
 const Index: React.SFC = () => {
   const { id } = useQuery();
-  const [couponNo, setCouponNo] = useState(id);
+  const couponNoRef = useRef(id);
   const [data, setData] = useState<API.PropsType>();
-  console.log(id);
-  const { userInfo, getUserInfo, isVip } = userInfoStores.useContainer();
+  const { userInfo } = userInfoStores.useContainer();
 
   const { loading, run } = useRequest(
-    () =>
-      coupon({
+    () => {
+      if (!couponNoRef.current) return Promise.resolve('');
+      return coupon({
         userId: userInfo?.id,
-        couponNo,
-      }),
+        couponNo: couponNoRef.current,
+      });
+    },
     {
-      manual: !userInfo?.id,
+      manual: !userInfo?.id || !couponNoRef.current,
       refreshDeps: [userInfo?.id],
       onError: (e) => {
         setData(e as any as API.PropsType);
+        if (e.code === '401') {
+          navigateTo({
+            url: '/pages/login/index',
+          });
+        }
       },
       onSuccess: (e) => {
-        console.log(e, 22222);
+        setData(e as any as API.PropsType);
       },
     }
   );
-  console.log(data);
+
+  usePageEvent('onShow', () => {
+    if (data?.code === 401 && couponNoRef.current) {
+      run();
+    }
+  });
+
+  const openCamera = useCallback(() => {
+    scanCode({
+      scanType: ['qrCode'],
+      success: (res) => {
+        if (res.result.includes('/qrcode/check')) {
+          const [, id] = res.result.split('id=');
+          couponNoRef.current = id;
+          run();
+        } else {
+          showModal({
+            title: '提示',
+            content: '二维码信息错误',
+            showCancel: false,
+          });
+        }
+      },
+    });
+  }, [run]);
+
   return (
     <LoginLayout>
       <Result
         height='1000px'
         status={data?.success ? 'success' : 'error'}
-        title={loading ? '正在核销' : data?.message}
+        title={couponNoRef.current && (loading ? '正在核销' : data?.message)}
         icon={
-          loading
-            ? {
-                name: 'loading',
-                color: '#fa8c16',
-              }
-            : undefined
+          !couponNoRef.current ? (
+            <View />
+          ) : loading ? (
+            {
+              name: 'loading',
+              color: '#fa8c16',
+            }
+          ) : undefined
         }
-        subTitle={`核销优惠卷：${id}`}
+        subTitle={
+          couponNoRef.current ? `核销优惠卷：${couponNoRef.current}` : undefined
+        }
         extra={
           <View>
             {data?.success || loading ? (
               <Button
                 onTap={() =>
-                  redirectTo({
-                    url: '/pages/index/index',
+                  switchTab({
+                    url: `/pages/index/index`,
                   })
                 }>
                 回到首页
               </Button>
             ) : (
-              <View>
-                <SearchBar
-                  placeholder='手动核销'
-                  actionName='核销'
-                  value={couponNo}
-                  onInput={(v: any) => setCouponNo(v)}
-                  onClear={() => setCouponNo('')}
-                  onActionClick={() => run()}
-                />
+              <View className={styles.content}>
+                <Space>
+                  <Button
+                    style={{ padding: '0' }}
+                    ghost
+                    onTap={() => {
+                      openCamera();
+                      // getSetting({
+                      //   success: (res) => {
+                      //     if (res.authSetting['scope.camera']) {
+                      //       openCamera();
+                      //     } else {
+                      //       openSetting({
+                      //         success: (res) => {
+                      //           if (res.authSetting['scope.camera']) {
+                      //             openCamera();
+                      //           } else {
+                      //             showModal({
+                      //               title: '提示',
+                      //               content: '摄像头权限获取失败',
+                      //               confirmText: '去充值',
+                      //               showCancel: false,
+                      //             });
+                      //           }
+                      //         },
+                      //       });
+                      //     }
+                      //   },
+                      // });
+                    }}>
+                    <Icon type='scan' size='40' />
+                  </Button>
+                  <Input
+                    className={styles.input}
+                    placeholder='请输入优惠卷码'
+                    border={false}
+                    value={couponNoRef.current}
+                    onChange={(v: any) => (couponNoRef.current = v)}
+                    extra={
+                      <Button onTap={run} type='primary' size='small'>
+                        核销
+                      </Button>
+                    }
+                  />
+                </Space>
               </View>
             )}
           </View>

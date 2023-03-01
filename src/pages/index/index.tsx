@@ -215,8 +215,8 @@ const Index = () => {
                   campusId: campuRef.current,
                 });
               }}
-              renderItem={(res, index) => {
-                return <Item key={index} {...res} />;
+              renderItem={(res) => {
+                return <Item key={res.merchantId} {...res} />;
               }}
             />
           );

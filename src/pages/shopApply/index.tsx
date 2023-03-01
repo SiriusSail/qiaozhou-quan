@@ -1,5 +1,5 @@
-import React from 'react';
-import { navigateBack, showToast } from 'remax/wechat';
+import React, { useEffect } from 'react';
+import { navigateBack, showToast, showModal } from 'remax/wechat';
 import enums from '@/stores/enums';
 import user from '@/stores/userInfo';
 import BottomButton from '@/components/bottomButton';
@@ -24,7 +24,7 @@ const Index = () => {
   const [form] = useForm();
   const { getCampusPage, getMerchantType, merchantType, campus } =
     enums.useContainer();
-  const { userInfo, merchant } = user.useContainer();
+  const { userInfo, merchant, getUserInfo } = user.useContainer();
   const { run, loading } = useRequest(
     (params: MerchantApplyParams) => {
       if (isReApply) {
@@ -41,13 +41,34 @@ const Index = () => {
           duration: 2000,
           icon: 'success',
         });
-
+        getUserInfo();
         setTimeout(() => {
           navigateBack();
         }, 2000);
       },
+      onError: (e) => {
+        console.log(e);
+        showModal({
+          title: '提示',
+          content: e.message || '商家申请失败，请联系客服 18883350586',
+          showCancel: false,
+        });
+      },
     }
   );
+
+  useEffect(() => {
+    if (isReApply) {
+      form.setFieldsValue({
+        ...merchant,
+        merAvatarurl: undefined,
+        file: undefined,
+        doorPhoto: undefined,
+        aptitude: undefined,
+        campusId: undefined,
+      });
+    }
+  }, [merchant, form, isReApply]);
 
   usePageEvent('onShow', () => {
     getCampusPage();

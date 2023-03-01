@@ -63,6 +63,9 @@ const config: AppConfig = {
     'scope.userLocation': {
       desc: '你的位置信息将用于小程序定位',
     },
+    // 'scope.camera': {
+    //   desc: '使用您的相机扫码核销优惠券',
+    // },
   },
   requiredBackgroundModes: ['chooseAddress', 'chooseLocation'],
   requiredPrivateInfos: ['chooseAddress', 'chooseLocation'],

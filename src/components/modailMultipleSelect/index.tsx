@@ -5,10 +5,11 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
-import { View } from 'remax/wechat';
+import { View, stopPullDownRefresh } from 'remax/wechat';
 import { Popup, SearchBar, Cell, Space, Tag, Icon } from 'anna-remax-ui';
 import NoData from '../no-data';
 import './index.less';
+import styles from './index.module.less';
 import type { PopupProps } from 'anna-remax-ui/esm/popup';
 
 export interface NewPopupProps extends PopupProps {
@@ -119,7 +120,11 @@ export const Img: React.FC<NewPopupProps> = ({
     return value?.map((key) => {
       const find = _options?.find((item) => item.key === key);
       return (
-        <Tag key={key} size='large' onTap={() => delValues(key)}>
+        <Tag
+          className={styles['search-bar-tag']}
+          key={key}
+          size='large'
+          onTap={() => delValues(key)}>
           <Space>
             <View>{find?.value || key}</View>
             <Icon type='close' />
@@ -130,25 +135,24 @@ export const Img: React.FC<NewPopupProps> = ({
   }, [_options, delValues, value]);
 
   const selectTab = useMemo(() => {
-    return value?.map((key) => {
-      const find = _options?.find((item) => item.key === key);
-      return (
-        <Tag key={key} size='large' className='modail-multiple-select-tag'>
-          {find?.value || key}
-        </Tag>
-      );
-    });
+    return value
+      ?.map((key) => {
+        const find = _options?.find((item) => item.key === key);
+        return find?.value;
+      })
+      .filter((item) => !!item)
+      .join(', ');
   }, [_options, value]);
 
   return (
-    <View className={'modail-select'}>
+    <View className='modail-select'>
       <View
         onTap={() => {
           onClick?.();
           setShow(true);
         }}>
         {value ? (
-          <Space>{selectTab}</Space>
+          <View>{selectTab}</View>
         ) : (
           <View className='anna-form-value-placeholder'>{placeholder}</View>
         )}
@@ -159,38 +163,51 @@ export const Img: React.FC<NewPopupProps> = ({
         {...props}
         open={show}
         onClose={close}>
-        <View>
-          <SearchBar
-            key={key}
-            placeholder='搜索'
-            value={thenValue}
-            hideActionButton
-            onInput={(e) => setThenValue(e)}
-            onClear={clearThenValue}
-            inputStyle={{
-              border: '2px solid #FF7777',
-              backgroundColor: '#FDFFFD',
-            }}
-            style={{ marginBottom: '30px' }}
-          />
-          <Space style={{ width: '100vw' }}>{selectCloseTab}</Space>
-          <View>
-            {options?.length === 0 ? (
-              <NoData />
-            ) : (
-              options?.map((item) => {
-                return (
-                  <Cell
-                    key={item.key || item.value}
-                    label={item.value}
-                    border
-                    onTap={() => {
-                      addValues(item);
-                    }}
-                  />
-                );
-              })
-            )}
+        <View className={styles.content}>
+          <View className={styles.serchbar}>
+            <SearchBar
+              key={key}
+              placeholder='搜索'
+              value={thenValue}
+              hideActionButton
+              onInput={(e) => setThenValue(e)}
+              onClear={clearThenValue}
+              inputStyle={{
+                border: '2px solid #FF7777',
+                backgroundColor: '#FDFFFD',
+              }}
+              style={{ marginBottom: '30px' }}
+            />
+          </View>
+          <View className={styles['content-body']}>
+            <View className={styles['search-bar-style']}>{selectCloseTab}</View>
+            <View className={styles['options-content']}>
+              {options?.length === 0 ? (
+                <NoData />
+              ) : (
+                options?.map((item) => {
+                  // const isSelect = value?.includes(item.key);
+                  console.log(item);
+                  return (
+                    <Cell
+                      key={item.key || item.value}
+                      label={item.value}
+                      border
+                      onTap={() => {
+                        addValues(item);
+                      }}>
+                      {/* {isSelect ? (
+                        <Icon
+                          type={'round_check_fill'}
+                          color='#FF7777'
+                          size='40'
+                        />
+                      ) : undefined} */}
+                    </Cell>
+                  );
+                })
+              )}
+            </View>
           </View>
         </View>
       </Popup>

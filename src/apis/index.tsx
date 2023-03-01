@@ -1,6 +1,6 @@
 import Request from './request';
 import storage from '@/utils/storage';
-import { showModal } from 'remax/wechat';
+import { showModal, showLoading, hideLoading } from 'remax/wechat';
 import { navigateBack, uploadFile, navigateTo } from 'remax/wechat';
 import { baseUrl } from '@/consts/index';
 
@@ -8,7 +8,7 @@ export const { request, interceptors } = new Request({
   baseUrl,
 });
 
-interceptors.request.use((options) => {
+interceptors.request.use((options, loading) => {
   const token = storage.get('token') || '';
   options.data = options.data || {};
   options.header = options.header || {};
@@ -18,6 +18,9 @@ interceptors.request.use((options) => {
 
   if (options.dataType !== 'json') {
     options.header['content-type'] = 'application/x-www-form-urlencoded';
+  }
+  if (loading) {
+    showLoading();
   }
 
   options.data = {
@@ -40,8 +43,11 @@ interceptors.response.use(
       ...agr
     },
     config,
-    isHideError
+    loading
   ) => {
+    if (loading) {
+      hideLoading();
+    }
     if (code === 401) {
       storage.del('token');
     }
@@ -53,7 +59,7 @@ interceptors.response.use(
         success: (e) => {
           if (e.confirm) {
             navigateTo({
-              url: '/pages/vpis/index',
+              url: '/pages/vips/index',
             });
           }
         },
@@ -101,12 +107,15 @@ export type Banner = {
 const apis = {
   // 登录
   login: (data: LoginReq) => {
-    return request<string>({
-      method: 'POST',
-      url: '/wx/api/auth/wxClickLogin',
-      data,
-      dataType: 'json',
-    }).then((response) => {
+    return request<string>(
+      {
+        method: 'POST',
+        url: '/wx/api/auth/wxClickLogin',
+        data,
+        dataType: 'json',
+      },
+      true
+    ).then((response) => {
       storage.set('token', response);
       navigateBack();
       return response;

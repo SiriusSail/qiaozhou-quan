@@ -47,17 +47,17 @@ export default class Request {
   }
   public request = async <T,>(
     options: RequestOptions,
-    isHideError?: boolean
+    showLoading?: boolean
   ): Promise<T> =>
     // Omit<WechatMiniprogram.RequestSuccessCallbackResult, 'data'> & { data: T }>
     {
       let requestOptions = this.getRequestOptions(options);
       for (const item of this.requestInterceptors) {
-        requestOptions = await item(requestOptions, isHideError);
+        requestOptions = await item(requestOptions, showLoading);
       }
       let result = await request(requestOptions);
       for (const item of this.responseInterceptors) {
-        result = (await item(result, requestOptions, isHideError)) || result;
+        result = (await item(result, requestOptions, showLoading)) || result;
       }
       return result as any;
     };

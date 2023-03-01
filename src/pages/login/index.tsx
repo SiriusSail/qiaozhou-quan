@@ -67,6 +67,7 @@ const Index = () => {
             .catch(() => {
               showToast({
                 title: '手机号获取失败',
+                icon: 'error',
               });
             });
         }}>
