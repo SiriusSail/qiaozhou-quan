@@ -35,7 +35,7 @@ export default createContainer(() => {
       if (storage.get('token')) {
         return useApi.userInfo();
       } else {
-        return Promise.reject(undefined);
+        return Promise.resolve(undefined);
       }
     },
     {
@@ -65,13 +65,12 @@ export default createContainer(() => {
 
   const { data: merchant, run: getMerchant } = useRequest(
     () => {
-      if (!userInfo!.id) {
+      if (!userInfo?.id) {
         return Promise.resolve({} as MerchantApplyParams);
       }
       return getMerchantByUserId(userInfo!.id);
     },
     {
-      manual: !userInfo?.id,
       refreshDeps: [userInfo],
     }
   );
@@ -97,6 +96,36 @@ export default createContainer(() => {
     }
     return true;
   }, []);
+  const valiApply = useCallback(
+    ({
+      isHideModal,
+      content = '该功能仅对月会员开放',
+    }: {
+      isHideModal?: boolean;
+      content?: string;
+    }) => {
+      if (!valiLoading()) return false;
+      if (!userInfo?.isApply) {
+        if (!isHideModal) {
+          return false;
+        }
+        showModal({
+          title: '提示',
+          content,
+          confirmText: '去充值',
+          success: (e) => {
+            if (e.confirm) {
+              navigateTo({
+                url: '/pages/vips/index',
+              });
+            }
+          },
+        });
+      }
+      return true;
+    },
+    [userInfo?.isApply, valiLoading]
+  );
 
   const valiVip = useCallback(
     ({ isHideModal, content }: { isHideModal?: boolean; content?: string }) => {
@@ -124,6 +153,7 @@ export default createContainer(() => {
   return {
     userInfo,
     isVip,
+    valiApply,
     valiLoading,
     invalidToken,
     valiVip,

@@ -141,7 +141,11 @@ const Index = () => {
                 message: '不小低于最低金额',
                 validator: (rule, value, callback) => {
                   const minAmount = form.getFieldValue('minAmount');
-                  if (value >= minAmount) {
+                  if (
+                    value &&
+                    minAmount &&
+                    parseInt(value) >= parseInt(minAmount)
+                  ) {
                     callback();
                   } else {
                     callback('不小低于最低金额');

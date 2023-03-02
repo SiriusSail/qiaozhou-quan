@@ -25,7 +25,7 @@ const Index = () => {
           <View className={styles['info-title']}>
             <Space>
               <View>
-                {userInfo ? (
+                {userInfo?.id ? (
                   <IconFont
                     size={60}
                     color={isVip ? 'red' : '#ccc'}

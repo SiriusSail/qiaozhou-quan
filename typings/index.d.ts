@@ -73,6 +73,10 @@ declare namespace API {
      */
     gender: string;
     /**
+     * 是否有资格创建商户
+     */
+    isApply: string;
+    /**
      * 用户id
      */
     id: string;

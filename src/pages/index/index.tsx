@@ -175,6 +175,7 @@ const Index = () => {
                 updateCampus({ userId: userInfo?.id, campusId: val });
               startPullDownRefresh();
             }}
+            value={campuRef.current!}
             initOpen={!campuRef.current}
             options={campus?.data || []}
             onClick={getCampusPage}
