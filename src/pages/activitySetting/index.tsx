@@ -46,7 +46,7 @@ const Index = () => {
     manual: true,
     onSuccess: () => {
       showToast({
-        title: '活动创建成功',
+        title: '操作成功',
         duration: 2000,
         icon: 'success',
       });
@@ -58,7 +58,7 @@ const Index = () => {
       console.log(e);
       showModal({
         title: '提示',
-        content: e.message || '活动创建失败',
+        content: e.message || '操作失败',
         showCancel: false,
       });
     },
