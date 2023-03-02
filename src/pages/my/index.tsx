@@ -40,18 +40,18 @@ const TagItem: React.FC<TagItemProps> = ({
 };
 
 const Index = () => {
-  const { userInfo, getUserInfo, isVip, merchant, valiApply } =
+  const { userInfo, getUserInfo, isVip, merchant, valiLoading } =
     userInfoStores.useContainer();
   usePageEvent('onShow', () => {
     getUserInfo();
   });
   // 点击成为商家
   const handleMechart = () => {
-    // if (valiApply({ content: '该功能仅对月会员开放' })) {
-    navigateTo({
-      url: '/pages/shopApply/index',
-    });
-    // }
+    if (valiLoading()) {
+      navigateTo({
+        url: '/pages/shopApply/index',
+      });
+    }
   };
   return (
     <View className={styles.my}>
