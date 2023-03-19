@@ -8,6 +8,7 @@ import { useMemo, useRef, useCallback, useState } from 'react';
 import { getMerchantByUserId } from '@/apis/merchant';
 import type { MerchantApplyParams } from '@/apis/merchant';
 import { updateCampus } from '@/apis/user';
+// import getCurrentPageUrl from '@/utils/getCurrentPageUrl';
 
 type ShareType = {
   /**
@@ -30,6 +31,8 @@ type ShareType = {
 
 export default createContainer(() => {
   const [invalidToken, setInvalidToken] = useState(false);
+
+  const share = useRef<ShareType>();
   const { data: userInfo, run: getUserInfo } = useRequest(
     () => {
       if (storage.get('token')) {
@@ -46,22 +49,22 @@ export default createContainer(() => {
       onSuccess: (e) => {
         setInvalidToken(false);
         const campu = storage.get('campu');
-        if (!e.campusId) {
+        if (!e?.campusId) {
           if (campu) {
             updateCampus({ userId: userInfo?.id, campusId: campu });
           }
         } else {
-          storage.set('campu', e.campusId);
+          storage.set('campu', e?.campusId);
         }
+        storage.set('invitationCode', e?.invitationCode);
       },
     }
   );
+
   const isVip = useMemo(
     () => dayjs(userInfo?.memberEndTime).diff(dayjs()) > 0,
     [userInfo]
   );
-
-  const share = useRef<ShareType>();
 
   const { data: merchant, run: getMerchant } = useRequest(
     () => {

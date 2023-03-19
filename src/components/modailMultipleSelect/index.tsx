@@ -187,7 +187,6 @@ export const Img: React.FC<NewPopupProps> = ({
               ) : (
                 options?.map((item) => {
                   // const isSelect = value?.includes(item.key);
-                  console.log(item);
                   return (
                     <Cell
                       key={item.key || item.value}

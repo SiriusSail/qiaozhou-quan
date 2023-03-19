@@ -16,6 +16,7 @@
     "ahooks": "^3.7.4",
     "anna-remax-ui": "^1.9.3",
     "annar": "^2.2.1",
+    "currency.js": "^2.0.4",
     "parsec-hooks": "^1.0.19",
     "rc-field-form": "^1.27.3",
     "react": "^16.12.0",

@@ -1,82 +1,75 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { View, Image } from 'remax/one';
-import { previewImage, chooseMedia, uploadFile } from 'remax/wechat';
+import { previewImage, chooseMedia, showToast } from 'remax/wechat';
 import { sync, to, deepClone } from 'anna-remax-ui/esm/_util';
 import { getPrefixCls } from 'anna-remax-ui/esm/common';
 import Icon from 'anna-remax-ui/esm/icon';
-import { baseUrl } from '@/consts/index';
+import { urlPath } from '@/consts/index';
 import classnames from 'classnames';
 import apis from '@/apis/index';
+import { useControllableValue } from 'ahooks';
 
 const prefixCls = getPrefixCls('image-upload');
 
-export interface ImageProps {
-  key: string;
-  url: string;
-}
+// export interface ImageProps {
+//   key: string;
+//   url: string;
+// }
 
-export type DataItem = ImageProps | string;
+// export type DataItem = ImageProps | string;
 
 export interface ImageUploadProps {
   // files?: DataItem[];
-  value?: DataItem[];
+  value?: string[];
+  defaultValue?: string[];
   className?: string;
   multiple?: boolean;
-  multipleCount?: number;
   sizeType?: string[];
   sourceType?: string[];
   deletable?: boolean;
   disabled?: boolean;
   maxCount?: number;
   children?: React.ReactNode;
-  onChange?: (e: DataItem[]) => void;
+  onChange?: (e: string[]) => void;
 }
 
 const initFiles: any[] = [];
 
 const ImageUpload = ({
-  value: _value = initFiles,
+  value = initFiles,
+  defaultValue = initFiles,
   onChange: _onChange,
   multiple,
-  multipleCount,
   sizeType,
   sourceType,
   deletable = true,
   disabled,
-  maxCount,
+  maxCount = 99,
   className,
   children,
 }: ImageUploadProps) => {
-  const [files, setFiles] = useState(_value);
-  const filesRef = useRef(JSON.stringify(_value));
-  useEffect(() => {
-    console.log(filesRef.current, JSON.stringify(_value));
-    if (filesRef.current !== JSON.stringify(_value)) {
-      filesRef.current = JSON.stringify(_value);
-      setFiles(_value);
+  const [files, setFiles] = useControllableValue<string[]>(
+    {
+      value,
+      defaultValue,
+      onChange: _onChange,
+    },
+    {
+      defaultValue: [],
     }
-  }, [_value]);
+  );
 
   const onChange = useCallback(
-    (v: DataItem[]) => {
-      console.log(v);
-      filesRef.current = JSON.stringify(v);
+    (v: string[]) => {
       setFiles(v);
-      _onChange?.(v);
     },
-    [_onChange]
+    [setFiles]
   );
 
   const handleClickImage = (index: number) => {
-    let urls = files;
     const current = index as any as string;
-    if (typeof files[index] !== 'string') {
-      urls = files?.map?.(
-        (i) => (i as ImageProps).url || (i as any).tempFilePath
-      );
-    }
     previewImage({
-      urls: urls as string[],
+      urls: files as string[],
       current,
       enablesavephoto: true,
       enableShowPhotoDownload: true,
@@ -86,16 +79,8 @@ const ImageUpload = ({
   const handleDelete = useCallback(
     (e: any, index: number) => {
       e.stopPropagation();
-      let newValue = deepClone(files);
+      const newValue = deepClone(files);
       newValue.splice(index, 1);
-      newValue = newValue.map((item: DataItem, index: number) => {
-        const newItem = item;
-        if (typeof newItem === 'string') {
-          return newItem;
-        }
-        (newItem as ImageProps).key = String(index);
-        return newItem;
-      });
       onChange?.(newValue);
     },
     [files, onChange]
@@ -105,15 +90,14 @@ const ImageUpload = ({
     if (disabled) {
       return;
     }
-    const params: any = {};
+    const addNumber = maxCount - (files?.length || 0);
+    const params: any = { count: addNumber };
+
     if (multiple) {
       params.multiple = true;
       params.count = 99;
     } else {
       params.multiple = false;
-    }
-    if (multipleCount) {
-      params.count = multipleCount;
     }
     if (sizeType) {
       params.sizeType = sizeType;
@@ -128,28 +112,35 @@ const ImageUpload = ({
     const targetFiles = resc.filePaths
       ? resc.filePaths.map((i: any) => i)
       : resc.tempFiles?.map?.((i: any) => i);
+    const newFiles = targetFiles.slice(0, addNumber);
 
-    targetFiles.forEach((item: any) =>
-      apis.uploadFile(item.tempFilePath).then((res) => {
-        const newFiles = files.concat({ ...item, url: res.data });
-        onChange?.(newFiles);
+    const resMap = newFiles.map((item: any) =>
+      apis.uploadFile(item.tempFilePath).then((res: any) => {
+        const resUrl = (res.data || res.message) as string;
+        const [, src] = resUrl.split('/home/data/upload/');
+        const url = `${urlPath}${src}`;
+        console.log(url);
+        return url;
       })
     );
-  }, [
-    disabled,
-    files,
-    multiple,
-    multipleCount,
-    onChange,
-    sizeType,
-    sourceType,
-  ]);
+
+    Promise.all(resMap)
+      .then((res) => {
+        onChange?.(files.concat(res));
+      })
+      .catch(() => {
+        showToast({
+          title: '上传失败',
+          icon: 'error',
+        });
+      });
+  }, [disabled, files, multiple, onChange, maxCount, sizeType, sourceType]);
 
   return (
     <View className={classnames(prefixCls, className)}>
-      {files?.map?.((item: DataItem, index: number) => (
+      {files?.map?.((item, index: number) => (
         <View
-          key={(item as ImageProps)?.key || index}
+          key={item}
           className={`${prefixCls}-item`}
           onTap={() => handleClickImage(index)}>
           {deletable ? (
@@ -172,17 +163,10 @@ const ImageUpload = ({
               </View>
             </View>
           ) : null}
-          <Image
-            mode='widthFix'
-            src={
-              (item as any)?.tempFilePath ||
-              (item as ImageProps)?.url ||
-              (item as string)
-            }
-          />
+          <Image mode='widthFix' src={item} />
         </View>
       ))}
-      {!maxCount || files.length < maxCount ? (
+      {!maxCount || !files || files.length < maxCount ? (
         <View onTap={handleAdd}>
           {children ?? (
             <View className={`${prefixCls}-add`}>

@@ -3,6 +3,7 @@ import { View, navigateTo, redirectTo, switchTab } from 'remax/wechat';
 import { Row, Col, Button, Tag, Space } from 'anna-remax-ui';
 import styles from './index.less';
 import classnames from 'classnames';
+import dayjs from 'dayjs';
 import type { CampusVoucherItem } from '@/apis/usercoupon';
 
 const Index = (
@@ -13,27 +14,31 @@ const Index = (
       url: `/pages/voucher/index?id=${item.couponNo}`,
     });
   }, [item]);
+  const expiredOrNot =
+    !item.effectiveTime || dayjs(item.effectiveTime).diff(new Date()) > 0;
   return (
     <Row className={styles['bag-item']}>
-      <Col span={7} className={styles['bag-item-left']}>
+      <Col span={8} className={styles['bag-item-left']}>
         <View
           className={classnames(styles['bag-item-up'], styles['font-size-80'])}>
           <Space size={0}>
-            <View>{(item.favorable * 1).toFixed(2)}</View>
             <View className={styles.unit}>￥</View>
+            <View>{(item.favorable * 1).toFixed(2)}</View>
           </Space>
         </View>
         <View className={styles['bag-item-down']}>
           <Tag color='red'>{item.couponName || '随机红包'}</Tag>
         </View>
       </Col>
-      <Col span={11}>
+      <Col span={10}>
         <View
           className={classnames(styles['bag-item-up'], styles['font-size-60'])}>
           任意消费可用
         </View>
         <View className={styles['bag-item-down']}>
-          {item.effectiveTime ? `有效期至 ${item.effectiveTime}` : '今日有效'}
+          {item.effectiveTime
+            ? `有效期至 ${dayjs(item.effectiveTime).format('YYYY-MM-DD')}`
+            : '今日有效'}
         </View>
       </Col>
       <Col span={6}>
@@ -54,9 +59,13 @@ const Index = (
             <Button disabled={true} type='primary' danger>
               已使用
             </Button>
-          ) : (
+          ) : expiredOrNot ? (
             <Button type='primary' onTap={toVoucher} danger>
               使用
+            </Button>
+          ) : (
+            <Button type='primary' disabled={true} danger>
+              已过期
             </Button>
           )}
         </View>

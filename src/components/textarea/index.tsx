@@ -32,7 +32,9 @@ export const TextareaExtend: React.FC<TextareaPropsType> = ({
           style={{ flexDirection: 'column', width: '100%' }}>
           <View className='anna-cell-container-main-left anna-cell-container-main-left-input'>
             <View className='anna-cell-container-main-left-label'>
-              <View className='anna-cell-container-main-left-label-value'>
+              <View
+                className='anna-cell-container-main-left-label-value'
+                style={{ paddingBottom: '20rpx' }}>
                 {label}
               </View>
             </View>

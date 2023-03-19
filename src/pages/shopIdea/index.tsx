@@ -43,7 +43,7 @@ const Index = () => {
       ...merchant,
       merAvatarurl: merchant?.merAvatarUrl,
       file: merchant?.fileUrl,
-      doorPhoto: [merchant?.doorPhotoUrl],
+      doorPhoto: [merchant?.doorPhoto],
       aptitude: merchant?.aptitudeUrl,
       campusId: merchant?.list?.map((item) => item.id!),
     });
@@ -140,16 +140,11 @@ const Index = () => {
           size='large'
           onTap={() => {
             form.validateFields().then(async (value) => {
-              console.log(value);
-              const { file, merAvatarurl, doorPhoto, aptitude, ...params } =
-                value;
+              const { doorPhoto, ...params } = value;
               run({
                 ...params,
                 userId: userInfo?.id,
-                // file: file.map((item: any) => item.url || item),
-                // aptitude: aptitude.map((item: any) => item.url || item),
-                merAvatarurl: merAvatarurl.url || merAvatarurl,
-                doorPhoto: doorPhoto?.[0]?.url || doorPhoto?.[0],
+                doorPhoto: doorPhoto?.[0],
               });
             });
           }}

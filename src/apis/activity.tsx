@@ -52,6 +52,10 @@ export type ActivityInfo = {
   couponId: string;
   /**	随机红包	array	*/
   list: ActivetyAmountInfo[];
+  /**	活动类型	array	*/
+  type: 1 | 2;
+  /**	活动图片	array	*/
+  pics: string[];
   /**	红包最高金额	*/
   maxAmount: number;
   /**	红包最低金额	*/
@@ -79,6 +83,8 @@ export type ActivetyUser = {
   doorPhoto: string;
   getNum: string;
   description: string;
+  type: 1 | 2;
+  pics: string[];
   merNo: string;
   merchantAddress: string;
   merchantId: string;

@@ -8,11 +8,10 @@ import {
   startPullDownRefresh,
 } from 'remax/wechat';
 import { Icon, Space, Grid, Card, Tag } from 'anna-remax-ui';
-import Image from '@/components/image';
+import BackImage from '@/components/backImage';
 import storage from '@/utils/storage';
 import styles from './index.less';
 import userInfoStores from '@/stores/userInfo';
-import apis from '@/apis/index';
 import enums from '@/stores/enums';
 import RedEnvelope from '@/components/redEnvelope';
 import Banner from '@/components/banner';
@@ -26,6 +25,7 @@ import Native from '@/components/native';
 import { receiveCoupon } from '@/apis/usercoupon';
 import type { ActivetyAmountInfo } from '@/apis/activity';
 import { usePageEvent } from 'remax/macro';
+import invitationShare from '@/utils/invitationShare';
 
 const Item = (props: ActivetyUser) => {
   const { userInfo, share } = userInfoStores.useContainer();
@@ -83,9 +83,11 @@ const Item = (props: ActivetyUser) => {
             )
           }
           cover={
-            <Image
+            <BackImage
               height='120rpx'
               width='120rpx'
+              preview={false}
+              style={{ borderRadius: '10rpx' }}
               src={props.merAvatarurl || '/images/test/nouser.jpg'}
             />
           }
@@ -98,7 +100,8 @@ const Item = (props: ActivetyUser) => {
       foot={
         <View className={styles['card-footer']}>
           <View className={styles.browse}>
-            已领取: {parseInt(props.getNum || 0) + getNum}
+            {props?.type === 1 &&
+              `已领取: ${parseInt(props.getNum || 0) + getNum}`}
           </View>
           <Space>
             <Button
@@ -117,15 +120,29 @@ const Item = (props: ActivetyUser) => {
         </View>
       }>
       <View className={styles.envelopes}>
-        <Grid data={props.list} columns={3} gutter={16}>
-          {(col) => (
-            <RedEnvelope
-              receive={() => receive(col)}
-              couponName={props.actContent}
-              {...col}
-            />
-          )}
-        </Grid>
+        {props.type === 2 ? (
+          <Grid data={props.pics} columns={3} gutter={12}>
+            {(col) => (
+              <BackImage
+                preview={props.pics}
+                style={{ margin: '6px 0', borderRadius: '10rpx' }}
+                src={col}
+                height='30vw'
+                width='100%'
+              />
+            )}
+          </Grid>
+        ) : (
+          <Grid data={props.list} columns={3} gutter={16}>
+            {(col) => (
+              <RedEnvelope
+                receive={() => receive(col)}
+                couponName={props.actContent}
+                {...col}
+              />
+            )}
+          </Grid>
+        )}
       </View>
     </Card>
   );
@@ -143,6 +160,7 @@ const Index = () => {
       menus: ['shareAppMessage', 'shareTimeline'],
     });
   });
+
   usePageEvent('onShow', () => {
     const storageCampu = storage.get('campu');
     if (storageCampu && campuRef.current !== storageCampu) {
@@ -153,13 +171,13 @@ const Index = () => {
   });
 
   usePageEvent('onShareAppMessage', (res) => {
-    if (res.from === 'button') {
+    if (res.from === 'button' && share.current) {
       // 来自页面内转发按钮
-      console.log(res.target);
-      return share.current || {};
+      return invitationShare(share.current);
     }
-    return {};
+    return invitationShare();
   });
+
   return (
     <View>
       <View className={styles.top}>

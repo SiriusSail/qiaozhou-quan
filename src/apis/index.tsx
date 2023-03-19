@@ -107,11 +107,15 @@ export type Banner = {
 const apis = {
   // 登录
   login: (data: LoginReq) => {
+    const invitationCode = storage.get('invitedCode');
     return request<string>(
       {
         method: 'POST',
         url: '/wx/api/auth/wxClickLogin',
-        data,
+        data: {
+          ...data,
+          invitationCode,
+        },
         dataType: 'json',
       },
       true
@@ -137,7 +141,7 @@ const apis = {
   uploadFile: (path: string) => {
     const token = storage.get('token') || '';
     return uploadFile({
-      url: `${baseUrl}/wx/api/file/upload`,
+      url: `${baseUrl}/wx/api/file/uploadPic`,
       filePath: path,
       name: 'file',
       header: {

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { Row, Col } from 'anna-remax-ui';
 import ImageUpload from '@/components/image-upload';
 import { View } from 'remax/wechat';
@@ -13,7 +13,9 @@ export const Img: React.FC<NewImageUploadProps> = ({ label, ...props }) => {
   return (
     <View className={styles.image}>
       <Row gutter={16}>
-        <Col span={24}>{label}</Col>
+        <Col span={24}>
+          <View className={styles.label}>{label}</View>
+        </Col>
       </Row>
       <Row gutter={16}>
         <Col span={24}>

@@ -47,7 +47,6 @@ const Index = () => {
         }, 2000);
       },
       onError: (e) => {
-        console.log(e);
         showModal({
           title: '提示',
           content: e.message || '商家申请失败，请联系客服 18883350586',
@@ -182,16 +181,11 @@ const Index = () => {
           size='large'
           onTap={() => {
             form.validateFields().then(async (value) => {
-              console.log(value);
-              const { file, merAvatarurl, doorPhoto, aptitude, ...params } =
-                value;
+              const { doorPhoto, ...params } = value;
               run({
                 ...params,
                 userId: userInfo?.id,
-                file: file.map((item: any) => item.url),
-                aptitude: aptitude.map((item: any) => item.url),
-                merAvatarurl: merAvatarurl.url,
-                doorPhoto: doorPhoto?.[0]?.url,
+                doorPhoto: doorPhoto?.[0],
               });
             });
           }}

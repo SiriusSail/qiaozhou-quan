@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, showToast, navigateBack, showModal } from 'remax/wechat';
-import styles from './index.less';
 import Textarea from '@/components/Textarea';
 import {
   createActivity,
@@ -11,6 +10,8 @@ import BottomButton from '@/components/bottomButton';
 import Switch from '@/components/switch';
 import Form, { useForm, Field } from 'rc-field-form';
 import FormItem from '@/components/formItem';
+import TabsSelect, { TabContent } from '@/components/tabsSelect';
+import ImageUpload from '@/components/imageUpload';
 import { Input, Cell } from 'anna-remax-ui';
 import { useRequest } from 'ahooks';
 import userInfoStores from '@/stores/userInfo';
@@ -18,19 +19,28 @@ import userInfoStores from '@/stores/userInfo';
 const Index = () => {
   const [form] = useForm();
   const { userInfo } = userInfoStores.useContainer();
-  const { data } = useRequest(
+  useRequest(
     () => {
-      if (!userInfo?.merchantId) {
-        return Promise.resolve(undefined);
-      }
+      if (!userInfo?.merchantId) return Promise.resolve(undefined);
       return getActivityByMerchantId(userInfo?.merchantId);
     },
     {
       refreshDeps: [userInfo?.merchantId],
       onSuccess: (e) => {
-        if (e) {
-          form.setFieldsValue(e);
-        }
+        if (!e) return;
+        const newData = Object.entries(e)
+          .filter(([, val]) => !!val)
+          .reduce(
+            (previousValue, currentValue) => ({
+              ...previousValue,
+              [currentValue[0]]: currentValue[1],
+            }),
+            {}
+          );
+        form.setFieldsValue({
+          ...newData,
+          type: [(newData as any)?.type].toString(),
+        });
       },
       onError: (e) => {
         console.log(e);
@@ -84,137 +94,145 @@ const Index = () => {
       });
     },
   });
+
+  const submit = useCallback(() => {
+    const value = form.getFieldsValue();
+    const { id, pics, type } = value;
+    const params = {
+      ...value,
+      type: parseInt(type),
+      pics: pics,
+      merchantId: userInfo?.merchantId,
+    };
+    if (id) {
+      return update(params);
+    }
+    params.userId = userInfo?.id;
+    create(params);
+  }, [create, form, update, userInfo?.id, userInfo?.merchantId]);
   return (
-    <View className={styles.setting}>
+    <View>
       <Form component={false} form={form}>
-        <View>
-          <Field name='id' />
-          {/* <FormItem padding={130} name='a' trigger='onChange' rules={[{ required: true }]}>
-            <Picker
-              label='活动类型'
-              options={options}
-              border
-              placeholder='请输入活动类型'
-            />
-          </FormItem> */}
-          {/* <FormItem
-            padding={130}
-            name='actName'
-            trigger='onChange'
-            rules={[{ required: true }]}>
-            <Input label='活动名称' placeholder='请输入活动名称' />
-          </FormItem> */}
+        <Field name='id' />
+        <FormItem padding={130} initialValue={1} name='type' trigger='onChange'>
+          <TabsSelect animated>
+            <TabContent key='1' tab='红包活动'>
+              <FormItem
+                padding={130}
+                name='minAmount'
+                trigger='onChange'
+                rules={[
+                  { required: true },
+                  {
+                    required: true,
+                    message: '最低金额不得少于1元',
+                    validator: (rule, value, callback) => {
+                      if (value >= 1) {
+                        callback();
+                      } else {
+                        callback('最低金额不得少于1元');
+                      }
+                    },
+                  },
+                ]}>
+                <Input
+                  label='最低金额'
+                  type='digit'
+                  placeholder='请输入最低金额 最低1元'
+                />
+              </FormItem>
+              <FormItem
+                padding={130}
+                name='maxAmount'
+                trigger='onChange'
+                rules={[
+                  { required: true },
+                  {
+                    required: true,
+                    message: '不小低于最低金额',
+                    validator: (rule, value, callback) => {
+                      const minAmount = form.getFieldValue('minAmount');
+                      if (
+                        value &&
+                        minAmount &&
+                        parseInt(value) >= parseInt(minAmount)
+                      ) {
+                        callback();
+                      } else {
+                        callback('不小低于最低金额');
+                      }
+                    },
+                  },
+                ]}>
+                <Input
+                  label='最高金额'
+                  type='digit'
+                  placeholder='请输入最高金额'
+                />
+              </FormItem>
+            </TabContent>
+            <TabContent key='2' tab='图文活动'>
+              <FormItem
+                padding={20}
+                name='pics'
+                trigger='onChange'
+                rules={[{ required: true, message: '请选择活动图片' }]}>
+                <ImageUpload maxCount={9} label='活动图片' />
+              </FormItem>
+            </TabContent>
+          </TabsSelect>
+        </FormItem>
+        <Cell
+          label='开启活动'
+          valueStyle={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}>
           <FormItem
             padding={130}
-            name='minAmount'
-            type='digit'
-            trigger='onChange'
-            rules={[
-              { required: true },
-              {
-                required: true,
-                message: '最低金额不得少于1元',
-                validator: (rule, value, callback) => {
-                  if (value >= 1) {
-                    callback();
-                  } else {
-                    callback('最低金额不得少于1元');
-                  }
-                },
-              },
-            ]}>
-            <Input
-              label='最低金额'
-              type='digit'
-              placeholder='请输入最低金额 最低1元'
-            />
+            name='actStatus'
+            initialValue={1}
+            trigger='onChange'>
+            <Switch />
           </FormItem>
-
-          <FormItem
-            padding={130}
-            name='maxAmount'
-            trigger='onChange'
-            rules={[
-              { required: true },
-              {
-                required: true,
-                message: '不小低于最低金额',
-                validator: (rule, value, callback) => {
-                  const minAmount = form.getFieldValue('minAmount');
-                  if (
-                    value &&
-                    minAmount &&
-                    parseInt(value) >= parseInt(minAmount)
-                  ) {
-                    callback();
-                  } else {
-                    callback('不小低于最低金额');
-                  }
-                },
-              },
-            ]}>
-            <Input label='最高金额' type='digit' placeholder='请输入最高金额' />
-          </FormItem>
-
-          <Cell
-            label='开启活动'
-            valueStyle={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}>
-            <FormItem
-              padding={130}
-              name='actStatus'
-              initialValue={1}
-              trigger='onChange'>
-              <Switch />
-            </FormItem>
-          </Cell>
-          {/* <FormItem
-            padding={130}
-            name='total'
-            trigger='onChange'
-            rules={[{ required: true }]}>
-            <Input label='红包个数' placeholder='请输入红包个数' />
-          </FormItem> */}
-          {/* <FormItem
-            padding={130}
-            name='actContent'
-            trigger='onChange'
-            rules={[{ required: true }]}>
-            <Textarea
-              style={{ padding: '20rpx' }}
-              label='优惠券使用规则'
-              placeholder='请输入优惠券使用规则'
-            />
-          </FormItem> */}
-          <FormItem
-            padding={130}
-            name='actDescribe'
-            trigger='onChange'
-            rules={[{ required: true }]}>
-            <Textarea
-              style={{ padding: '10rpx' }}
-              label='活动文案阐述'
-              placeholder='请输入活动文案阐述'
-            />
-          </FormItem>
-        </View>
+        </Cell>
+        <FormItem
+          padding={130}
+          name='actDescribe'
+          trigger='onChange'
+          rules={[{ required: true }]}>
+          <Textarea
+            style={{ padding: '10rpx' }}
+            label='活动文案阐述'
+            placeholder='请输入活动文案阐述'
+          />
+        </FormItem>
 
         <BottomButton
           size='large'
           loading={createLoading || updateLoading}
           onTap={() => {
-            form.validateFields().then(async (value) => {
-              if (value.id) {
-                return update(value);
-              }
-              create({
-                ...value,
-                userId: userInfo?.id,
-                merchantId: userInfo?.merchantId,
+            const value = form.getFieldsValue();
+            const { type } = value;
+            form
+              .validateFields()
+              .then(() => {
+                submit();
+              })
+              .catch(({ errorFields }) => {
+                const noreName: string[] = [];
+                if (parseInt(type) === 2) {
+                  noreName.push('maxAmount', 'minAmount');
+                }
+                if (parseInt(type) === 1) {
+                  noreName.push('pics');
+                }
+                const newFields = errorFields.filter(
+                  (item: any) => !noreName.includes(item?.name?.[0])
+                );
+                if (newFields.length > 0) return;
+                submit();
               });
-            });
           }}
           type='primary'
           shape='square'

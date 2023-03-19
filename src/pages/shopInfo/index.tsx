@@ -3,7 +3,7 @@ import { View, navigateTo } from 'remax/wechat';
 import styles from './index.less';
 import BottomButton from '@/components/bottomButton';
 import Block from '@/components/block';
-import Image from '@/components/image';
+import BackImage from '@/components/backImage';
 import LoginLayout from '@/layout/loginLayout';
 import { Cell, ImageUpload } from 'anna-remax-ui';
 import user from '@/stores/userInfo';
@@ -20,7 +20,14 @@ const Index = () => {
     <LoginLayout>
       <View className={styles.setting}>
         <Cell label='店铺头像'>
-          {<Image src={data?.merAvatarUrl} height='40rpx' width='40rpx' />}
+          {
+            <BackImage
+              src={data?.merAvatarUrl}
+              style={{ display: 'inline-block' }}
+              height='40rpx'
+              width='40rpx'
+            />
+          }
         </Cell>
         <Cell label='店铺名称'>{data?.merName}</Cell>
         <Cell label='联系人'>{data?.merPerson}</Cell>
@@ -33,7 +40,7 @@ const Index = () => {
         <Cell label='店铺简介'>{data?.merDescribe}</Cell>
         <Block contentStyle={{ padding: '0 30rpx' }} title='门头照'>
           <ImageUpload
-            files={[data?.doorPhotoUrl || '']}
+            files={[data?.doorPhoto || '']}
             deletable={false}
             disabled={true}
             maxCount={1}

@@ -81,6 +81,10 @@ declare namespace API {
      */
     id: string;
     /**
+     * 邀请码
+     */
+    invitationCode: string;
+    /**
      * 区域
      */
     campusId: string;

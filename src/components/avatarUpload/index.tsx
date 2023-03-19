@@ -7,68 +7,53 @@ import { getPrefixCls } from 'anna-remax-ui/esm/common';
 import Icon from 'anna-remax-ui/esm/icon';
 import apis from '@/apis/index';
 import classnames from 'classnames';
+import { useControllableValue } from 'ahooks';
+import { urlPath } from '@/consts/index';
 
 const prefixCls = getPrefixCls('avatar-upload');
 
-export interface ImageProps {
-  key: string;
-  url: string;
-}
-
-export type DataItem = (ImageProps & { tempFilePath?: string }) | string;
-
+// files?: DataItem[];
 export interface ImageUploadProps {
   // files?: DataItem[];
-  value?: DataItem;
+  value?: string;
+  defaultValue?: string;
   className?: string;
   multiple?: boolean;
-  multipleCount?: number;
   sizeType?: string[];
   sourceType?: string[];
+  deletable?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
-  onChange?: (e: DataItem) => void;
+  onChange?: (e: string) => void;
 }
 
-const initFiles: any = undefined;
-
 const ImageUpload = ({
-  value = initFiles,
+  value,
   onChange: _onChange,
   multiple,
-  multipleCount,
+  defaultValue,
   sizeType,
   sourceType,
   disabled,
   className,
 }: ImageUploadProps) => {
-  const [files, setFiles] = useState(value);
-  const filesRef = useRef(JSON.stringify(value));
-  useEffect(() => {
-    if (filesRef.current !== JSON.stringify(value)) {
-      filesRef.current = JSON.stringify(value);
-      setFiles(value);
-    }
-  }, [value]);
+  const [files, setFiles] = useControllableValue<string>({
+    value,
+    defaultValue,
+    onChange: _onChange,
+  });
 
   const onChange = useCallback(
-    (v: DataItem) => {
-      filesRef.current = JSON.stringify(v);
+    (v: string) => {
       setFiles(v);
-      _onChange?.(v);
     },
-    [_onChange]
+    [setFiles]
   );
 
   const handleClickImage = () => {
-    let urls = files;
-    const current = '0';
-    if (typeof files !== 'string') {
-      urls = (files as ImageProps).url || (files as any).tempFilePath;
-    }
     previewImage({
-      urls: [urls],
-      current,
+      urls: [files],
+      current: '0',
       enablesavephoto: true,
       enableShowPhotoDownload: true,
     });
@@ -78,14 +63,9 @@ const ImageUpload = ({
     if (disabled) {
       return;
     }
-    const params: any = {};
-    if (multiple) {
-      params.multiple = true;
-      params.count = 99;
-    }
-    if (multipleCount) {
-      params.count = multipleCount;
-    }
+    const params: any = {
+      count: 1,
+    };
     if (sizeType) {
       params.sizeType = sizeType;
     }
@@ -98,26 +78,20 @@ const ImageUpload = ({
     }
     const targetFiles = resc.filePaths ? resc.filePaths[0] : resc.tempFiles[0];
     apis.uploadFile(targetFiles.tempFilePath).then((res) => {
-      onChange?.({ ...targetFiles, url: res.data });
+      const resUrl = (res.data || res.message) as string;
+      const [, src] = resUrl.split('/home/data/upload/');
+      const url = `${urlPath}${src}`;
+      onChange?.(url);
     });
   };
   return (
     <View className={classnames(prefixCls, className)}>
       {files ? (
         <View
-          key={(files as ImageProps).key}
+          key={files}
           className={`${prefixCls}-item`}
           onTap={() => (disabled ? handleClickImage() : handleAdd())}>
-          <Image
-            mode='widthFix'
-            height='50rpx'
-            width='50rpx'
-            src={
-              (files as any).tempFilePath ||
-              (files as ImageProps).url ||
-              (files as string)
-            }
-          />
+          <Image mode='widthFix' height='50rpx' width='50rpx' src={files} />
         </View>
       ) : (
         <View onTap={handleAdd}>

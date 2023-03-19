@@ -3,6 +3,7 @@ import { View, showModal, showShareMenu } from 'remax/wechat';
 import styles from './index.less';
 import Block from '@/components/block';
 import BottomButton from '@/components/bottomButton';
+import BackImage from '@/components/backImage';
 import RedEnvelope from '@/components/redEnvelope';
 import { getActivityListByMerchantId } from '@/apis/activity';
 import type { ActivityInfo, ActivetyAmountInfo } from '@/apis/activity';
@@ -11,11 +12,13 @@ import { receiveCoupon } from '@/apis/usercoupon';
 import user from '@/stores/userInfo';
 import { Space, Card, Grid, Icon, Tag, Popup } from 'anna-remax-ui';
 import { useRequest } from 'ahooks';
+import './global.less';
 import { useQuery } from 'remax';
 import { createContainer } from 'unstated-next';
 import { usePageEvent } from 'remax/macro';
 import avatarSrc from '@/components/userCard/images/avatar.jpg';
 import Qrcode from '@/components/qrcode';
+import invitationShare from '@/utils/invitationShare';
 
 const Store = createContainer(() => {
   const { id } = useQuery<{ id: string }>();
@@ -65,13 +68,15 @@ const Item = (props: ActivityInfo) => {
           title={props.actDescribe}
           description={props.description}
           extra={
-            <View className={styles['cover-extra']}>
-              {props?.pickUpStatus ? (
-                <Tag color='yellow'>{props.pickUpStatus}</Tag>
-              ) : (
-                <Tag color='red'>未领取</Tag>
-              )}
-            </View>
+            props?.type === 1 && (
+              <View className={styles['cover-extra']}>
+                {props?.pickUpStatus ? (
+                  <Tag color='yellow'>{props.pickUpStatus}</Tag>
+                ) : (
+                  <Tag color='red'>未领取</Tag>
+                )}
+              </View>
+            )
           }
           direction='horizontal'>
           <View className={styles.coverRow}>
@@ -79,15 +84,29 @@ const Item = (props: ActivityInfo) => {
           </View>
         </Card>
       }>
-      <Grid data={props.list} columns={3} gutter={16}>
-        {(col, index) => (
-          <RedEnvelope
-            receive={() => receive(col)}
-            couponName={props.actContent}
-            {...col}
-          />
-        )}
-      </Grid>
+      {props?.type === 2 ? (
+        <Grid data={props.pics} columns={3} gutter={16}>
+          {(col) => (
+            <BackImage
+              preview={props.pics}
+              style={{ margin: '6px 0', borderRadius: '10rpx' }}
+              src={col}
+              height='30vw'
+              width='100%'
+            />
+          )}
+        </Grid>
+      ) : (
+        <Grid data={props.list} columns={3} gutter={16}>
+          {(col) => (
+            <RedEnvelope
+              receive={() => receive(col)}
+              couponName={props.actContent}
+              {...col}
+            />
+          )}
+        </Grid>
+      )}
     </Card>
   );
 };
@@ -104,13 +123,13 @@ const Shop = () => {
     });
   });
   usePageEvent('onShareAppMessage', () => {
-    return {
+    return invitationShare({
       title: data?.merchantName,
       imageUrl: data?.doorPhoto,
-    };
+    });
   });
   return (
-    <View className={styles.shop}>
+    <View className={classnames(styles.shop, 'shop')}>
       <View
         className={styles.back}
         style={{ backgroundImage: `url(${data?.doorPhoto})` }}

@@ -33,13 +33,6 @@
                     "scene": null
                 },
                 {
-                    "name": "新增活动",
-                    "pathName": "pages/activitySetting/index",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "认证信息",
                     "pathName": "pages/userInfo/index",
                     "query": "",
@@ -56,13 +49,6 @@
                 {
                     "name": "首页",
                     "pathName": "pages/index/index",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
-                    "name": "商家信息修改",
-                    "pathName": "pages/shopIdea/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -99,6 +85,27 @@
                     "name": "测试商家",
                     "pathName": "pages/shop/index",
                     "query": "id=33637b06c502c0c1b71d83e5ff1e0150",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/activitySetting/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "修改商家",
+                    "pathName": "pages/shopIdea/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/index/index",
+                    "query": "invitationCode=Y9RJ4SLL",
                     "launchMode": "default",
                     "scene": null
                 }

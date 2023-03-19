@@ -22,7 +22,7 @@ const Index = ({
   useEffect(() => {
     setTimeout(() => {
       wxbarcode.qrcode('qrcodeMini', url, width, height, logo, logoSize);
-    }, 500);
+    }, 300);
   }, [width, height, logo, logoSize, url]);
   return (
     <View className={styles.qrcode}>

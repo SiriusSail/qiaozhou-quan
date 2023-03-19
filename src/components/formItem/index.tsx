@@ -13,26 +13,32 @@ const index = ({
   padding?: number;
 } & FieldProps) => {
   return (
-    <Field validateTrigger={'onChange'} trigger={'onChange'} {...fieldProps}>
-      {(props, { errors }) => (
-        <View>
-          {React.cloneElement(children, props)}
-          <View>
-            {errors[0] && (
-              <View
-                style={{ paddingLeft: padding + 'rpx' }}
-                className={styles.error}>
-                {errors[0].includes('is required')
-                  ? children?.props?.label
-                    ? `请输入${children?.props?.label}`
-                    : '此项是必填的'
-                  : errors[0]}
+    <View>
+      <Field validateTrigger={'onChange'} trigger={'onChange'} {...fieldProps}>
+        {children}
+      </Field>
+      <Field validateTrigger={'onChange'} trigger={'onChange'} {...fieldProps}>
+        {(props, { errors }) => {
+          return (
+            <View>
+              <View>
+                {errors[0] && (
+                  <View
+                    style={{ paddingLeft: padding + 'rpx' }}
+                    className={styles.error}>
+                    {errors[0].includes('is required')
+                      ? children?.props?.label
+                        ? `请输入${children?.props?.label}`
+                        : '此项是必填的'
+                      : errors[0]}
+                  </View>
+                )}
               </View>
-            )}
-          </View>
-        </View>
-      )}
-    </Field>
+            </View>
+          );
+        }}
+      </Field>
+    </View>
   );
 };
 export default index;

@@ -94,6 +94,7 @@ export type MerchantApplyParams = {
    * 	门头照
    */
   doorPhotoUrl?: string;
+  doorPhoto?: string;
   /**
    * 	商铺名称
    */
@@ -102,6 +103,7 @@ export type MerchantApplyParams = {
    * 	商铺头像
    */
   merAvatarUrl?: string;
+  merAvatar?: string;
   /**
    * 	商铺负责人
    */

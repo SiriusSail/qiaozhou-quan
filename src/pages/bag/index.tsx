@@ -2,12 +2,11 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, navigateTo, startPullDownRefresh } from 'remax/wechat';
 import { Tabs, Card, Row, Col, Button, Tag, Space } from 'anna-remax-ui';
 import styles from './index.less';
-import classnames from 'classnames';
 import Image from '@/components/image';
 import userInfoStores from '@/stores/userInfo';
 import AutoList from '@/components/autoList';
 import { updateCampus } from '@/apis/usercoupon';
-import LoginLayout from '@/layout/loginLayout';
+import Voucher from '@/components/voucher';
 import type { CampusItem } from '@/apis/usercoupon';
 import { usePageEvent } from 'remax/macro';
 const { TabContent } = Tabs;
@@ -37,59 +36,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
         </View>
       }>
       {props?.list?.map((item) => {
-        return (
-          <View className={styles['bag-item']}>
-            <Row>
-              <Col span={7} className={styles['bag-item-left']}>
-                <View
-                  className={classnames(
-                    styles['bag-item-up'],
-                    styles['font-size-80']
-                  )}>
-                  <Space size={0}>
-                    <View>{(item.favorable * 1).toFixed(2)}</View>
-                    <View className={styles.unit}>￥</View>
-                  </Space>
-                </View>
-                <View className={styles['bag-item-down']}>
-                  <Tag color='red'>{item.couponName}</Tag>
-                </View>
-              </Col>
-              <Col span={11}>
-                <View
-                  className={classnames(
-                    styles['bag-item-up'],
-                    styles['font-size-60']
-                  )}>
-                  无使用门槛
-                </View>
-                <View className={styles['bag-item-down']}>
-                  有效期至 {item.effectiveTime}
-                </View>
-              </Col>
-              <Col span={6}>
-                <View className={styles['bag-item-right']}>
-                  {item.status === 1 ? (
-                    <Button
-                      type='primary'
-                      danger
-                      onTap={() => {
-                        navigateTo({
-                          url: `/pages/voucher/index?id=${item.couponNo}`,
-                        });
-                      }}>
-                      使用
-                    </Button>
-                  ) : (
-                    <Button disabled={true} type='primary' danger>
-                      已使用
-                    </Button>
-                  )}
-                </View>
-              </Col>
-            </Row>
-          </View>
-        );
+        return <Voucher type='see' {...item} />;
       })}
     </Card>
   );
@@ -120,7 +67,7 @@ const Index = () => {
     startPullDownRefresh();
   });
   return (
-    <View>
+    <View className={styles.bag}>
       <Tabs onTabClick={({ key }) => setStatus(key)} activeKey={status}>
         {tabs.map((tab) => (
           <TabContent key={tab.key} tab={tab.title} />

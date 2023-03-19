@@ -5,7 +5,27 @@ import {
   clearStorageSync,
 } from 'remax/wechat';
 
-type Keys = 'token' | 'oldPath' | 'campu';
+type Keys =
+  /**
+   * 登录token
+   */
+  | 'token'
+  /**
+   * 旧的url
+   */
+  | 'oldPath'
+  /**
+   * 校区
+   */
+  | 'campu'
+  /**
+   * 我得邀请码
+   */
+  | 'invitationCode'
+  /**
+   * 被邀请，我被谁邀请
+   */
+  | 'invitedCode';
 
 interface Storage {
   get: {
