@@ -21,7 +21,8 @@
         "enhance": true,
         "ignoreUploadUnusedFiles": false,
         "minifyWXML": true,
-        "minifyWXSS": true
+        "minifyWXSS": true,
+        "condition": false
     },
     "compileType": "miniprogram",
     "simulatorType": "wechat",

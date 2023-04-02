@@ -61,4 +61,22 @@ export const userRecharge = (data) =>
     true
   );
 
+type RoutType = {
+  code: string;
+  id: string;
+  name: string;
+  sort: string;
+};
+/**
+ * 查询当前用户菜单列表
+ */
+export const findMenuList = () =>
+  request<RoutType[]>(
+    {
+      method: 'GET',
+      url: '/wx/api/user/findMenuList',
+    },
+    true
+  );
+
 export default {};

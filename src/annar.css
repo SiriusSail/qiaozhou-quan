@@ -22,6 +22,10 @@
   padding: 0;
 }
 
+.anna-space-vertical {
+  width: 100%;
+}
+
 .anna-form-value, .anna-form-value-placeholder {
   text-align: right;
 }

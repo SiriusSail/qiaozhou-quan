@@ -138,4 +138,76 @@ export type MerchantApplyParams = {
   }[];
 };
 
+export type AccontType = {
+  menuIds?: string[];
+  menuList?: string[];
+  mobile?: string;
+  nickName?: string;
+  userId?: string;
+  id?: string;
+};
+
+type RoutType = {
+  code: string;
+  id: string;
+  name: string;
+  sort: string;
+};
+export type AccontInfoType = {
+  menuList: RoutType[];
+  mobile: string;
+  nickname: string;
+  nickName: string;
+  id: string;
+};
+
+/**
+ * 查询员工详情
+ */
+export const getSubAccountDetail = (userId?: string) =>
+  request<AccontInfoType>({
+    method: 'GET',
+    url: `/wx/api/merchant/getSubAccountDetail/${userId}`,
+  });
+
+/**
+ * 删除员工信息
+ */
+export const deleteSubAccount = (userId?: string) =>
+  request<MerchantApplyParams>({
+    method: 'GET',
+    url: `/wx/api/merchant/deleteSubAccount/${userId}`,
+  });
+
+/**
+ * 修改查询员工
+ */
+export const updateSubAccount = (data: AccontType) =>
+  request<MerchantApplyParams>({
+    method: 'POST',
+    data,
+    url: `/wx/api/merchant/updateSubAccount`,
+    dataType: 'json',
+  });
+
+/**
+ * 保存员工信息
+ */
+export const saveSubAccount = (data: AccontType) =>
+  request<MerchantApplyParams>({
+    method: 'POST',
+    data,
+    url: `/wx/api/merchant/saveSubAccount`,
+    dataType: 'json',
+  });
+
+/**
+ * 查询员工列表
+ */
+export const findSubAccountList = () =>
+  request<AccontType[]>({
+    method: 'GET',
+    url: `/wx/api/merchant/findSubAccountList`,
+  });
+
 export default {};

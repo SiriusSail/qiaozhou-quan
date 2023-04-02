@@ -75,7 +75,7 @@ const Index = () => {
               });
             } else {
               navigateTo({
-                url: '/pages/shopIdea/index',
+                url: '/pages/shopPages/shopEdit/index',
               });
             }
           }}

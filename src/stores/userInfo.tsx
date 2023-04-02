@@ -1,6 +1,7 @@
 import { createContainer } from 'unstated-next';
 import useApi from '@/apis';
 import storage from '@/utils/storage';
+import { findMenuList } from '@/apis/user';
 import { navigateTo, showModal } from 'remax/wechat';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
@@ -33,6 +34,20 @@ export default createContainer(() => {
   const [invalidToken, setInvalidToken] = useState(false);
 
   const share = useRef<ShareType>();
+
+  const { data: menuList, run: getMenuList } = useRequest(
+    () => {
+      if (storage.get('token')) {
+        return findMenuList();
+      } else {
+        return Promise.resolve(undefined);
+      }
+    },
+    {
+      manual: true,
+    }
+  );
+
   const { data: userInfo, run: getUserInfo } = useRequest(
     () => {
       if (storage.get('token')) {
@@ -48,6 +63,7 @@ export default createContainer(() => {
       },
       onSuccess: (e) => {
         setInvalidToken(false);
+        getMenuList();
         const campu = storage.get('campu');
         if (!e?.campusId) {
           if (campu) {
@@ -164,5 +180,6 @@ export default createContainer(() => {
     share,
     getUserInfo,
     getMerchant,
+    menuList,
   };
 });

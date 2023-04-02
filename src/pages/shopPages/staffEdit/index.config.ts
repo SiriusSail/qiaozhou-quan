@@ -1,7 +1,7 @@
 import { PageConfig } from 'remax/wechat';
 
 const config: PageConfig = {
-  navigationBarTitleText: '活动详情',
+  navigationBarTitleText: '员工信息',
 };
 
 export default config;

@@ -55,7 +55,7 @@
                 },
                 {
                     "name": "修改认证信息",
-                    "pathName": "pages/userIdea/index",
+                    "pathName": "pages/userEdit/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -89,15 +89,8 @@
                     "scene": null
                 },
                 {
-                    "name": "",
-                    "pathName": "pages/activitySetting/index",
-                    "query": "",
-                    "launchMode": "default",
-                    "scene": null
-                },
-                {
                     "name": "修改商家",
-                    "pathName": "pages/shopIdea/index",
+                    "pathName": "pages/shopEdit/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -108,12 +101,28 @@
                     "query": "invitationCode=Y9RJ4SLL",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "员工管理",
+                    "pathName": "pages/shopPages/staff/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "员工信息",
+                    "pathName": "pages/shopPages/staffEdit/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
     },
     "setting": {
         "useIsolateContext": true,
-        "bigPackageSizeSupport": true
-    }
+        "bigPackageSizeSupport": true,
+        "compileHotReLoad": false
+    },
+    "projectname": "qiaozhou-quan"
 }

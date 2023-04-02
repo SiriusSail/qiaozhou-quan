@@ -4,7 +4,7 @@ import styles from './index.less';
 import Image from '@/components/image';
 import Block from '@/components/block';
 import userInfoStores from '@/stores/userInfo';
-import { Tag, Row, Col, Icon, Popup } from 'anna-remax-ui';
+import { Tag, Row, Col, Icon, Popup, Space } from 'anna-remax-ui';
 import UserCard from '@/components/userCard';
 import { usePageEvent } from 'remax/macro';
 import BackImage from '@/components/backImage';
@@ -17,15 +17,19 @@ type TagItemProps = {
   image?: string;
   icon?: string;
   iconColor?: string;
+  access?: string;
 };
 
 const TagItem: React.FC<TagItemProps> = ({
   text,
   icon,
+  access,
   image,
   onTap,
   iconColor = '#666',
 }) => {
+  const { menuList } = userInfoStores.useContainer();
+  if (access && !menuList?.find((item) => item.id === access)) return <></>;
   return (
     <Col span={6}>
       <View onTap={onTap}>
@@ -192,66 +196,90 @@ const Index = () => {
           </Row>
         </Block>
         <Block title='商家服务'>
-          <Row gutter={16}>
-            {merchant?.examine ? (
-              <>
-                <TagItem
-                  iconColor='#e65656'
-                  icon='form'
-                  text='店铺信息'
-                  onTap={() =>
-                    navigateTo({
-                      url: '/pages/shopInfo/index',
-                    })
-                  }
-                />
-              </>
-            ) : (
-              <TagItem
-                iconColor='#e65656'
-                icon='shop'
-                text='商家入驻'
-                onTap={handleMechart}
-              />
-            )}
-
-            {merchant?.examine === 1 ? (
-              <>
+          <Space direction='vertical' size={32}>
+            <Row gutter={16}>
+              {merchant?.examine ? (
+                <>
+                  <TagItem
+                    iconColor='#e65656'
+                    icon='form'
+                    access='2000'
+                    text='店铺信息'
+                    onTap={() =>
+                      navigateTo({
+                        url: '/pages/shopPages/shopInfo/index',
+                      })
+                    }
+                  />
+                </>
+              ) : (
                 <TagItem
                   iconColor='#e65656'
                   icon='shop'
-                  text='我的店铺'
-                  onTap={() =>
-                    navigateTo({
-                      url: `/pages/shop/index?id=${userInfo?.merchantId}`,
-                    })
-                  }
+                  text='商家入驻'
+                  onTap={handleMechart}
                 />
-                <TagItem
-                  iconColor='#e65656'
-                  text='活动管理'
-                  icon='activity'
-                  onTap={() =>
-                    navigateTo({
-                      url: '/pages/activitySetting/index',
-                    })
-                  }
-                />
-                <TagItem
-                  iconColor='#e65656'
-                  text='核销优惠券'
-                  icon='ticket'
-                  onTap={() =>
-                    navigateTo({
-                      url: '/pages/check/index',
-                    })
-                  }
-                />
-              </>
-            ) : (
-              <View />
-            )}
-          </Row>
+              )}
+
+              {merchant?.examine === 1 ? (
+                <>
+                  <TagItem
+                    iconColor='#e65656'
+                    icon='shop'
+                    text='我的店铺'
+                    onTap={() =>
+                      navigateTo({
+                        url: `/pages/shop/index?id=${userInfo?.merchantId}`,
+                      })
+                    }
+                  />
+                  <TagItem
+                    iconColor='#e65656'
+                    text='活动管理'
+                    access='3000'
+                    icon='activity'
+                    onTap={() =>
+                      navigateTo({
+                        url: '/pages/activityPages/activitySetting/index',
+                      })
+                    }
+                  />
+                  <TagItem
+                    iconColor='#e65656'
+                    text='核销优惠券'
+                    access='4000'
+                    icon='ticket'
+                    onTap={() =>
+                      navigateTo({
+                        url: '/pages/check/index',
+                      })
+                    }
+                  />
+                </>
+              ) : (
+                <View />
+              )}
+            </Row>
+            <Row gutter={16}>
+              {merchant?.examine === 1 ? (
+                <>
+                  <TagItem
+                    iconColor='#e65656'
+                    icon='profile'
+                    text='员工管理'
+                    access='5000'
+                    onTap={() =>
+                      navigateTo({
+                        url: `/pages/shopPages/staff/index`,
+                      })
+                    }
+                  />
+                </>
+              ) : (
+                <View />
+              )}
+            </Row>
+          </Space>
         </Block>
         <Block title='其他服务'>
           <Row gutter={16}>
