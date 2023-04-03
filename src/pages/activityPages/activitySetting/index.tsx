@@ -29,7 +29,7 @@ const Index = () => {
       onSuccess: (e) => {
         if (!e) return;
         const newData = Object.entries(e)
-          .filter(([, val]) => !!val)
+          .filter(([, val]) => !!val || val === 0)
           .reduce(
             (previousValue, currentValue) => ({
               ...previousValue,
