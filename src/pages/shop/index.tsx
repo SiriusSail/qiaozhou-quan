@@ -22,6 +22,7 @@ import invitationShare from '@/utils/invitationShare';
 
 const Store = createContainer(() => {
   const { id } = useQuery<{ id: string }>();
+  console.log(id);
   const { userInfo } = user.useContainer();
   const { data } = useRequest(
     () => getActivityListByMerchantId(id, userInfo?.id),
@@ -154,7 +155,7 @@ const Shop = () => {
       </View>
       <Block title='店铺活动'>
         <View className={styles.welfare}>
-          {data?.activityListResList.map((item) => (
+          {data?.activityListResList?.map((item) => (
             <Item key={item.actId} {...item} />
           ))}
         </View>

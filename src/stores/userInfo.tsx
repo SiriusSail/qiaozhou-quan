@@ -169,7 +169,12 @@ export default createContainer(() => {
     [isVip, valiLoading]
   );
 
+  const isMerchant = useMemo(() => {
+    return !!userInfo?.merchantId;
+  }, [userInfo?.merchantId]);
+
   return {
+    isMerchant,
     userInfo,
     isVip,
     valiApply,

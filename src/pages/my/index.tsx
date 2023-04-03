@@ -142,7 +142,7 @@ const Friend = () => {
 };
 
 const Index = () => {
-  const { userInfo, getUserInfo, isVip, merchant, valiLoading } =
+  const { userInfo, getUserInfo, isVip, isMerchant, valiLoading } =
     userInfoStores.useContainer();
   usePageEvent('onShow', () => {
     getUserInfo();
@@ -151,7 +151,7 @@ const Index = () => {
   const handleMechart = () => {
     if (valiLoading()) {
       navigateTo({
-        url: '/pages/shopApply/index',
+        url: '/pages/shopPages/shopApply/index',
       });
     }
   };
@@ -198,12 +198,12 @@ const Index = () => {
         <Block title='商家服务'>
           <Space direction='vertical' size={32}>
             <Row gutter={16}>
-              {merchant?.examine ? (
+              {isMerchant ? (
                 <>
                   <TagItem
                     iconColor='#e65656'
                     icon='form'
-                    access='2000'
+                    access='5000'
                     text='店铺信息'
                     onTap={() =>
                       navigateTo({
@@ -221,12 +221,12 @@ const Index = () => {
                 />
               )}
 
-              {merchant?.examine === 1 ? (
+              {isMerchant ? (
                 <>
                   <TagItem
                     iconColor='#e65656'
                     icon='shop'
-                    text='我的店铺'
+                    text='进入店铺'
                     onTap={() =>
                       navigateTo({
                         url: `/pages/shop/index?id=${userInfo?.merchantId}`,
@@ -236,7 +236,7 @@ const Index = () => {
                   <TagItem
                     iconColor='#e65656'
                     text='活动管理'
-                    access='3000'
+                    access='2000'
                     icon='activity'
                     onTap={() =>
                       navigateTo({
@@ -247,7 +247,7 @@ const Index = () => {
                   <TagItem
                     iconColor='#e65656'
                     text='核销优惠券'
-                    access='4000'
+                    access='3000'
                     icon='ticket'
                     onTap={() =>
                       navigateTo({
@@ -260,14 +260,14 @@ const Index = () => {
                 <View />
               )}
             </Row>
-            <Row gutter={16}>
-              {merchant?.examine === 1 ? (
+            {isMerchant ? (
+              <Row gutter={16}>
                 <>
                   <TagItem
                     iconColor='#e65656'
                     icon='profile'
                     text='员工管理'
-                    access='5000'
+                    access='4000'
                     onTap={() =>
                       navigateTo({
                         url: `/pages/shopPages/staff/index`,
@@ -275,10 +275,8 @@ const Index = () => {
                     }
                   />
                 </>
-              ) : (
-                <View />
-              )}
-            </Row>
+              </Row>
+            ) : undefined}
           </Space>
         </Block>
         <Block title='其他服务'>

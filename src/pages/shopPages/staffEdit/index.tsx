@@ -75,7 +75,7 @@ const Index = () => {
     },
   });
 
-  const { run: deleteAccount } = useRequest(() => deleteSubAccount(menuIds), {
+  const { run: deleteAccount } = useRequest(deleteSubAccount, {
     manual: true,
     onSuccess: () => {
       showToast({
@@ -167,7 +167,7 @@ const Index = () => {
                 confirmText: '删除',
                 success: (e) => {
                   if (e.confirm) {
-                    deleteAccount();
+                    deleteAccount(id);
                   }
                 },
               });
