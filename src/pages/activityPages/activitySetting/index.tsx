@@ -39,7 +39,7 @@ const Index = () => {
           );
         form.setFieldsValue({
           ...newData,
-          type: [(newData as any)?.type].toString(),
+          type: [(newData as any)?.type || 1].toString(),
         });
       },
       onError: (e) => {
@@ -114,7 +114,11 @@ const Index = () => {
     <View>
       <Form component={false} form={form}>
         <Field name='id' />
-        <FormItem padding={130} initialValue={1} name='type' trigger='onChange'>
+        <FormItem
+          padding={130}
+          initialValue={'1'}
+          name='type'
+          trigger='onChange'>
           <TabsSelect animated>
             <TabContent key='1' tab='红包活动'>
               <FormItem
