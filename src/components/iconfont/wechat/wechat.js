@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // qz-hongbao | qz-tipvip
+    // qz-hongbao | qz-wode-copy | qz-hongbao1 | qz-shouye | qz-tipvip
     name: {
       type: String,
     },

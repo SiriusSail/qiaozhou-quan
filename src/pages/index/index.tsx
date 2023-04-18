@@ -7,7 +7,7 @@ import {
   showModal,
   startPullDownRefresh,
 } from 'remax/wechat';
-import { Icon, Space, Grid, Card, Tag } from 'anna-remax-ui';
+import { Icon, Space, Grid, Card, Tag, Popup } from 'anna-remax-ui';
 import BackImage from '@/components/backImage';
 import storage from '@/utils/storage';
 import styles from './index.less';
@@ -26,6 +26,7 @@ import { receiveCoupon } from '@/apis/usercoupon';
 import type { ActivetyAmountInfo } from '@/apis/activity';
 import { usePageEvent } from 'remax/macro';
 import invitationShare from '@/utils/invitationShare';
+import IconFont from '@/components/iconfont';
 
 const Item = (props: ActivetyUser) => {
   const { userInfo, share } = userInfoStores.useContainer();
@@ -120,19 +121,8 @@ const Item = (props: ActivetyUser) => {
         </View>
       }>
       <View className={styles.envelopes}>
-        {props.type === 2 ? (
-          <Grid data={props.pics} columns={3} gutter={12}>
-            {(col) => (
-              <BackImage
-                preview={props.pics}
-                style={{ margin: '6px 0', borderRadius: '10rpx' }}
-                src={col}
-                height='30vw'
-                width='100%'
-              />
-            )}
-          </Grid>
-        ) : (
+        {(!props.pics || props.pics.length === 0) &&
+        props.couponStatus === 1 ? (
           <Grid data={props.list} columns={3} gutter={16}>
             {(col) => (
               <RedEnvelope
@@ -142,6 +132,33 @@ const Item = (props: ActivetyUser) => {
               />
             )}
           </Grid>
+        ) : (
+          <>
+            <Grid data={props.pics} columns={3} gutter={12}>
+              {(col) => (
+                <BackImage
+                  preview={props.pics}
+                  style={{ margin: '6px 0', borderRadius: '10rpx' }}
+                  src={col}
+                  height='30vw'
+                  width='100%'
+                />
+              )}
+            </Grid>
+            {props.couponStatus === 1 && (
+              <>
+                <RedEnvelope
+                  receive={() => receive(props.list[0])}
+                  couponName={props.actContent}
+                  {...props.list[0]}>
+                  <Space style={{ marginTop: '10rpx', width: '100%' }}>
+                    <IconFont name='qz-hongbao' color='red' />
+                    点击领取红包
+                  </Space>
+                </RedEnvelope>
+              </>
+            )}
+          </>
         )}
       </View>
     </Card>

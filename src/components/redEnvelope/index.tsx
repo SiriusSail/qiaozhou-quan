@@ -9,6 +9,7 @@ import { Popup } from 'anna-remax-ui';
 
 interface Props extends ActivetyAmountInfo {
   receive: () => Promise<any>;
+  children?: React.ReactNode;
 }
 
 const Index = (props: Props) => {
@@ -23,7 +24,11 @@ const Index = (props: Props) => {
   return (
     <View>
       <View className={styles['demo-grid-item']} onTap={showPopup}>
-        <Image height='205rpx' width='164rpx' src={'/images/hongbao.png'} />
+        {props.children ? (
+          props.children
+        ) : (
+          <Image height='205rpx' width='164rpx' src={'/images/hongbao.png'} />
+        )}
       </View>
       <Popup
         closeable={false}

@@ -84,6 +84,7 @@ export type ActivetyUser = {
   getNum: string;
   description: string;
   type: 1 | 2;
+  couponStatus: 0 | 1;
   pics: string[];
   merNo: string;
   merchantAddress: string;

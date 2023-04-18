@@ -9,6 +9,9 @@ const config: AppConfig = {
     'pages/setting/index', // 设置
     'pages/shop/index', // 店铺
     'pages/userEdit/index', // 修改认证信息
+    'pages/order/index', // 订单列表
+    'pages/orderInfo/index', // 订单详情
+    'pages/productInfo/index', // 订单详情
     'pages/userInfo/index', // 认证信息
     'pages/vips/index', // 会员中心
     'pages/voucher/index', // 红包二维码
@@ -30,6 +33,15 @@ const config: AppConfig = {
       root: 'pages/activityPages',
       pages: [
         'activitySetting/index', // 活动活动设置
+      ],
+    },
+    {
+      root: 'pages/productPages',
+      pages: [
+        'productList/index', // 商品列表
+        'productEdit/index', // 添加修改商品
+        'categoryList/index', // 商品分类管理
+        'categoryEdit/index', // 商品分类修改
       ],
     },
   ],
