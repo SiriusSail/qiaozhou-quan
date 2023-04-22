@@ -26,7 +26,7 @@ interceptors.request.use((options, loading) => {
   options.data = {
     ...options.data,
   };
-  console.log('request', options);
+  // console.log('request', options);
   options.data.doctorId || delete options.data.doctorId;
   options.data = {
     ...options.data,
@@ -65,7 +65,7 @@ interceptors.response.use(
         },
       });
     }
-    console.log('response', data);
+    // console.log('response', data);
     if (code === 200) {
       data.data = data.data || { ...data };
     } else {

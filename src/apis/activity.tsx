@@ -44,6 +44,8 @@ type GetActivityListByUserIdParam = {
 export type ActivityInfo = {
   /**	活动内容	*/
   actContent: string;
+  /**	活动是否开启	*/
+  couponStatus: 0 | 1;
   /**	活动ID	*/
   actId: string;
   /**	活动ID	*/

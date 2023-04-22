@@ -1,6 +1,6 @@
-.shop {
-  padding-bottom: 400rpx;
-}
+// .shop {
+//   padding-bottom: 400rpx;
+// }
 
 .back {
   position: absolute;
@@ -13,11 +13,11 @@
 
 .info {
   position: relative;
-  min-height: 400rpx;
+  min-height: 300rpx;
   top: 300rpx;
   left: 0;
   width: 100vw;
-  padding-bottom: 300rpx;
+  margin-bottom: 300rpx;
 }
 
 .content {
@@ -34,11 +34,59 @@
   padding: 0 20rpx;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.shopping-cart {
+  position: fixed;
+  width: 100vw;
+  // height: 100rpx;
+  bottom: 0;
+  padding: 20rpx 20rpx 40rpx;
+  background-color: #fff;
+  z-index: 1010;
+  left: 0;
+}
+
 .title {
   font-size: 36rpx;
   font-weight: 600;
 }
 
+.cart-popup {
+  min-height: 300rpx;
+  padding-bottom: 150px;
+  max-height: 700rpx;
+  overflow-y: auto;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-tal {
+  position: absolute;
+  top: 4rpx;
+  height: 24rpx;
+  width: 24rpx;
+  text-align: center;
+  line-height: 24rpx;
+  right: -4rpx;
+  font-size: 16rpx;
+  color: #fff;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.menu-title {
+  font-size: 32rpx;
+  padding: 20rpx;
+  color: #333;
+  font-weight: 600;
+}
 
 .description {
   display: -webkit-box;

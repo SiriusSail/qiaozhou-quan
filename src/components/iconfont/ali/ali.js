@@ -1,6 +1,6 @@
 Component({
   props: {
-    // qz-hongbao | qz-wode-copy | qz-hongbao1 | qz-shouye | qz-tipvip
+    // qz-canju | qz-jiahao2fill | qz-zengjia | qz-jianshao | qz-hongbao | qz-wode-copy | qz-hongbao1 | qz-shouye | qz-tipvip
     name: null,
     // string | string[]
     color: '',

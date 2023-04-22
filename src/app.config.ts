@@ -64,10 +64,10 @@ const config: AppConfig = {
         text: '首页',
       },
       {
-        pagePath: 'pages/bag/index',
+        pagePath: 'pages/order/index',
         iconPath: './images/red0.png',
         selectedIconPath: './images/red.png',
-        text: '红包',
+        text: '订单',
       },
       {
         pagePath: 'pages/my/index',

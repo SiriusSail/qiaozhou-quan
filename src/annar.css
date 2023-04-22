@@ -10,9 +10,21 @@
   padding-right: 10rpx;
 }
 
+.anna-card-title {
+  font-size: 26px;
+}
+
+.anna-tag {
+  height: 38rpx;
+  line-height: 34rpx;
+  padding: 0 10rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+}
 
 .anna-card-content {
   padding: 0 10rpx;
+  flex: 1;
 }
 .anna-cell-container-main-left {
   flex: none;

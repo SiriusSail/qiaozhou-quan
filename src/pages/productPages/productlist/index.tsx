@@ -1,87 +1,85 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, navigateTo, startPullDownRefresh } from 'remax/wechat';
-import { Tabs, Card, Popup, Cell, Button, Tag, Space } from 'anna-remax-ui';
+import React, { useState } from 'react';
+import { View, navigateTo } from 'remax/wechat';
+import { Card, Popup, Cell, Tag } from 'anna-remax-ui';
 import styles from './index.less';
-import Image from '@/components/image';
-import userInfoStores from '@/stores/userInfo';
-import AutoList from '@/components/autoList';
-import { findGoodsListByMerchantId } from '@/apis/goods';
-import type { FindGoods } from '@/apis/goods';
-import Voucher from '@/components/voucher';
+import BackImage from '@/components/backImage';
+import { goodsPage } from '@/apis/goods';
+import type { Find } from '@/apis/goods';
 import BottomButton from '@/components/bottomButton';
-import type { CampusItem } from '@/apis/usercoupon';
+import ProductMenu from '@/components/productMenu';
 import { usePageEvent } from 'remax/macro';
 import { useRequest } from 'ahooks';
-const { TabContent } = Tabs;
 
-const BagItem: React.FC<CampusItem> = (props) => {
+const GoodsList: React.FC<{
+  data: Find[];
+}> = (props) => {
   return (
-    <Card
-      style={{ padding: '10rpx 0', margin: '20rpx 0' }}
-      contentStyle={{ padding: '0 20rpx' }}
-      shadow
-      title={
-        <View
-          onTap={() =>
-            navigateTo({
-              url: `/pages/shop/index?id=${props.merchantId}`,
-            })
-          }
-          className={styles['bag-item-title']}>
-          <Space>
-            <Image
-              src={props.merAvatarurl || undefined}
-              width='40rpx'
-              height='40rpx'
-            />
-            <View>{props.merchantName}</View>
-          </Space>
-        </View>
-      }>
-      {props?.list?.map((item) => {
-        return <Voucher type='see' {...item} />;
+    <View>
+      {props.data.map((item) => {
+        return (
+          <Card
+            key={item.goodsId}
+            title={item.goodsName}
+            description={
+              <View
+                onTap={() => {
+                  navigateTo({
+                    url: `/pages/productPages/productEdit/index?id=${item.goodsId}`,
+                  });
+                }}>
+                {item.tags?.split(',').map((tagItem) => (
+                  <Tag>{tagItem}</Tag>
+                ))}
+              </View>
+            }
+            extra={
+              <View className={styles.extra}>
+                <Tag color={item.statusDesc === '上架' ? 'green' : 'yellow'}>
+                  {item.statusDesc}
+                </Tag>
+                <View className={styles.overNum}>剩余：{item.overNum} 份</View>
+              </View>
+            }
+            cover={
+              <View className={styles.imageContainer}>
+                <BackImage src={item.cover} width='120' height='120' />
+              </View>
+            }
+            direction='horizontal'>
+            <View
+              className={styles.remarks}
+              onTap={() => {
+                navigateTo({
+                  url: `/pages/productPages/productEdit/index?id=${item.goodsId}`,
+                });
+              }}>
+              {item.remarks}
+            </View>
+          </Card>
+        );
       })}
-    </Card>
+    </View>
   );
 };
 
 const Index = () => {
-  const [stateKey, setStateKey] = useState('1');
   const [show, setShow] = useState(false);
-  const { userInfo } = userInfoStores.useContainer();
 
-  const { data } = useRequest(
-    () => {
-      if (!userInfo?.merchantId) return Promise.resolve({} as FindGoods);
-      return findGoodsListByMerchantId(userInfo?.merchantId);
-    },
-    {
-      refreshDeps: [userInfo],
-    }
-  );
+  const { data, run } = useRequest(() => {
+    return goodsPage();
+  });
+
+  usePageEvent('onShow', () => {
+    run();
+  });
 
   return (
-    <View className={styles.bag}>
-      <Tabs
-        onTabClick={({ key }) => setStateKey(key)}
-        activeKey={stateKey}
-        direction='vertical'>
-        {data?.goodsCategoryListResList?.map((tab) => (
-          <TabContent key={tab.categoryId} tab={tab.categoryName}>
-            <Card>
-              <View>123123</View>
-            </Card>
-          </TabContent>
-        ))}
-      </Tabs>
+    <View className={styles.product}>
+      <ProductMenu render={(d) => <GoodsList data={d} />} data={data || []} />
       <BottomButton
         size='large'
-        onTap={() => {
-          setShow(true);
-          // navigateTo({
-          //   url: '/pages/productPages/edit/index',
-          // });
-        }}
+        noHeight
+        onTap={() => setShow(true)}
         type='primary'
         shape='square'
         block>
@@ -94,6 +92,19 @@ const Index = () => {
         onClose={() => {
           setShow(false);
         }}>
+        {data?.map((item) => (
+          <Cell
+            key={item.categoryId}
+            label={item.categoryName}
+            onTap={() => {
+              navigateTo({
+                url: `/pages/productPages/productEdit/index?categoryId=${item.categoryId}`,
+              });
+            }}
+            arrow
+          />
+        ))}
+
         <Cell
           label='添加分类'
           onTap={() => {

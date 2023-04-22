@@ -7,6 +7,7 @@ import type { ButtonProps } from 'anna-remax-ui/esm/button';
 
 interface ButtonPropsType extends ButtonProps {
   border?: boolean;
+  noHeight?: boolean;
   label?: string;
   onChange?: (v: string, e: GenericEvent) => void;
 }
@@ -14,7 +15,7 @@ interface ButtonPropsType extends ButtonProps {
 export const BottomButton: React.FC<ButtonPropsType> = (props) => {
   return (
     <View className='bottom-button'>
-      <View className='bottom-button-height'></View>
+      {!props.noHeight && <View className='bottom-button-height'></View>}
       <View className='bottom-button-content'>
         <Button look='orange' {...props} />
       </View>

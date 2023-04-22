@@ -15,8 +15,9 @@ const App: React.FC = (props) => {
       invitationCode: string;
       q: string;
     }>();
-    const shareCode = decodeURIComponent(options.q).split('invitationCode=')[1];
-    console.log(options);
+    const shareCode = decodeURIComponent(options?.q || '').split(
+      'invitationCode='
+    )[1];
     const oldInvitedCode = storage.get('invitedCode');
     if ((shareCode || options?.invitationCode) && !oldInvitedCode) {
       storage.set('invitedCode', shareCode || options?.invitationCode);

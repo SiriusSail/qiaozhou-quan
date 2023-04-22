@@ -93,7 +93,6 @@ const Friend = () => {
   useEffect(() => {
     updateSize();
   }, [updateSize]);
-  console.log(sizeRef.current);
   return (
     <>
       <TagItem
@@ -193,7 +192,7 @@ const Index = () => {
               icon='vip'
               text='会员中心'
             />
-            {/* <TagItem
+            <TagItem
               iconColor='#e91e63'
               onTap={() =>
                 navigateTo({
@@ -202,7 +201,7 @@ const Index = () => {
               }
               icon='ticketMoney'
               text='我的红包'
-            /> */}
+            />
           </Row>
         </Block>
         <Block title='商家服务'>
@@ -284,17 +283,17 @@ const Index = () => {
                       })
                     }
                   />
-                  {/* <TagItem
+                  <TagItem
                     iconColor='#e65656'
                     icon='sort'
                     text='商品管理'
                     // access='4000'
                     onTap={() =>
                       navigateTo({
-                        url: `/pages/productPages/productlist/index`,
+                        url: `/pages/productPages/productList/index`,
                       })
                     }
-                  /> */}
+                  />
                 </>
               </Row>
             ) : undefined}

@@ -20,7 +20,6 @@ const index = ({
           return true;
         }}>
         {(props, { errors }) => {
-          console.log(props);
           if (props.value[name]) {
             return children;
           }

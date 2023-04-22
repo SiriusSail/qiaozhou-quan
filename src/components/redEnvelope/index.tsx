@@ -17,6 +17,7 @@ const Index = (props: Props) => {
   const [voucher, setVoucher] = useState(false);
   const { valiVip } = user.useContainer();
   const showPopup = useCallback(() => {
+    console.log(11231231);
     if (valiVip({ content: 'VIP用户才可以领取' })) {
       setShow(true);
     }

@@ -9,6 +9,15 @@ export const findGoodsListByMerchantId = (merchantId: string) =>
     url: `/wx/api/goods/findGoodsListByMerchantId/${merchantId}`,
   });
 /**
+ * 通过商家id查询商品列表
+ */
+export const goodsPage = () =>
+  request<Category[]>({
+    method: 'POST',
+    dataType: 'json',
+    url: `/wx/api/goods/page`,
+  });
+/**
  * 下架商品
  */
 export const goodsDisable = (goodsId: string) =>
@@ -29,7 +38,7 @@ export const goodsEnable = (goodsId: string) =>
  */
 export const findGoodsByGoodsId = (goodsId: string) =>
   request<Find>({
-    method: 'POST',
+    method: 'GET',
     url: `/wx/api/goods/findGoodsByGoodsId/${goodsId}`,
   });
 /**
@@ -39,6 +48,7 @@ export const goodsAdd = (data: Find) =>
   request({
     method: 'POST',
     data,
+    dataType: 'json',
     url: `/wx/api/goods/add`,
   });
 /**
@@ -48,6 +58,7 @@ export const goodsUpdate = (data: Find) =>
   request({
     method: 'POST',
     data,
+    dataType: 'json',
     url: `/wx/api/goods/update`,
   });
 /**
@@ -82,7 +93,7 @@ export type FindGoods = {
   sellNum: 0;
 };
 
-type Category = {
+export type Category = {
   categoryId: string;
   categoryName: string;
   goodsListResList: Find[];
@@ -130,77 +141,5 @@ export type Find = {
    */
   tags: string;
 };
-
-export type AccontType = {
-  menuIds?: string[];
-  menuList?: string[];
-  mobile?: string;
-  nickName?: string;
-  userId?: string;
-  id?: string;
-};
-
-type RoutType = {
-  code: string;
-  id: string;
-  name: string;
-  sort: string;
-};
-export type AccontInfoType = {
-  menuList: RoutType[];
-  mobile: string;
-  nickname: string;
-  nickName: string;
-  id: string;
-};
-
-/**
- * 查询员工详情
- */
-export const getSubAccountDetail = (userId?: string) =>
-  request<AccontInfoType>({
-    method: 'GET',
-    url: `/wx/api/merchant/getSubAccountDetail/${userId}`,
-  });
-
-/**
- * 删除员工信息
- */
-export const deleteSubAccount = (userId?: string) =>
-  request<MerchantApplyParams>({
-    method: 'GET',
-    url: `/wx/api/merchant/deleteSubAccount/${userId}`,
-  });
-
-/**
- * 修改查询员工
- */
-export const updateSubAccount = (data: AccontType) =>
-  request<MerchantApplyParams>({
-    method: 'POST',
-    data,
-    url: `/wx/api/merchant/updateSubAccount`,
-    dataType: 'json',
-  });
-
-/**
- * 保存员工信息
- */
-export const saveSubAccount = (data: AccontType) =>
-  request<MerchantApplyParams>({
-    method: 'POST',
-    data,
-    url: `/wx/api/merchant/saveSubAccount`,
-    dataType: 'json',
-  });
-
-/**
- * 查询员工列表
- */
-export const findSubAccountList = () =>
-  request<AccontType[]>({
-    method: 'GET',
-    url: `/wx/api/merchant/findSubAccountList`,
-  });
 
 export default {};

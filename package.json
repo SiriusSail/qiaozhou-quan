@@ -9,6 +9,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "remax build -t wechat -w",
+    "devm": "remax build -t wechat -m -w",
+    "iconfont": "npx iconfont-remax",
     "build": "cross-env NODE_ENV=production remax build -t wechat -m"
   },
   "dependencies": {

@@ -14,31 +14,50 @@ import Switch from '@/components/switch';
 import Form, { useForm, Field } from 'rc-field-form';
 import FormItem from '@/components/formItem';
 import ImageUpload from '@/components/imageUpload';
-import { Input, Cell, Picker } from 'anna-remax-ui';
+import { Input, Cell, Picker, Button } from 'anna-remax-ui';
 import { useRequest } from 'ahooks';
 import { useQuery } from 'remax';
 import userInfoStores from '@/stores/userInfo';
+import { findGoodsListByMerchantId } from '@/apis/goods';
+import type { FindGoods } from '@/apis/goods';
 
 const Index = () => {
-  const { id } = useQuery<{ id: string }>();
+  const { id, categoryId } = useQuery<{ id: string; categoryId: string }>();
   const [form] = useForm();
   const { userInfo } = userInfoStores.useContainer();
+  const { data: categoryList } = useRequest(
+    () => {
+      if (!userInfo?.merchantId) return Promise.resolve({} as FindGoods);
+      return findGoodsListByMerchantId(userInfo?.merchantId);
+    },
+    {
+      refreshDeps: [userInfo],
+    }
+  );
+
   useRequest(
     () => {
       if (!id) return Promise.resolve(undefined);
       return findGoodsByGoodsId(id);
     },
     {
+      onSuccess: (e) => {
+        form.setFieldsValue({
+          ...e,
+          cover: [e?.cover].filter((item) => !!item),
+        });
+      },
       onError: (e) => {
         console.log(e);
         showModal({
           title: '提示',
-          content: '活动信息获取失败',
+          content: '商品信息获取失败',
           showCancel: false,
         });
       },
     }
   );
+
   const { run: update, loading: updateLoading } = useRequest(goodsUpdate, {
     manual: true,
     onSuccess: () => {
@@ -64,7 +83,28 @@ const Index = () => {
     manual: true,
     onSuccess: () => {
       showToast({
-        title: '活动创建成功',
+        title: '商品添加成功',
+        duration: 2000,
+        icon: 'success',
+      });
+      setTimeout(() => {
+        navigateBack();
+      }, 2000);
+    },
+    onError: (e) => {
+      console.log(e);
+      showModal({
+        title: '提示',
+        content: e.message || '商品添加失败',
+        showCancel: false,
+      });
+    },
+  });
+  const { run: del, loading: delLoading } = useRequest(goodsDelete, {
+    manual: true,
+    onSuccess: () => {
+      showToast({
+        title: '商品删除成功',
         duration: 2000,
         icon: 'success',
       });
@@ -81,28 +121,60 @@ const Index = () => {
       });
     },
   });
+  const { run: toggling, loading: toggleLoading } = useRequest(
+    (open: boolean) => {
+      if (!id) return Promise.resolve(false);
+      if (open) return goodsEnable(id);
+      return goodsDisable(id);
+    },
+    {
+      manual: true,
+    }
+  );
 
   const submit = useCallback(() => {
-    const value = form.getFieldsValue();
-    const { id, pics, type } = value;
-    const params = {
-      ...value,
-    };
+    const { id, cover, ...value } = form.getFieldsValue();
     if (id) {
-      return update(params);
+      toggling(value.actStatus);
+      return update({
+        id,
+        cover: cover[0],
+        ...value,
+      });
     }
-    create(params);
-  }, [create, form, update]);
+    create({
+      cover: cover[0],
+      ...value,
+    });
+  }, [create, form, toggling, update]);
+
   return (
     <View>
       <Form component={false} form={form}>
-        <Field name='id' />
+        <Field name='id' initialValue={id} />
         <FormItem
           padding={20}
           name='cover'
           trigger='onChange'
           rules={[{ required: true, message: '请选择商品图' }]}>
           <ImageUpload maxCount={1} label='商品图' />
+        </FormItem>
+        <FormItem
+          padding={20}
+          name='categoryId'
+          initialValue={categoryId}
+          trigger='onChange'
+          normalize={(e) => e?.key}
+          rules={[{ required: true, message: '请选择分类信息' }]}>
+          <Picker
+            label='商品分类'
+            options={categoryList?.goodsCategoryListResList?.map((item) => ({
+              key: item.categoryId,
+              value: item.categoryName,
+            }))}
+            placeholder='请选择分类信息'
+            pickerAlign='right'
+          />
         </FormItem>
         <FormItem
           padding={130}
@@ -156,17 +228,41 @@ const Index = () => {
           />
         </FormItem>
         <FormItem
-          padding={20}
-          name='categoryId'
+          padding={130}
+          name='tags'
           trigger='onChange'
-          rules={[{ required: true, message: '请选择商品图' }]}>
-          <Picker
-            label='商品分类'
-            options={[]}
-            placeholder='Please choose'
-            pickerAlign='right'
+          normalize={(e) => e?.replace?.('，', ',')}
+          rules={[{ required: true }]}>
+          <Textarea
+            style={{ padding: '10rpx' }}
+            label='商品标签'
+            placeholder='请输入商品标签用逗号(,)分隔'
           />
         </FormItem>
+        {id && (
+          <Button
+            block
+            danger
+            ghost
+            size='large'
+            onTap={() => {
+              showModal({
+                title: '提示',
+                content: '请在再次确认是否删除该商品',
+                cancelText: '取消',
+                confirmColor: '#ff4d4f',
+                confirmText: '删除',
+                success: (e) => {
+                  if (e.confirm) {
+                    del(id);
+                  }
+                },
+              });
+            }}
+            shape='square'>
+            删除商品
+          </Button>
+        )}
 
         <BottomButton
           size='large'

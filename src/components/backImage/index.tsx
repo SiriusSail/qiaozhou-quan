@@ -38,7 +38,9 @@ export const Img: React.FC<ImagePropsType> = ({
   };
   return (
     <View
-      onClick={handleClickImage}
+      onTap={() => {
+        handleClickImage();
+      }}
       className={classNames(styles.back, className)}
       style={{ backgroundImage: `url(${src})`, height, width, ...style }}
       {...props}

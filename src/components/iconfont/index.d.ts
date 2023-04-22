@@ -2,7 +2,7 @@
 import { FunctionComponent } from 'react';
 
 interface Props {
-  name: 'qz-hongbao' | 'qz-wode-copy' | 'qz-hongbao1' | 'qz-shouye' | 'qz-tipvip';
+  name: 'qz-canju' | 'qz-jiahao2fill' | 'qz-zengjia' | 'qz-jianshao' | 'qz-hongbao' | 'qz-wode-copy' | 'qz-hongbao1' | 'qz-shouye' | 'qz-tipvip';
   size?: number;
   color?: string | string[];
 }

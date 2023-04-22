@@ -95,7 +95,7 @@ const Index = () => {
             onTap={() => {
               showModal({
                 title: '提示',
-                content: '请在再次确认是否删除员工',
+                content: '请在再次确认是否删除分类',
                 cancelText: '取消',
                 confirmColor: '#ff4d4f',
                 confirmText: '删除',
