@@ -8,37 +8,22 @@ import {
   View,
 } from 'remax/wechat';
 import styles from './index.less';
-import Block from '@/components/block';
 import Favorable from '@/components/favorable';
-import BottomButton from '@/components/bottomButton';
 import BackImage from '@/components/backImage';
-import RedEnvelope from '@/components/redEnvelope';
-import { getActivityListByMerchantId } from '@/apis/activity';
-import type { ActivityInfo, ActivetyAmountInfo } from '@/apis/activity';
-import classnames from 'classnames';
-import { receiveCoupon } from '@/apis/usercoupon';
-import user from '@/stores/userInfo';
-import { Space, Card, Grid, Icon, Tag, Popup } from 'anna-remax-ui';
-import { useRequest } from 'ahooks';
-import { useQuery } from 'remax';
-import { createContainer } from 'unstated-next';
-import { usePageEvent } from 'remax/macro';
-import avatarSrc from '@/components/userCard/images/avatar.jpg';
-import Qrcode from '@/components/qrcode';
-import invitationShare from '@/utils/invitationShare';
-import { findGoodsListByMerchantId } from '@/apis/goods';
+import { Space, Card, Tag, Popup } from 'anna-remax-ui';
 import type { Find } from '@/apis/goods';
-import ProductMenu from '@/components/productMenu';
 import { useControllableValue } from 'ahooks';
 import Iconfont from '@/components/iconfont';
 import FormItem from '@/components/formItem';
+import currency from 'currency.js';
 
 const Item: React.FC<
   Find & {
     value?: string;
+    type?: 'see' | 'edit';
     onChange?: (string: string) => void;
   }
-> = ({ onChange, ...item }) => {
+> = ({ onChange, type, ...item }) => {
   const [value, setValue] = useControllableValue({
     ...item,
     onChange,
@@ -52,6 +37,7 @@ const Item: React.FC<
           <BackImage
             preview={false}
             src={item.cover}
+            style={{ borderRadius: '10rpx' }}
             width='160'
             height='160'
           />
@@ -85,45 +71,63 @@ const Item: React.FC<
             ))}
           </View>
         </View>
-        <View className={styles.foot}>
-          <Favorable color='#fa8c16' favorable={item.price} />
-          <View>
-            <Space>
-              {parseInt(value?.value) > 0 && (
+        {type === 'edit' && (
+          <View className={styles.foot}>
+            <Favorable color='#fa8c16' favorable={item.price} />
+            <View>
+              <Space>
+                {parseInt(value?.value) > 0 && (
+                  <View
+                    onTap={() => {
+                      const val = parseInt(value?.value || 0) - 1;
+                      if (val <= 0) {
+                        setValue(undefined);
+                        return;
+                      }
+                      setValue({
+                        ...item,
+                        value: parseInt(value?.value || 0) - 1,
+                      });
+                    }}>
+                    <Iconfont name='qz-jianshao' size={32} color='#fa8c16' />
+                  </View>
+                )}
+                {parseInt(value?.value) > 0 && <View>{value?.value}</View>}
                 <View
                   onTap={() => {
-                    const val = parseInt(value?.value || 0) - 1;
-                    if (val <= 0) {
-                      setValue(undefined);
+                    if (
+                      parseInt(value?.value || 0) + 1 >
+                      parseInt(item.overNum || 0)
+                    ) {
                       return;
                     }
                     setValue({
                       ...item,
-                      value: parseInt(value?.value || 0) - 1,
+                      value: parseInt(value?.value || 0) + 1,
                     });
                   }}>
-                  <Iconfont name='qz-jianshao' size={32} color='#fa8c16' />
+                  <Iconfont name='qz-jiahao2fill' size={32} color='#fa8c16' />
                 </View>
-              )}
-              {parseInt(value?.value) > 0 && <View>{value?.value}</View>}
-              <View
-                onTap={() => {
-                  if (
-                    parseInt(value?.value || 0) + 1 >
-                    parseInt(item.overNum || 0)
-                  ) {
-                    return;
-                  }
-                  setValue({
-                    ...item,
-                    value: parseInt(value?.value || 0) + 1,
-                  });
-                }}>
-                <Iconfont name='qz-jiahao2fill' size={32} color='#fa8c16' />
-              </View>
-            </Space>
+              </Space>
+            </View>
           </View>
-        </View>
+        )}
+        {type === 'see' && (
+          <View className={styles.foot}>
+            <Space>
+              <Favorable color='#fa8c16' favorable={item.price} />
+              <View>×</View>
+              <View>{item.number}</View>
+            </Space>
+
+            <View>
+              <Favorable
+                color='#fa8c16'
+                favorable={currency(item.price).multiply(item.number).toJSON()}
+              />
+            </View>
+          </View>
+        )}
       </View>
       <Popup
         open={open}
@@ -138,13 +142,14 @@ const Item: React.FC<
 
 const Index: React.FC<{
   data: Find[];
-}> = (props) => {
+  type?: 'see' | 'edit';
+}> = ({ data, type = 'edit' }) => {
   return (
     <View>
-      {props.data.map((item) => {
+      {data.map((item) => {
         return (
           <FormItem key={item.goodsId} name={item.goodsId}>
-            <Item {...item} />
+            <Item type={type} {...item} />
           </FormItem>
         );
       })}

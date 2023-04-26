@@ -27,6 +27,7 @@ import avatarSrc from '@/components/userCard/images/avatar.jpg';
 import Qrcode from '@/components/qrcode';
 import invitationShare from '@/utils/invitationShare';
 import { findGoodsListByMerchantId } from '@/apis/goods';
+import type { Find } from '@/apis/goods';
 import IconFont from '@/components/iconfont';
 import ProductMenu from '@/components/productMenu';
 import GoodsList from '@/components/goodsList';
@@ -68,9 +69,18 @@ const Store = createContainer(() => {
       },
     }
   );
+
+  const getSelectProduct = useCallback(() => {
+    const value = form.getFieldsValue();
+    const valueArr = Object.entries(value)
+      .filter(([, item]) => (item as any)?.value > 0)
+      .map(([, item]) => item);
+    return valueArr as Find[];
+  }, [form]);
   return {
     data,
     id,
+    getSelectProduct,
     form,
     receive,
   };
@@ -78,6 +88,7 @@ const Store = createContainer(() => {
 
 const ShoppingCart = () => {
   const [open, setOpen] = useState(false);
+  const { form, getSelectProduct, id } = Store.useContainer();
   return (
     <>
       <View className={styles['shopping-cart']}>
@@ -126,8 +137,17 @@ const ShoppingCart = () => {
             <Button
               look='orange'
               onTap={() => {
+                const value = form.getFieldsValue();
+                console.log(value);
+                const valueArr = getSelectProduct().map((item) => ({
+                  goodsId: (item as any).goodsId,
+                  value: (item as any).value,
+                }));
+                if (valueArr.length <= 0) return;
                 navigateTo({
-                  url: '/pages/orderInfo/index',
+                  url: `/pages/orderInfo/index?merchantId=${id}&data=${encodeURIComponent(
+                    JSON.stringify(valueArr)
+                  )}`,
                 });
               }}>
               选好了
@@ -143,26 +163,17 @@ const ShoppingCart = () => {
         onClose={() => {
           setOpen(false);
         }}>
-        <View className={styles['cart-popup']}>
-          <Field>
-            {({ value }) => {
-              return (
-                <View>
-                  {Object.entries(value)
-                    .filter(([, item]) => (item as any).value > 0)
-                    .map(([, item]) => {
-                      return (
-                        <GoodsList
-                          key={(item as any).goodsId}
-                          data={[item] as any}
-                        />
-                      );
-                    })}
-                </View>
-              );
-            }}
-          </Field>
-        </View>
+        {open && (
+          <View className={styles['cart-popup']}>
+            <View>
+              {getSelectProduct().map((item) => {
+                return (
+                  <GoodsList key={(item as any).goodsId} data={[item] as any} />
+                );
+              })}
+            </View>
+          </View>
+        )}
       </Popup>
     </>
   );
@@ -273,7 +284,7 @@ const Shop = () => {
 
   const [openScroll, setOpenScroll] = useState(false);
 
-  const { data: goodsList } = useRequest(() => {
+  const { data: goodsInfo } = useRequest(() => {
     return findGoodsListByMerchantId(id);
   });
 
@@ -386,14 +397,7 @@ const Shop = () => {
         <ProductMenu
           openScroll={openScroll}
           render={(d) => <GoodsList data={d} />}
-          data={[
-            ...(goodsList?.goodsCategoryListResList || []),
-            ...(goodsList?.goodsCategoryListResList || []),
-            ...(goodsList?.goodsCategoryListResList || []),
-            ...(goodsList?.goodsCategoryListResList || []),
-            ...(goodsList?.goodsCategoryListResList || []),
-            ...(goodsList?.goodsCategoryListResList || []),
-          ]}
+          data={goodsInfo?.goodsCategoryListResList}
         />
         {/* <Block title='店铺活动'>
           <View className={styles.welfare}>

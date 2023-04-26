@@ -25,7 +25,15 @@ type Keys =
   /**
    * 被邀请，我被谁邀请
    */
-  | 'invitedCode';
+  | 'invitedCode'
+  /**
+   * 备注信息
+   */
+  | 'remarks'
+  /**
+   * 优惠券
+   */
+  | 'coupon';
 
 interface Storage {
   get: {

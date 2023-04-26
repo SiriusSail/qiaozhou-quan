@@ -3,11 +3,17 @@ import { request } from '@/apis';
 /**
  * 通过商家id查询商品列表
  */
-export const findGoodsListByMerchantId = (merchantId: string) =>
-  request<FindGoods>({
-    method: 'GET',
-    url: `/wx/api/goods/findGoodsListByMerchantId/${merchantId}`,
-  });
+export const findGoodsListByMerchantId = (
+  merchantId: string,
+  loading?: boolean
+) =>
+  request<FindGoods>(
+    {
+      method: 'GET',
+      url: `/wx/api/goods/findGoodsListByMerchantId/${merchantId}`,
+    },
+    loading
+  );
 /**
  * 通过商家id查询商品列表
  */
@@ -128,6 +134,10 @@ export type Find = {
    * 	描述
    */
   remarks: string;
+  /**
+   * 	数量
+   */
+  number: number;
   /**
    * 	状态 0 上架 1 下架
    */

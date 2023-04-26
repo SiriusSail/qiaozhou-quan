@@ -9,6 +9,8 @@ import styles from './index.less';
 import './global.less';
 import { useEffect } from 'react';
 import classnames from 'classnames';
+import { usePageEvent } from 'remax/macro';
+import VirtuallyList from '@/components/virtuallyList';
 const { TabContent } = Tabs;
 
 interface Props {
@@ -130,6 +132,7 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
         </ScrollView>
       </View>
       <View className={styles.content}>
+        {/* <VirtuallyList list={data}> */}
         <ScrollView
           className={styles['scroll-view']}
           scrollY={openScroll}
@@ -141,7 +144,10 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
           <View className='contain'>
             {data.map((item, i) => {
               return (
-                <View key={i} id={`section-${item.categoryId}-${i}`}>
+                <View
+                  className='target-class'
+                  key={i}
+                  id={`section-${item.categoryId}-${i}`}>
                   {render(item.goodsListResList)}
                 </View>
               );
@@ -149,6 +155,7 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
           </View>
           <View className={styles.bottom} />
         </ScrollView>
+        {/* </VirtuallyList> */}
       </View>
     </View>
   );

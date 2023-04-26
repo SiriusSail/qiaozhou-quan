@@ -1,17 +1,38 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, navigateTo, startPullDownRefresh } from 'remax/wechat';
-import { Tabs, Card, Row, Col, Button, Tag, Space } from 'anna-remax-ui';
+import React, { useMemo, useState, useCallback } from 'react';
+import {
+  View,
+  navigateTo,
+  startPullDownRefresh,
+  navigateBack,
+} from 'remax/wechat';
+import { Tabs, Card, Space } from 'anna-remax-ui';
 import styles from './index.less';
 import Image from '@/components/image';
 import userInfoStores from '@/stores/userInfo';
 import AutoList from '@/components/autoList';
 import { updateCampus } from '@/apis/usercoupon';
 import Voucher from '@/components/voucher';
-import type { CampusItem } from '@/apis/usercoupon';
+import type { CampusItem, CampusVoucherItem } from '@/apis/usercoupon';
 import { usePageEvent } from 'remax/macro';
+import { useQuery } from 'remax';
+import storage from '@/utils/storage';
 const { TabContent } = Tabs;
 
 const BagItem: React.FC<CampusItem> = (props) => {
+  const merchantId = useQuery<{ merchantId: string }>();
+  const tap = useCallback(
+    (e: CampusVoucherItem) => {
+      if (merchantId) {
+        storage.set('coupon', JSON.stringify(e));
+        navigateBack();
+        return;
+      }
+      navigateTo({
+        url: `/pages/voucher/index?id=${props.couponNo}`,
+      });
+    },
+    [merchantId, props]
+  );
   return (
     <Card
       style={{ padding: '10rpx 0', margin: '20rpx 0' }}
@@ -19,11 +40,14 @@ const BagItem: React.FC<CampusItem> = (props) => {
       shadow
       title={
         <View
-          onTap={() =>
+          onTap={() => {
+            if (merchantId) {
+              return;
+            }
             navigateTo({
               url: `/pages/shop/index?id=${props.merchantId}`,
-            })
-          }
+            });
+          }}
           className={styles['bag-item-title']}>
           <Space>
             <Image
@@ -36,7 +60,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
         </View>
       }>
       {props?.list?.map((item) => {
-        return <Voucher type='see' {...item} />;
+        return <Voucher onTap={() => tap(item)} type='see' {...item} />;
       })}
     </Card>
   );
@@ -44,6 +68,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
 
 const Index = () => {
   const [status, setStatus] = useState('1');
+  const { merchantId } = useQuery<{ merchantId: string }>();
   const { userInfo } = userInfoStores.useContainer();
 
   const tabs = useMemo(() => {
@@ -92,6 +117,7 @@ const Index = () => {
               }
               return updateCampus({
                 ...params,
+                merchantId,
                 userId: userInfo?.id,
                 status,
               });
@@ -101,7 +127,7 @@ const Index = () => {
             }}
           />
         );
-      }, [status, userInfo?.id])}
+      }, [merchantId, status, userInfo?.id])}
     </View>
   );
 };

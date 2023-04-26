@@ -7,9 +7,14 @@ import dayjs from 'dayjs';
 import type { CampusVoucherItem } from '@/apis/usercoupon';
 
 const Index = (
-  item: CampusVoucherItem & { type: 'new' | 'see'; onClose?: () => void }
+  item: CampusVoucherItem & {
+    type: 'new' | 'see';
+    onClose?: () => void;
+    onTap: () => void;
+  }
 ) => {
   const toVoucher = useCallback(() => {
+    if (item?.onTap) return item?.onTap?.();
     navigateTo({
       url: `/pages/voucher/index?id=${item.couponNo}`,
     });
@@ -48,7 +53,7 @@ const Index = (
               type='primary'
               onTap={() => {
                 item.onClose?.();
-                switchTab({
+                navigateTo({
                   url: `/pages/bag/index`,
                 });
               }}

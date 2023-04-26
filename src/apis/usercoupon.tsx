@@ -16,6 +16,7 @@ export const receiveCoupon = (data: ReceiveCouponParmas) =>
   );
 
 type UpdateCampusParams = {
+  merchantId?: string;
   status?: number;
   userId?: string;
 };
@@ -66,7 +67,7 @@ export type CampusVoucherItem = {
 export const updateCampus = (data: API.PageListReq<UpdateCampusParams>) =>
   request<API.PageListRes<CampusItem>>({
     method: 'POST',
-    url: '/wx/api/usercoupon/updateCampus',
+    url: '/wx/api/usercoupon/findUserCouponList',
     data,
     dataType: 'json',
   });

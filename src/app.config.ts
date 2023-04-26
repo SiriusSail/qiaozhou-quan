@@ -12,9 +12,11 @@ const config: AppConfig = {
     'pages/order/index', // 订单列表
     'pages/orderInfo/index', // 订单详情
     'pages/productInfo/index', // 订单详情
+    'pages/remarks/index', // 填写备注页面
     'pages/userInfo/index', // 认证信息
     'pages/vips/index', // 会员中心
     'pages/voucher/index', // 红包二维码
+    'pages/success/index', // 下单成功
     'pages/qrcodeEntrance/index', // 扫码入口
     'pages/check/index', // 扫码入口
   ],
