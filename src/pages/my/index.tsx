@@ -112,7 +112,7 @@ const Friend = () => {
         }}>
         <View id='friend' className={styles['friend-content']}>
           <BackImage
-            src='https://www.chqheiyou.com/uploads/9a665cbfb7194279b88c2dbd956ccc7f.jpg'
+            src='https://www.chqheiyou.com/uploads/s_1ce951b1d5ef4beda16022df44c95fcf.jpg'
             width='50vh'
             height='80vh'
             preview={false}
@@ -199,7 +199,7 @@ const Index = () => {
                   url: '/pages/bag/index',
                 })
               }
-              icon='ticketMoney'
+              icon='redpacket'
               text='我的红包'
             />
           </Row>
@@ -291,6 +291,17 @@ const Index = () => {
                     onTap={() =>
                       navigateTo({
                         url: `/pages/productPages/productList/index`,
+                      })
+                    }
+                  />
+                  <TagItem
+                    iconColor='#e65656'
+                    icon='text'
+                    text='店铺订单'
+                    // access='4000'
+                    onTap={() =>
+                      navigateTo({
+                        url: `/pages/shopPages/shopOrder/index`,
                       })
                     }
                   />

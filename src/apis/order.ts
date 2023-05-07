@@ -11,9 +11,19 @@ export const orderPage = (data: API.PageListReq<{ status?: string }>) =>
     url: `/wx/api/order/page`,
   });
 /**
+ * 分页查询用户订单
+ */
+export const findUserOrderPage = (data: API.PageListReq<{ status?: string }>) =>
+  request<API.PageListRes<ResOrder>>({
+    method: 'POST',
+    dataType: 'json',
+    data,
+    url: `/wx/api/order/findUserOrderPage`,
+  });
+/**
  * 完成订单
  */
-export const completeOrder = (orderId: string) =>
+export const completeOrder = (orderId?: string) =>
   request({
     method: 'GET',
     url: `/wx/api/order/completeOrder/${orderId}`,
@@ -21,16 +31,19 @@ export const completeOrder = (orderId: string) =>
 /**
  * 订单明细
  */
-export const findOrderInfoByOrderId = (orderId: string) =>
-  request<ResOrder>({
-    method: 'GET',
-    url: `/wx/api/order/findOrderInfoByOrderId/${orderId}`,
-  });
+export const findOrderInfoByOrderId = (orderId?: string) =>
+  request<ResOrder>(
+    {
+      method: 'GET',
+      url: `/wx/api/order/findOrderInfoByOrderId/${orderId}`,
+    },
+    true
+  );
 /**
  * 下单
  */
 export const placeOrder = (data: ReqOrder) =>
-  request(
+  request<string>(
     {
       method: 'POST',
       data,
@@ -39,14 +52,31 @@ export const placeOrder = (data: ReqOrder) =>
     },
     true
   );
+/**
+ * 下单
+ */
+export const placeOrderConfirm = (data: ReqOrder) =>
+  request(
+    {
+      method: 'POST',
+      data,
+      dataType: 'json',
+      url: `/wx/api/order/placeOrderConfirm`,
+    },
+    true
+  );
 
 /**
  * 取消订单
  */
-export const cancelOrder = (data: { cancelRemarks: string; orderId: string }) =>
+export const cancelOrder = (data: {
+  orderId?: string;
+  cancelRemarks?: string;
+}) =>
   request({
     method: 'POST',
     data,
+    dataType: 'json',
     url: `/wx/api/order/cancelOrder`,
   });
 
@@ -107,6 +137,10 @@ export type ResOrder = {
    * 	下单备注
    */
   remarks: string;
+  /**
+   * 	取餐号
+   */
+  pickNum: string;
   /**
    * 	订单状态
    */

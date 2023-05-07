@@ -37,14 +37,19 @@ type Keys =
 
 interface Storage {
   get: {
-    (key: Keys | string): string | null;
     (key: Keys): string | null;
+    /**
+     * 订单缓存
+     */
+    (key: 'orderCache'): Record<string, Record<string, string>>;
   };
   set: {
     (key: Keys, value: string | undefined): void;
+    (key: 'orderCache', data: Record<string, Record<string, string>>): void;
   };
   del: {
     (key: Keys): void;
+    (key: 'orderCache'): void;
   };
   clear: () => void;
 }

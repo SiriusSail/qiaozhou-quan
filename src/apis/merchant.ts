@@ -10,6 +10,16 @@ export const getMerchantType = () =>
   });
 
 /**
+ * 活动管理接口
+ */
+export const getFindMerchantList = (data: API.PageListParamas) =>
+  request<API.PageListRes<Merchant>>({
+    method: 'POST',
+    url: '/wx/api/merchant/findMerchantList',
+    data,
+    dataType: 'json',
+  });
+/**
  * 通过用户ID获取商户信息
  */
 export const getMerchantByUserId = (userId: string) =>
@@ -60,6 +70,45 @@ export const updateMerchantCampus = (data: MerchantApplyParams) =>
     },
     true
   );
+
+export type Merchant = {
+  /**
+   * 	id
+   */
+  id: string;
+  /**
+   * 	店铺头像
+   */
+  merAvatarurl: string;
+  /**
+   * 	商铺简介
+   */
+  merDescribe: string;
+  /**
+   * 	商铺坐标纬度
+   */
+  merLat: number;
+  /**
+   * 	商铺坐标经度
+   */
+  merLng: number;
+  /**
+   * 	商铺名称
+   */
+  merName: string;
+  /**
+   * 	月销售数量
+   */
+  sellNum: number;
+  /**
+   * 	用户ID
+   */
+  userId: string;
+  /**
+   * 	权重值
+   */
+  weights: number;
+};
 
 export type MerchantApplyParams = {
   /**

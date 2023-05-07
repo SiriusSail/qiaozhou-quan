@@ -28,16 +28,17 @@ import Qrcode from '@/components/qrcode';
 import invitationShare from '@/utils/invitationShare';
 import { findGoodsListByMerchantId } from '@/apis/goods';
 import type { Find } from '@/apis/goods';
+// import { placeOrderConfirm } from '@/apis/order';
 import IconFont from '@/components/iconfont';
 import ProductMenu from '@/components/productMenu';
 import GoodsList from '@/components/goodsList';
 import Favorable from '@/components/favorable';
 import currency from 'currency.js';
+import storage from '@/utils/storage';
 
 const Store = createContainer(() => {
   const { id } = useQuery<{ id: string }>();
   const [form] = useForm();
-  console.log(id);
   const { userInfo } = user.useContainer();
   const { data, run: updateData } = useRequest(
     () => getActivityListByMerchantId(id, userInfo?.id),
@@ -77,6 +78,7 @@ const Store = createContainer(() => {
       .map(([, item]) => item);
     return valueArr as Find[];
   }, [form]);
+
   return {
     data,
     id,
@@ -88,7 +90,7 @@ const Store = createContainer(() => {
 
 const ShoppingCart = () => {
   const [open, setOpen] = useState(false);
-  const { form, getSelectProduct, id } = Store.useContainer();
+  const { getSelectProduct, id } = Store.useContainer();
   return (
     <>
       <View className={styles['shopping-cart']}>
@@ -137,17 +139,13 @@ const ShoppingCart = () => {
             <Button
               look='orange'
               onTap={() => {
-                const value = form.getFieldsValue();
-                console.log(value);
                 const valueArr = getSelectProduct().map((item) => ({
                   goodsId: (item as any).goodsId,
                   value: (item as any).value,
                 }));
                 if (valueArr.length <= 0) return;
                 navigateTo({
-                  url: `/pages/orderInfo/index?merchantId=${id}&data=${encodeURIComponent(
-                    JSON.stringify(valueArr)
-                  )}`,
+                  url: `/pages/orderConfirmation/index?merchantId=${id}`,
                 });
               }}>
               选好了
@@ -293,6 +291,14 @@ const Shop = () => {
   //   return goodsList?.goodsCategoryListResList.map(item => item.goodsListResList)
   // } ,[])
 
+  useMemo(() => {
+    if (goodsInfo) {
+      const orderCache = storage.get('orderCache');
+      console.log(orderCache);
+      form.setFieldsValue(orderCache[id] || {});
+    }
+  }, [form, goodsInfo, id]);
+
   usePageEvent('onLoad', () => {
     // 分享内容
     showShareMenu({
@@ -300,21 +306,24 @@ const Shop = () => {
       menus: ['shareAppMessage', 'shareTimeline'],
     });
 
-    // // 获取页面总高度
-    // createSelectorQuery()
-    //   .select('#home')
-    //   .boundingClientRect((rect) => {
-    //     console.log(rect);
-    //     pageHeight.current = rect.height;
-    //   })
-    //   .exec();
-
     // 获取可视区域高度
     getSystemInfo({
       success: (res) => {
         clientHight.current = res.windowHeight;
       },
     });
+  });
+  const cache = useCallback(() => {
+    const values = form.getFieldsValue();
+    const orderCache = storage.get('orderCache');
+    storage.set('orderCache', {
+      ...orderCache,
+      [id]: values,
+    });
+  }, [form, id]);
+
+  usePageEvent('onHide', () => {
+    cache();
   });
   usePageEvent('onShareAppMessage', () => {
     return invitationShare({

@@ -1,8 +1,8 @@
 import React from 'react';
-import { findUserOrderPage } from '@/apis/order';
+import { orderPage } from '@/apis/order';
 import OrderList from '@/components/orderList';
 
 const Index = () => {
-  return <OrderList request={findUserOrderPage} />;
+  return <OrderList request={orderPage} />;
 };
 export default Index;

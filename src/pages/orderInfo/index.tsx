@@ -1,5 +1,11 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react';
-import { View, navigateTo, Picker } from 'remax/wechat';
+import {
+  View,
+  navigateBack,
+  showToast,
+  showModal,
+  makePhoneCall,
+} from 'remax/wechat';
 import styles from './index.less';
 import { useQuery } from 'remax';
 import { useRequest } from 'ahooks';
@@ -12,171 +18,214 @@ import Favorable from '@/components/favorable';
 import Form, { useForm, Field } from 'rc-field-form';
 import Block from '@/components/block';
 import currency from 'currency.js';
-import { placeOrder } from '@/apis/order';
+import user from '@/stores/userInfo';
+import {
+  findOrderInfoByOrderId,
+  cancelOrder,
+  completeOrder,
+} from '@/apis/order';
 // import { decideGoodsOverNum } from '@/apis/goods';
-import storage from '@/utils/storage';
 import dayjs from 'dayjs';
 
+const statusColor: Record<string, string> = {
+  进行中: '#fa8c16',
+  已完成: '#52c41a',
+};
+
 const Index = () => {
-  const { data, merchantId } = useQuery();
-  const [coupon, setCoupon] = useState<any>();
-  // const [remarks, setRemarks] = useState<string>();
+  const { orderId } = useQuery();
+  const { userInfo } = user.useContainer();
 
   const [form] = useForm();
-  const selectData = useRef(
-    JSON.parse(decodeURIComponent(data || '')) as Find[]
-  );
 
-  // 获取商家商品
-  const { data: goodsInfo } = useRequest(() => {
-    return findGoodsListByMerchantId(merchantId as string);
-  });
-
-  // 获取商品信息
-  const selectGoods = useMemo(() => {
-    return (goodsInfo?.goodsCategoryListResList
-      ?.map((item) => item.goodsListResList)
-      .flat()
-      .filter((item) =>
-        selectData.current.find((sItem) => item?.goodsId === sItem?.goodsId)
-      )
-      .map((item) => {
-        const find = selectData.current.find(
-          (sItem) => item?.goodsId === sItem?.goodsId
-        );
-        return {
-          ...item,
-          value: (find as any).value,
-          number: (find as any).value,
-        };
-      }) || []) as Find[];
-  }, [goodsInfo?.goodsCategoryListResList]);
-
-  const { run: place, loading: placeLoading } = useRequest(
+  const { data: orderData } = useRequest(
     () => {
-      const { couponId, remarks, departTime } = form.getFieldsValue();
-      const placeOrderGoodsReqList = selectGoods.map((item) => ({
-        goodsId: item.goodsId,
-        number: item.number,
-        price: item.price,
-      }));
-      return placeOrder({
-        couponId,
-        remarks,
-        placeOrderGoodsReqList,
-        departTime,
-        merchantId,
-      });
+      return findOrderInfoByOrderId(orderId);
+    },
+    {
+      manual: !orderId,
+    }
+  );
+  const { run: complete, loading: completeLoading } = useRequest(
+    () => {
+      return completeOrder(orderId);
     },
     {
       manual: true,
-      onSuccess: () => {},
+      onSuccess: () => {
+        showToast({
+          title: '操作成功',
+          duration: 2000,
+          icon: 'success',
+        });
+        setTimeout(() => {
+          navigateBack();
+        }, 2000);
+      },
     }
   );
-
-  const tal = useMemo(() => {
-    return selectGoods.reduce((a, b) => {
-      return currency((b as any)?.number || 0)
-        .multiply((b as any)?.price || 0)
-        .add(a)
-        .toJSON();
-    }, 0);
-  }, [selectGoods]);
-  usePageEvent('onShow', (e) => {
-    const cou = storage.get('coupon');
-
-    console.log(coupon);
-    if (cou) {
-      try {
-        const c = JSON.parse(cou);
-        setCoupon(c);
-        form.setFieldsValue({
-          couponId: c.couponId,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+  const { data: merchant } = useRequest(
+    async () => {
+      if (!orderData?.merchantId) return;
+      return findGoodsListByMerchantId(orderData?.merchantId as string);
+    },
+    {
+      refreshDeps: [orderData],
     }
-    // storage.del('coupon');
+  );
+  const { run: cancel, loading: cancelLoading } = useRequest(cancelOrder, {
+    manual: true,
+    onSuccess: () => {
+      showToast({
+        title: '操作成功',
+        duration: 2000,
+        icon: 'success',
+      });
+      setTimeout(() => {
+        navigateBack();
+      }, 2000);
+    },
   });
 
-  const onSubmit = useCallback(() => {
-    place();
-  }, [place]);
+  const isMerchant =
+    userInfo?.merchantId && userInfo?.merchantId === orderData?.merchantId;
+
   return (
     <Form form={form}>
       <Field name='couponId' />
       <View className={styles.my}>
+        {/* {isMerchant ? (
+          <Block title='用户信息'>
+            <Cell icon='shop' label='用户昵称'>
+              {orderData?.merName}
+            </Cell>
+            <Cell
+              icon='phone'
+              onTap={() => {
+                if (!merchant?.merPersonTel) return;
+                makePhoneCall({
+                  phoneNumber: merchant.merPersonTel,
+                });
+              }}
+              label='电话'>
+              {merchant?.merPersonTel}
+            </Cell>
+          </Block>
+        ) : ( */}
         <Block title='店铺信息'>
           <Cell icon='shop' label='店铺'>
-            {goodsInfo?.merName}
+            {orderData?.merName}
           </Cell>
           <Cell icon='location' label='地址'>
-            {goodsInfo?.merAddress}
+            {merchant?.merAddress}
           </Cell>
-          <Cell icon='phone' label='电话'>
-            {goodsInfo?.merPersonTel}
+          <Cell
+            icon='phone'
+            onTap={() => {
+              if (!merchant?.merPersonTel) return;
+              makePhoneCall({
+                phoneNumber: merchant.merPersonTel,
+              });
+            }}
+            label='电话'>
+            {merchant?.merPersonTel}
           </Cell>
         </Block>
-        <Block title='订单信息'>
+        {/* )} */}
+        <Block
+          title={
+            <View className={styles['order-title']}>
+              <View>订单信息</View>
+              <View
+                style={{ color: statusColor[orderData?.statusDesc] || '#999' }}>
+                {orderData?.statusDesc}
+              </View>
+            </View>
+          }>
+          <Cell icon='order' label='取餐号'>
+            <View className={styles.picknum}>{orderData?.pickNum}</View>
+          </Cell>
+          <Cell icon='countdown' label='取餐时间'>
+            {dayjs(orderData?.departTime).format('MM-DD HH:mm')}
+          </Cell>
           <View className={styles['order-list']}>
-            {<GoodsList type='see' data={selectGoods} />}
+            {
+              <GoodsList
+                type='see'
+                data={(orderData?.wxOrderGoodsDetailResList || []) as any}
+              />
+            }
           </View>
           <Cell icon='sort' label='小计'>
-            <Favorable color='#fa8c16' favorable={tal} />
-          </Cell>
-          <Cell icon='sort' label='取餐时间'>
-            <Field
-              name='departTime'
-              initialValue={dayjs().add(45, 'm').format('HH:mm')}
-              normalize={(e) => e.detail.value}>
-              <Picker mode='time' className={styles.picker}>
-                <Field name='departTime'>{({ value }) => value}</Field>
-              </Picker>
-            </Field>
-          </Cell>
-          <Field name='remarks'>
-            <Input
-              icon='text'
-              label='备注'
-              placeholder='请填写口味，偏好等要求'
+            <Favorable
+              color='#fa8c16'
+              favorable={currency(orderData?.payMoney || 0)
+                .add(orderData?.couponMoney || 0)
+                .toJSON()}
             />
-          </Field>
-          <Cell
-            icon='ticket'
-            label='优惠券'
-            border={false}
-            arrow
-            onTap={() => {
-              navigateTo({
-                url: `/pages/bag/index?merchantId=${merchantId}`,
-              });
-            }}>
-            {coupon ? (
-              <Space>
-                <View>{coupon.couponName}</View>
-                <Favorable color='#fa8c16' favorable={coupon.favorable} />
-              </Space>
-            ) : (
-              '请选择优惠券'
-            )}
           </Cell>
+          {orderData?.remarks && (
+            <Cell icon='text' label='备注'>
+              {orderData?.remarks}
+            </Cell>
+          )}
+          {orderData?.couponMoney && (
+            <Cell icon='ticket' label='优惠券' border={false}>
+              <Favorable color='#fa8c16' favorable={orderData?.couponMoney} />
+            </Cell>
+          )}
         </Block>
+        {isMerchant && orderData?.statusDesc === '进行中' && (
+          <Button
+            block
+            danger
+            ghost
+            loading={cancelLoading}
+            size='large'
+            onTap={() => {
+              showModal({
+                title: '取消原因',
+                cancelText: '返回',
+                placeholderText: '请输入取消原因',
+                editable: true,
+                confirmColor: '#ff4d4f',
+                confirmText: '确定',
+                success: (e) => {
+                  console.log(e);
+                  if (e.confirm) {
+                    cancel({
+                      cancelRemarks: e.content || '暂无原因',
+                      orderId,
+                    });
+                  }
+                },
+              });
+            }}
+            shape='square'>
+            取消订单
+          </Button>
+        )}
         <View style={{ height: '300rpx' }} />
         <View className={styles['shopping-cart']}>
           <Space>
             <View>
               合计
-              <Favorable
-                color='#fa8c16'
-                favorable={currency(tal)
-                  .subtract(coupon?.favorable || 0)
-                  .toJSON()}
-              />
+              <Favorable color='#fa8c16' favorable={orderData?.payMoney} />
             </View>
-            <Button look='orange' onTap={onSubmit} loading={placeLoading}>
-              确定下单
-            </Button>
+            {isMerchant &&
+              (orderData?.statusDesc === '进行中' ? (
+                <Button
+                  look='orange'
+                  onTap={complete}
+                  loading={completeLoading}>
+                  完成订单
+                </Button>
+              ) : (
+                //   :orderData?.statusDesc === '已完成':(<Button look='orange' onTap={onSubmit} loading={placeLoading}>
+                //   完成订单
+                // </Button>)
+                ''
+              ))}
           </Space>
         </View>
       </View>

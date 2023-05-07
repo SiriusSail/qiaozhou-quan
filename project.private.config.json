@@ -139,8 +139,8 @@
                 },
                 {
                     "name": "确认订单",
-                    "pathName": "pages/orderInfo/index",
-                    "query": "merchantId=01a773375ff4242a83a9430a5d575390&data=%5B%7B%22goodsId%22%3A%222cbd1f3e24d0445c883dc38c870d8800%22%2C%22value%22%3A3%7D%2C%7B%22goodsId%22%3A%223b3fcf8fb2c34151ba28a1dd85e97d73%22%2C%22value%22%3A3%7D%5D",
+                    "pathName": "pages/orderConfirmation/index",
+                    "query": "merchantId=01a773375ff4242a83a9430a5d575390",
                     "launchMode": "default",
                     "scene": null
                 },
@@ -154,6 +154,13 @@
                 {
                     "name": "订单列表",
                     "pathName": "pages/order/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "商家列表",
+                    "pathName": "pages/shopList/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

@@ -113,10 +113,17 @@ const Index = () => {
       <Form component={false} form={form}>
         <Field name='id' />
         <FormItem
-          padding={20}
-          name='pics'
+          padding={130}
+          name='actDescribe'
           trigger='onChange'
-          rules={[{ required: true, message: '请选择活动图片' }]}>
+          rules={[{ required: true }]}>
+          <Textarea
+            style={{ padding: '10rpx' }}
+            label='活动文案'
+            placeholder='请输入活动文案'
+          />
+        </FormItem>
+        <FormItem padding={20} name='pics' trigger='onChange'>
           <ImageUpload maxCount={9} label='活动图片' />
         </FormItem>
         <Cell
@@ -198,18 +205,6 @@ const Index = () => {
             <Input label='最高金额' type='digit' placeholder='请输入最高金额' />
           </FormItem>
         </VisibleFormItem>
-
-        <FormItem
-          padding={130}
-          name='actDescribe'
-          trigger='onChange'
-          rules={[{ required: true }]}>
-          <Textarea
-            style={{ padding: '10rpx' }}
-            label='活动文案阐述'
-            placeholder='请输入活动文案阐述'
-          />
-        </FormItem>
 
         <BottomButton
           size='large'

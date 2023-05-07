@@ -75,7 +75,7 @@ const Item: React.FC<
           <View className={styles.foot}>
             <Favorable color='#fa8c16' favorable={item.price} />
             <View>
-              <Space>
+              <Space size={20}>
                 {parseInt(value?.value) > 0 && (
                   <View
                     onTap={() => {
@@ -89,7 +89,7 @@ const Item: React.FC<
                         value: parseInt(value?.value || 0) - 1,
                       });
                     }}>
-                    <Iconfont name='qz-jianshao' size={32} color='#fa8c16' />
+                    <Iconfont name='qz-jianshao' size={42} color='#fa8c16' />
                   </View>
                 )}
                 {parseInt(value?.value) > 0 && <View>{value?.value}</View>}
@@ -106,7 +106,7 @@ const Item: React.FC<
                       value: parseInt(value?.value || 0) + 1,
                     });
                   }}>
-                  <Iconfont name='qz-jiahao2fill' size={32} color='#fa8c16' />
+                  <Iconfont name='qz-jiahao2fill' size={42} color='#fa8c16' />
                 </View>
               </Space>
             </View>

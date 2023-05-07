@@ -7,7 +7,7 @@ const Index: React.FC<{
   uniSize?: number;
   favorableSize?: number;
   color?: string;
-  favorable: string | number;
+  favorable?: string | number;
 }> = ({ uniSize = 20, favorableSize = 30, color = '#333', favorable }) => {
   return (
     <Space size={0}>
@@ -19,7 +19,7 @@ const Index: React.FC<{
       <View
         className={styles.favorable}
         style={{ fontSize: `${favorableSize}rpx`, color }}>
-        {parseInt(favorable).toFixed(2)}
+        {parseInt(favorable || '0').toFixed(2)}
       </View>
     </Space>
   );

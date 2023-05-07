@@ -8,9 +8,11 @@ const config: AppConfig = {
     'pages/bag/index', // 福利袋
     'pages/setting/index', // 设置
     'pages/shop/index', // 店铺
+    'pages/shopList/index', // 店铺列表
     'pages/userEdit/index', // 修改认证信息
     'pages/order/index', // 订单列表
     'pages/orderInfo/index', // 订单详情
+    'pages/orderConfirmation/index', // 订单确认
     'pages/productInfo/index', // 订单详情
     'pages/remarks/index', // 填写备注页面
     'pages/userInfo/index', // 认证信息
@@ -26,6 +28,7 @@ const config: AppConfig = {
       pages: [
         'shopInfo/index', // 商家信息
         'shopEdit/index', // 商家修改
+        'shopOrder/index', // 商家订单
         'shopApply/index', // 商家申请
         'staff/index', // 员工管理
         'staffEdit/index', // 修改员工
@@ -66,9 +69,15 @@ const config: AppConfig = {
         text: '首页',
       },
       {
+        pagePath: 'pages/shopList/index',
+        iconPath: './images/shop0.png',
+        selectedIconPath: './images/shop.png',
+        text: '点餐',
+      },
+      {
         pagePath: 'pages/order/index',
-        iconPath: './images/red0.png',
-        selectedIconPath: './images/red.png',
+        iconPath: './images/text0.png',
+        selectedIconPath: './images/text.png',
         text: '订单',
       },
       {
