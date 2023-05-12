@@ -181,7 +181,7 @@ const Index = () => {
           name='goodsName'
           trigger='onChange'
           rules={[{ required: true }]}>
-          <Input label='	商品名称' placeholder='请输入商品名称' />
+          <Input label='商品名称' maxLength={10} placeholder='请输入商品名称' />
         </FormItem>
         <FormItem
           padding={130}

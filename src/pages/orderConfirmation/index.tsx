@@ -114,6 +114,9 @@ const Index = () => {
     }
     // storage.del('coupon');
   });
+  usePageEvent('onUnload', (e) => {
+    storage.del('coupon');
+  });
 
   const onSubmit = useCallback(() => {
     requestSubscribeMessage({

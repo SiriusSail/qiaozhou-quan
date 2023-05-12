@@ -45,13 +45,7 @@ const Item: React.FC<
       }
       direction='horizontal'>
       <View className={styles.card}>
-        <View
-          className={styles.top}
-          onTap={() => {
-            navigateTo({
-              url: `/pages/productPages/productEdit/index?id=${item.goodsId}`,
-            });
-          }}>
+        <View className={styles.top}>
           <View>{item.goodsName}</View>
         </View>
         <View className={styles.content}>
@@ -60,12 +54,7 @@ const Item: React.FC<
           </View>
         </View>
         <View className={styles.content}>
-          <View
-            onTap={() => {
-              navigateTo({
-                url: `/pages/productPages/productEdit/index?id=${item.goodsId}`,
-              });
-            }}>
+          <View>
             {item.tags?.split(',').map((tagItem) => (
               <Tag key={tagItem}>{tagItem}</Tag>
             ))}

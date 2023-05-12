@@ -174,6 +174,9 @@ const Index = () => {
               <Favorable color='#fa8c16' favorable={orderData?.couponMoney} />
             </Cell>
           )}
+          <Cell icon='countdown' label='下单时间'>
+            {dayjs(orderData?.createTime).format('MM-DD HH:mm')}
+          </Cell>
         </Block>
         {isMerchant && orderData?.statusDesc === '进行中' && (
           <Button

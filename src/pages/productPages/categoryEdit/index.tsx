@@ -79,13 +79,13 @@ const Index = () => {
           rules={[{ required: true }]}>
           <Input label='分类名称' placeholder='请输入分类名称' />
         </FormItem>
-        <FormItem
+        {/* <FormItem
           padding={130}
           name='remarks'
           trigger='onChange'
           rules={[{ required: true }]}>
           <Input label='分类信息' placeholder='请输入分类信息' />
-        </FormItem>
+        </FormItem> */}
         {id && (
           <Button
             block

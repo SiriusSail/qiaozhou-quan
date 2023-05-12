@@ -19,7 +19,7 @@ import storage from '@/utils/storage';
 const { TabContent } = Tabs;
 
 const BagItem: React.FC<CampusItem> = (props) => {
-  const merchantId = useQuery<{ merchantId: string }>();
+  const { merchantId } = useQuery<{ merchantId: string }>();
   const tap = useCallback(
     (e: CampusVoucherItem) => {
       if (merchantId) {
@@ -28,7 +28,7 @@ const BagItem: React.FC<CampusItem> = (props) => {
         return;
       }
       navigateTo({
-        url: `/pages/voucher/index?id=${props.couponNo}`,
+        url: `/pages/voucher/index?id=${props.couponId}`,
       });
     },
     [merchantId, props]

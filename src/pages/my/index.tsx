@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { View, navigateTo, createSelectorQuery } from 'remax/wechat';
+import {
+  View,
+  navigateTo,
+  getSetting,
+  openSetting,
+  requestSubscribeMessage,
+  showModal,
+} from 'remax/wechat';
 import styles from './index.less';
 import Image from '@/components/image';
 import Block from '@/components/block';
@@ -104,6 +111,34 @@ const Index = () => {
       });
     }
   };
+
+  const subscribeMessage = useCallback(() => {
+    requestSubscribeMessage({
+      tmplIds: ['ty2IsUqnNeCCFhVBSp-eMb7XxEZutIGYw-sFYKcHjTw'],
+      async success(e) {
+        if (e['ty2IsUqnNeCCFhVBSp-eMb7XxEZutIGYw-sFYKcHjTw'] === 'reject') {
+          showModal({
+            title: '提示',
+            content: '您需要允许消息通知才能及时获得用户下单信息',
+            cancelText: '不接收',
+            confirmColor: '#ff4d4f',
+            confirmText: '重试',
+            success: (e) => {
+              if (!e.confirm) {
+                navigateTo({
+                  url: `/pages/productPages/productList/index`,
+                });
+              }
+            },
+          });
+          return;
+        }
+        navigateTo({
+          url: `/pages/productPages/productList/index`,
+        });
+      },
+    });
+  }, []);
   return (
     <View className={styles.my}>
       <UserCard />
@@ -238,11 +273,45 @@ const Index = () => {
                     icon='sort'
                     text='商品管理'
                     // access='4000'
-                    onTap={() =>
-                      navigateTo({
-                        url: `/pages/productPages/productList/index`,
-                      })
-                    }
+                    onTap={() => {
+                      getSetting({
+                        withSubscriptions: true,
+                        success(res) {
+                          if (res.subscriptionsSetting.mainSwitch) {
+                            // 用户打开了订阅消息总开关
+                            console.log(
+                              res,
+                              res.subscriptionsSetting.itemSettings,
+                              'res.subscriptionsSetting.itemSettings'
+                            );
+                            if (res.subscriptionsSetting.itemSettings) {
+                              // 用户同意总是保持是否推送消息的选择, 这里表示以后不会再拉起推送消息的授权
+                              const moIdState =
+                                res.subscriptionsSetting.itemSettings[
+                                  'ty2IsUqnNeCCFhVBSp-eMb7XxEZutIGYw-sFYKcHjTw'
+                                ]; // 用户同意的消息模板id
+                              if (moIdState === 'reject') {
+                                console.log('拒绝了消息推送');
+                                subscribeMessage();
+                                return;
+                              }
+                              navigateTo({
+                                url: `/pages/productPages/productList/index`,
+                              });
+                            } else {
+                              subscribeMessage();
+                            }
+                          } else {
+                            openSetting({
+                              withSubscriptions: true,
+                            });
+                          }
+                        },
+                        fail: (err) => {
+                          console.log(err.errMsg);
+                        },
+                      });
+                    }}
                   />
                   <TagItem
                     iconColor='#e65656'

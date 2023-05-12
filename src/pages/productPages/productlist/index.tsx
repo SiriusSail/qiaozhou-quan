@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, navigateTo } from 'remax/wechat';
+import { View, navigateTo, showModal } from 'remax/wechat';
 import { Card, Popup, Cell, Tag } from 'anna-remax-ui';
 import styles from './index.less';
 import BackImage from '@/components/backImage';
@@ -79,7 +79,20 @@ const Index = () => {
       <BottomButton
         size='large'
         noHeight
-        onTap={() => setShow(true)}
+        onTap={() => {
+          if (
+            (data?.map((item) => item.goodsListResList).flat().length || 0) > 30
+          ) {
+            showModal({
+              title: '提示',
+              content: '目前在最多添加30个商品，后续会陆续开放店铺请持续关注',
+              showCancel: false,
+              confirmText: '确定',
+            });
+            return;
+          }
+          setShow(true);
+        }}
         type='primary'
         shape='square'
         block>

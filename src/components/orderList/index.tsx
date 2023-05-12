@@ -7,6 +7,7 @@ import type { ResOrder } from '@/apis/order';
 import AutoList from '@/components/autoList';
 import BackImage from '@/components/backImage';
 import Favorable from '@/components/favorable';
+import dayjs from 'dayjs';
 
 const { TabContent } = Tabs;
 
@@ -57,6 +58,16 @@ const BagItem: React.FC<ResOrder> = (props) => {
               <View>取餐号：{props.pickNum}</View>
               <View>
                 应付: <Favorable favorable={props.payMoney} />
+              </View>
+            </View>
+            {/* <View className={styles.favorable}>
+              <View>
+                下单时间：{dayjs(props.createTime).format('MM-DD HH:mm')}
+              </View>
+            </View> */}
+            <View className={styles.favorable}>
+              <View>
+                取餐时间：{dayjs(props.departTime).format('MM-DD HH:mm')}
               </View>
             </View>
             {props.statusDesc !== '进行中' && (

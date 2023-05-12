@@ -49,6 +49,7 @@ export type CampusItem = {
   merAvatarurl?: string;
   merchantId?: string;
   couponNo?: string;
+  couponId?: string;
   merchantName?: string;
 };
 export type CampusVoucherItem = {

@@ -19,8 +19,6 @@ const Index = (
       url: `/pages/voucher/index?id=${item.couponNo}`,
     });
   }, [item]);
-  const expiredOrNot =
-    !item.effectiveTime || dayjs(item.effectiveTime).diff(new Date()) > 0;
   return (
     <Row className={styles['bag-item']}>
       <Col span={8} className={styles['bag-item-left']}>
@@ -60,11 +58,11 @@ const Index = (
               danger>
               去使用
             </Button>
-          ) : item.status === 0 ? (
+          ) : item.status === 2 ? (
             <Button disabled={true} type='primary' danger>
               已使用
             </Button>
-          ) : expiredOrNot ? (
+          ) : item.status === 1 ? (
             <Button type='primary' onTap={toVoucher} danger>
               使用
             </Button>

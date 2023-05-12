@@ -124,7 +124,11 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
             {data?.map((tab, i) => (
               <TabContent
                 key={`section-${tab.categoryId}-${i}`}
-                tab={tab.categoryName}
+                tab={
+                  <View className={styles['category-name']}>
+                    <View className={styles.category}>{tab.categoryName}</View>
+                  </View>
+                }
               />
             ))}
           </Tabs>
