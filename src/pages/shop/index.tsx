@@ -93,66 +93,6 @@ const ShoppingCart = () => {
   const { getSelectProduct, id } = Store.useContainer();
   return (
     <>
-      <View className={styles['shopping-cart']}>
-        <View className={styles.row}>
-          <View
-            onTap={() => {
-              setOpen(true);
-            }}>
-            <Space>
-              <View className={styles['cart-icon']}>
-                <IconFont name='qz-canju' size={60} />
-                <Field>
-                  {({ value }) => {
-                    const tal = Object.entries(value).reduce((a, [, b]) => {
-                      return currency(a)
-                        .add((b as any)?.value || 0)
-                        .toJSON();
-                    }, 0);
-                    if (tal === 0) {
-                      return '';
-                    }
-                    return (
-                      <View className={styles['cart-tal']}>
-                        {tal > 99 ? 99 : tal}
-                      </View>
-                    );
-                  }}
-                </Field>
-              </View>
-              <View>
-                <Field>
-                  {({ value }) => {
-                    const tal = Object.entries(value).reduce((a, [, b]) => {
-                      return currency((b as any)?.value || 0)
-                        .multiply((b as any)?.price || 0)
-                        .add(a)
-                        .toJSON();
-                    }, 0);
-                    return <Favorable favorable={tal} />;
-                  }}
-                </Field>
-              </View>
-            </Space>
-          </View>
-          <View>
-            <Button
-              look='orange'
-              onTap={() => {
-                const valueArr = getSelectProduct().map((item) => ({
-                  goodsId: (item as any).goodsId,
-                  value: (item as any).value,
-                }));
-                if (valueArr.length <= 0) return;
-                navigateTo({
-                  url: `/pages/orderConfirmation/index?merchantId=${id}`,
-                });
-              }}>
-              选好了
-            </Button>
-          </View>
-        </View>
-      </View>
       <Popup
         position='bottom'
         title='已选商品'

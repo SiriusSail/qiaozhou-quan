@@ -4,6 +4,7 @@ import React from 'react';
 import { ScrollView, View, createSelectorQuery } from 'remax/wechat';
 import { useCallback, useRef, useState } from 'react';
 import type { Category, Find } from '@/apis/goods';
+import Scroll from '@/components/scroll';
 import { Tabs } from 'anna-remax-ui';
 import styles from './index.less';
 import './global.less';
@@ -108,8 +109,8 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
     [diffScrollIndex]
   );
   return (
-    <View className={styles['product-menu']}>
-      <View className={classnames(styles.menu, 'product-content')}>
+    <View>
+      {/* <View className={classnames(styles.menu, 'product-content')}>
         <ScrollView
           className={styles['scroll-view']}
           scrollY={openScroll}
@@ -134,9 +135,8 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
           </Tabs>
           <View className={styles.bottom} />
         </ScrollView>
-      </View>
-      <View className={styles.content}>
-        {/* <VirtuallyList list={data}> */}
+      </View> */}
+      {/* <View className={styles.content}>
         <ScrollView
           className={styles['scroll-view']}
           scrollY={openScroll}
@@ -159,8 +159,10 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
           </View>
           <View className={styles.bottom} />
         </ScrollView>
-        {/* </VirtuallyList> */}
-      </View>
+      </View> */}
+      {data?.length > 0 && (
+        <Scroll data={data} className={styles['product-menu']} />
+      )}
     </View>
   );
 };

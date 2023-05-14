@@ -164,6 +164,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "奶茶店",
+                    "pathName": "pages/shop/index",
+                    "query": "id=25796852e390723be5a92db5d1089b10",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
@@ -171,7 +178,7 @@
     "setting": {
         "useIsolateContext": true,
         "bigPackageSizeSupport": true,
-        "compileHotReLoad": false
+        "compileHotReLoad": true
     },
     "projectname": "qiaozhou-quan"
 }

@@ -1,0 +1,98 @@
+<view id="{{id}}"  class="product-menu">
+  <view class="product-content sroll-menu">
+    <scroll-view
+      class='scroll-view'
+      scroll-y="{{true}}"
+      enhanced>
+      <!-- <slot name="tabsRender"></slot> -->
+        <view style="scroll-snap-align: none;">
+          <view class="anna-tabs" style="scroll-snap-align: none;">
+            <view class="anna-tabs-vertical">
+              <view class="anna-tabs-vertical-sidebar">
+                <view bind:tap="selectType" 
+                    wx:for="{{dataList}}"  
+                    wx:key="categoryId" 
+                    data-item="{{item}}" 
+                    class="anna-tabs-vertical-sidebar-item {{tabsView === item.categoryId? 'category-name-hover': ''}}"
+                  >
+                  <view class="category-name">
+                    <view class="category">{{item.categoryName}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+  </view>
+  <view class="sroll-content">
+    <scroll-view
+      class="scroll-view"
+      scroll-y="{{true}}"
+      scroll-with-animation="{{true}}"
+      bindscroll="scrollIndex"
+      scroll-into-view="section-{{toView}}"
+      enhanced
+      >
+      <view className='contain'>
+        <view wx:for="{{dataList}}" class="target-class" wx:for-item="category" wx:key="categoryId" id="section-{{category.categoryId}}">
+          <view wx:for="{{category.goodsListResList}}" wx:key="goodsId" class="anna-card anna-card-horizontal">
+            <view class="anna-card-cover">
+              <view style="background-image:url({{item.cover}});height:68px;width:68px;border-radius:4px; background-size: cover;background-repeat: no-repeat;background-position: center;"></view>
+            </view>
+            <view class="anna-card-content card">
+              <view class='top'>{{item.goodsName}}</view>
+              <view class='content'>
+                <view class='overNum'>{{item.remarks}}</view>
+              </view>
+              <view class='content'>
+                <view class="anna-tag">{{item.tags}}</view>
+              </view>
+              <view class='foot'>
+                <view class="anna-space anna-space-horizontal anna-space-align-center">
+                  <view class="anna-space-item" style="font-size:8px;color:#fa8c16;padding-top: 10rpx;">¥</view>
+                  <view class="anna-space-item" style="font-size:12px;color:#fa8c16;">{{item.price}}</view>
+                </view>
+                <view class="anna-space anna-space-horizontal anna-space-align-center">
+                  <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'block': 'none'}}" bind:tap="subtraction" data-item="{{item}}" class="anna-space-item">
+                    <image class="widget_arrow"  style='width:42rpx;height:42rpx;margin:0;' src="./images/jianshao.png"></image>
+                  </view>
+                  <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'block': 'none'}}" class="anna-space-item" style="margin:0 20rpx">{{values[item.goodsId]}}</view>
+                  <view class="anna-space-item" bind:tap="add1" data-item="{{item}}">
+                    <image class="widget_arrow"  style='width:42rpx;height:42rpx;margin:0;' src="./images/zengjiafill.png"></image>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="shopping-cart">
+    <view class="row">
+      <view >
+        <view class="anna-space anna-space-horizontal anna-space-align-center">
+          <view class='cart-icon anna-space-item anna-space-horizontal-small'>
+            <image class="widget_arrow"  style='width:60rpx;height:60rpx;margin:0;' src="./images/wan.png"></image>
+            <view class='cart-tal' style="display: {{totalNumber>0? 'block':'none'}}">
+              {{totalNumber > 99 ? 99 : totalNumber}}
+            </view>
+          </view>
+          <view class="anna-space-item anna-space-horizontal-small">
+            <view class="anna-space anna-space-horizontal anna-space-align-center">
+              <view class="anna-space-item" style="font-size:8px;color:#fa8c16;padding-top: 10rpx;">¥</view>
+              <view class="anna-space-item" style="font-size:12px;color:#fa8c16;">{{totalPrice}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view>
+        <button class='anna-btn anna-btn-look-orange' look='orange' bind:tap='toNext'>
+          选好了
+        </button>
+      </view>
+    </view>
+  </view>
+</view>
+
