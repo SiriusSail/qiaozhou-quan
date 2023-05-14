@@ -57,7 +57,7 @@
                   <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'flex': 'none'}}" bind:tap="subtraction" data-item="{{item}}" class="anna-space-item">
                     <image class="widget_arrow"  style='width:42rpx;height:42rpx;margin:0;' src="./images/jianshao.png"></image>
                   </view>
-                  <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'block': 'none'}}" class="anna-space-item" style="margin:0 20rpx">{{values[item.goodsId]}}</view>
+                  <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'block': 'none'}};margin:0 20rpx" class="anna-space-item">{{values[item.goodsId]}}</view>
                   <view class="anna-space-item" bind:tap="add1" data-item="{{item}}">
                     <image class="widget_arrow"  style='width:42rpx;height:42rpx;margin:0;' src="./images/zengjiafill.png"></image>
                   </view>
