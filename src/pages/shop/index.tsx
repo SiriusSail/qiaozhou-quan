@@ -253,18 +253,18 @@ const Shop = () => {
       },
     });
   });
-  const cache = useCallback(() => {
-    const values = form.getFieldsValue();
-    const orderCache = storage.get('orderCache');
-    storage.set('orderCache', {
-      ...orderCache,
-      [id]: values,
-    });
-  }, [form, id]);
+  // const cache = useCallback(() => {
+  //   const values = form.getFieldsValue();
+  //   const orderCache = storage.get('orderCache');
+  //   storage.set('orderCache', {
+  //     ...orderCache,
+  //     [id]: values,
+  //   });
+  // }, [form, id]);
 
-  usePageEvent('onHide', () => {
-    cache();
-  });
+  // usePageEvent('onHide', () => {
+  //   cache();
+  // });
   usePageEvent('onShareAppMessage', () => {
     return invitationShare({
       title: data?.merchantName,

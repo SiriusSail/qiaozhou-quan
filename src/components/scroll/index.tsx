@@ -6,13 +6,14 @@ import { View } from 'remax/wechat';
 
 interface Props {
   className?: string;
+  merchantId?: string;
   /**
    * 优化性能
    */
   data?: any;
 }
 
-const Index = ({ className, data }: Props) => (
-  <Visible data={data} class-name={className}></Visible>
+const Index = ({ className, merchantId, data }: Props) => (
+  <Visible data={data} merchantId={merchantId} class-name={className}></Visible>
 );
 export default Index;

@@ -7,6 +7,7 @@ Component({
   },
   properties: {
     className: String,
+    merchantId: String,
     perf: Boolean,
     data: Object,
     height: Number,
@@ -129,8 +130,19 @@ Component({
         })
       );
       if (valueArr.length <= 0) return;
+      const orderCache = wx.getStorageSync('orderCache');
+      wx.setStorageSync('orderCache', {
+        ...(orderCache || {}),
+        [this.properties.merchantId]: valueArr.reduce(
+          (a, b) => ({
+            ...a,
+            [b.goodsId]: b,
+          }),
+          {}
+        ),
+      });
       wx.navigateTo({
-        url: `/pages/orderConfirmation/index?merchantId=${id}`,
+        url: `/pages/orderConfirmation/index?merchantId=${this.properties.merchantId}`,
       });
     },
   },

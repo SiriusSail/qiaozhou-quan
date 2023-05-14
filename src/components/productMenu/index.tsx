@@ -9,6 +9,7 @@ import { Tabs } from 'anna-remax-ui';
 import styles from './index.less';
 import './global.less';
 import { useEffect } from 'react';
+import { useQuery } from 'remax';
 import classnames from 'classnames';
 import { usePageEvent } from 'remax/macro';
 import VirtuallyList from '@/components/virtuallyList';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const Index = ({ data = [], render, openScroll = true }: Props) => {
+  const { id } = useQuery<{ id: string }>();
   const timeout = useRef<any>();
   const viewTop = useRef(0);
   const numberout = useRef(0);
@@ -161,7 +163,11 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
         </ScrollView>
       </View> */}
       {data?.length > 0 && (
-        <Scroll data={data} className={styles['product-menu']} />
+        <Scroll
+          data={data}
+          merchantId={id}
+          className={styles['product-menu']}
+        />
       )}
     </View>
   );

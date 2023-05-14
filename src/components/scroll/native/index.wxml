@@ -54,7 +54,7 @@
                   <view class="anna-space-item" style="font-size:12px;color:#fa8c16;">{{item.price}}</view>
                 </view>
                 <view class="anna-space anna-space-horizontal anna-space-align-center">
-                  <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'block': 'none'}}" bind:tap="subtraction" data-item="{{item}}" class="anna-space-item">
+                  <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'flex': 'none'}}" bind:tap="subtraction" data-item="{{item}}" class="anna-space-item">
                     <image class="widget_arrow"  style='width:42rpx;height:42rpx;margin:0;' src="./images/jianshao.png"></image>
                   </view>
                   <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'block': 'none'}}" class="anna-space-item" style="margin:0 20rpx">{{values[item.goodsId]}}</view>

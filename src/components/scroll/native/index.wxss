@@ -154,9 +154,6 @@
   white-space: nowrap;
 }
 
-.anna-space-horizontal > .anna-space-item:nth-last-child(1) {
-  margin-right: 0;
-}
 .anna-space-item {
   display: flex;
   align-items: center;
