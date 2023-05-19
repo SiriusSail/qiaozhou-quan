@@ -110,6 +110,13 @@
   background-color: #1890ff;
 }
 
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20rpx;
+}
+
 .anna-card-cover {
   padding-left: 10rpx;
   padding-right: 10rpx;
@@ -142,8 +149,8 @@
   color: #333;
   background-color: #f6f6f6;
   border: 2rpx solid #f6f6f6;
-  height: 44rpx;
-  line-height: 40rpx;
+  height: 34rpx;
+  line-height: 30rpx;
   padding: 0 14rpx;
   border-radius: 8rpx;
   margin-right: 14rpx;
@@ -152,6 +159,17 @@
   -ms-user-select: none;
   user-select: none;
   white-space: nowrap;
+}
+.anna-tag-green {
+  color: #52c41a;
+  background-color: #f6ffed;
+  border: 2rpx solid #b7eb8f;
+}
+
+.anna-tag-yellow {
+  color: #fa8c16;
+  background-color: #fff7e6;
+  border: 2rpx solid #ffd591;
 }
 
 .anna-space-item {
@@ -219,6 +237,10 @@
   overflow: unset;
   font-weight: 500;
   font-size: 28rpx;
+}
+
+.anna-btn::after, .anna-btn::before {
+  display: none;
 }
 
 .anna-btn-look-orange {

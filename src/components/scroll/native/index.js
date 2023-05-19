@@ -8,11 +8,27 @@ Component({
   properties: {
     className: String,
     merchantId: String,
-    perf: Boolean,
-    data: Object,
+    hideCart: Boolean,
+    openScroll: {
+      type: Boolean,
+      value: true,
+      observer: function (newVal, oldVal, change) {
+        this.setData({
+          isOpenbScroll: newVal,
+        });
+      },
+    },
+    data: {
+      type: Object,
+      value: [],
+      observer: function (newVal, oldVal, change) {
+        this.initdata(newVal);
+      },
+    },
     height: Number,
   },
   data: {
+    isOpenbScroll: true,
     id: '',
     list: [],
     mainList: [],
@@ -68,6 +84,11 @@ Component({
     },
     selectType: function (e) {
       var item = e.currentTarget.dataset.item;
+      if (!this.data.isOpenbScroll) {
+        wx.pageScrollTo({
+          scrollTop: 9999,
+        });
+      }
       this.setData({
         toView: item.categoryId,
         tabsView: item.categoryId,
@@ -145,19 +166,35 @@ Component({
         url: `/pages/orderConfirmation/index?merchantId=${this.properties.merchantId}`,
       });
     },
-  },
-  lifetimes: {
-    ready: function () {
-      this.data.list = this.properties.data
-        ?.map((item) => item.goodsListResList)
-        .flat();
-      const dataList = this.properties.data.filter(
-        (item) => item.goodsListResList?.length > 0
-      );
+    initdata: function (data) {
+      this.data.list = data?.map((item) => item.goodsListResList).flat();
+      const dataList = data.filter((item) => item.goodsListResList?.length > 0);
       this.setData({
         dataList: dataList,
         tabsView: dataList[0]?.categoryId,
       });
+    },
+    toEdit: function (e) {
+      if (!this.properties.hideCart) return;
+      var item = e.currentTarget.dataset.item;
+      wx.navigateTo({
+        url: `/pages/productPages/productEdit/index?id=${item.goodsId}`,
+      });
+    },
+  },
+  lifetimes: {
+    ready: function () {
+      this.initdata(this.properties.data);
+      // this.data.list = this.properties.data
+      //   ?.map((item) => item.goodsListResList)
+      //   .flat();
+      // const dataList = this.properties.data.filter(
+      //   (item) => item.goodsListResList?.length > 0
+      // );
+      // this.setData({
+      //   dataList: dataList,
+      //   tabsView: dataList[0]?.categoryId,
+      // });
     },
   },
 });

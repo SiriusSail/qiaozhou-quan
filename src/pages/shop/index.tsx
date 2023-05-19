@@ -280,7 +280,7 @@ const Shop = () => {
         })
         .exec();
     }
-    if (pageHeight.current - clientHight.current <= e.scrollTop) {
+    if (pageHeight.current - clientHight.current <= e.scrollTop + 100) {
       if (!openScroll) {
         setOpenScroll(true);
       }
@@ -345,7 +345,6 @@ const Shop = () => {
         </Space>
         <ProductMenu
           openScroll={openScroll}
-          render={(d) => <GoodsList data={d} />}
           data={goodsInfo?.goodsCategoryListResList}
         />
         {/* <Block title='店铺活动'>

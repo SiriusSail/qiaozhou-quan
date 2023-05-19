@@ -18,10 +18,11 @@ const { TabContent } = Tabs;
 interface Props {
   data?: Category[];
   openScroll?: boolean;
-  render: (data: Find[]) => React.ReactNode;
+  hideCart?: boolean;
+  // render?: (data: Find[]) => React.ReactNode;
 }
 
-const Index = ({ data = [], render, openScroll = true }: Props) => {
+const Index = ({ data = [], hideCart, openScroll = true }: Props) => {
   const { id } = useQuery<{ id: string }>();
   const timeout = useRef<any>();
   const viewTop = useRef(0);
@@ -36,27 +37,27 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
     }[]
   >([]);
 
-  useEffect(() => {
-    // 只在初次滚动的时候计算每个节点的位置
-    // if (!isFirstScroll.current) {
-    const mainListI: any[] = [];
-    data.forEach((item, index) => {
-      // 添加节点的布局位置的查询请求。相对于显示区域，以像素为单位。其功能类似于 DOM 的 getBoundingClientRect。返回 NodesRef 对应的 SelectorQuery
-      createSelectorQuery()
-        .select(`#section-${item.categoryId}-${index}`)
-        .boundingClientRect(function (rect) {
-          mainListI[index] = {
-            key: item.categoryId,
-            top: rect.top,
-            bottom: rect.bottom,
-          };
-        })
-        .exec();
-    });
-    // isFirstScroll.current = true; // 确保该方法在下滑的时候触发且只触发一次
-    mainList.current = mainListI;
-    // }
-  }, [data]);
+  // useEffect(() => {
+  //   // 只在初次滚动的时候计算每个节点的位置
+  //   // if (!isFirstScroll.current) {
+  //   const mainListI: any[] = [];
+  //   data.forEach((item, index) => {
+  //     // 添加节点的布局位置的查询请求。相对于显示区域，以像素为单位。其功能类似于 DOM 的 getBoundingClientRect。返回 NodesRef 对应的 SelectorQuery
+  //     createSelectorQuery()
+  //       .select(`#section-${item.categoryId}-${index}`)
+  //       .boundingClientRect(function (rect) {
+  //         mainListI[index] = {
+  //           key: item.categoryId,
+  //           top: rect?.top,
+  //           bottom: rect?.bottom,
+  //         };
+  //       })
+  //       .exec();
+  //   });
+  //   // isFirstScroll.current = true; // 确保该方法在下滑的时候触发且只触发一次
+  //   mainList.current = mainListI;
+  //   // }
+  // }, [data]);
 
   // const getMainItemHandler = useCallback(, [data]);
 
@@ -112,59 +113,67 @@ const Index = ({ data = [], render, openScroll = true }: Props) => {
   );
   return (
     <View>
-      {/* <View className={classnames(styles.menu, 'product-content')}>
-        <ScrollView
-          className={styles['scroll-view']}
-          scrollY={openScroll}
-          enhanced>
-          <Tabs
-            onTabClick={({ key }) => {
-              setToView(key);
-              setToViewClick(key);
-            }}
-            activeKey={toView}
-            direction='vertical'>
-            {data?.map((tab, i) => (
-              <TabContent
-                key={`section-${tab.categoryId}-${i}`}
-                tab={
-                  <View className={styles['category-name']}>
-                    <View className={styles.category}>{tab.categoryName}</View>
-                  </View>
-                }
-              />
-            ))}
-          </Tabs>
-          <View className={styles.bottom} />
-        </ScrollView>
-      </View> */}
-      {/* <View className={styles.content}>
-        <ScrollView
-          className={styles['scroll-view']}
-          scrollY={openScroll}
-          onScroll={(e) => {
-            onPageScrollIndex(e);
-          }}
-          enhanced
-          scrollIntoView={toViewClick}>
-          <View className='contain'>
-            {data.map((item, i) => {
-              return (
-                <View
-                  className='target-class'
-                  key={i}
-                  id={`section-${item.categoryId}-${i}`}>
-                  {render(item.goodsListResList)}
-                </View>
-              );
-            })}
+      {/* {render && (
+        <>
+          <View className={classnames(styles.menu, 'product-content')}>
+            <ScrollView
+              className={styles['scroll-view']}
+              scrollY={openScroll}
+              enhanced>
+              <Tabs
+                onTabClick={({ key }) => {
+                  setToView(key);
+                  setToViewClick(key);
+                }}
+                activeKey={toView}
+                direction='vertical'>
+                {data?.map((tab, i) => (
+                  <TabContent
+                    key={`section-${tab.categoryId}-${i}`}
+                    tab={
+                      <View className={styles['category-name']}>
+                        <View className={styles.category}>
+                          {tab.categoryName}
+                        </View>
+                      </View>
+                    }
+                  />
+                ))}
+              </Tabs>
+              <View className={styles.bottom} />
+            </ScrollView>
           </View>
-          <View className={styles.bottom} />
-        </ScrollView>
-      </View> */}
+          <View className={styles.content}>
+            <ScrollView
+              className={styles['scroll-view']}
+              scrollY={openScroll}
+              onScroll={(e) => {
+                onPageScrollIndex(e);
+              }}
+              enhanced
+              scrollIntoView={toViewClick}>
+              <View className='contain'>
+                {data.map((item, i) => {
+                  return (
+                    <View
+                      className='target-class'
+                      key={i}
+                      id={`section-${item.categoryId}-${i}`}>
+                      {render(item.goodsListResList)}
+                    </View>
+                  );
+                })}
+              </View>
+              <View className={styles.bottom} />
+            </ScrollView>
+          </View>
+        </>
+      )} */}
       {data?.length > 0 && (
         <Scroll
           data={data}
+          hideCart={hideCart}
+          openScroll={openScroll}
           merchantId={id}
           className={styles['product-menu']}
         />

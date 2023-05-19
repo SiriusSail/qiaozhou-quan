@@ -2,10 +2,11 @@
   <view class="product-content sroll-menu">
     <scroll-view
       class='scroll-view'
-      scroll-y="{{true}}"
+      scroll-y="{{isOpenbScroll}}"
+      show-scrollbar="{{false}}"
       enhanced>
       <!-- <slot name="tabsRender"></slot> -->
-        <view style="scroll-snap-align: none;">
+        <view style="scroll-snap-align: none;padding-bottom: 150rpx;box-sizing: border-box;">
           <view class="anna-tabs" style="scroll-snap-align: none;">
             <view class="anna-tabs-vertical">
               <view class="anna-tabs-vertical-sidebar">
@@ -28,20 +29,24 @@
   <view class="sroll-content">
     <scroll-view
       class="scroll-view"
-      scroll-y="{{true}}"
+      scroll-y="{{isOpenbScroll}}"
       scroll-with-animation="{{true}}"
+      show-scrollbar="{{false}}"
       bindscroll="scrollIndex"
       scroll-into-view="section-{{toView}}"
       enhanced
       >
-      <view className='contain'>
+      <view  style="scroll-snap-align: none;padding-bottom: 150rpx;box-sizing: border-box;">
         <view wx:for="{{dataList}}" class="target-class" wx:for-item="category" wx:key="categoryId" id="section-{{category.categoryId}}">
-          <view wx:for="{{category.goodsListResList}}" wx:key="goodsId" class="anna-card anna-card-horizontal">
+          <view wx:for="{{category.goodsListResList}}" wx:key="goodsId" data-item="{{item}}" class="anna-card anna-card-horizontal" bind:tap="toEdit">
             <view class="anna-card-cover">
               <view style="background-image:url({{item.cover}});height:68px;width:68px;border-radius:4px; background-size: cover;background-repeat: no-repeat;background-position: center;"></view>
             </view>
             <view class="anna-card-content card">
-              <view class='top'>{{item.goodsName}}</view>
+              <view class='top'>
+                <view>{{item.goodsName}}</view>
+                <view wx:if="{{hideCart}}" class="anna-tag {{item.statusDesc === '上架'? 'anna-tag-green': 'anna-tag-yellow'}}">{{item.statusDesc}}</view>
+              </view>
               <view class='content'>
                 <view class='overNum'>{{item.remarks}}</view>
               </view>
@@ -53,7 +58,7 @@
                   <view class="anna-space-item" style="font-size:8px;color:#fa8c16;padding-top: 10rpx;">¥</view>
                   <view class="anna-space-item" style="font-size:12px;color:#fa8c16;">{{item.price}}</view>
                 </view>
-                <view class="anna-space anna-space-horizontal anna-space-align-center">
+                <view wx:if="{{!hideCart}}" class="anna-space anna-space-horizontal anna-space-align-center">
                   <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'flex': 'none'}}" bind:tap="subtraction" data-item="{{item}}" class="anna-space-item">
                     <image class="widget_arrow"  style='width:42rpx;height:42rpx;margin:0;' src="./images/jianshao.png"></image>
                   </view>
@@ -62,6 +67,9 @@
                     <image class="widget_arrow"  style='width:42rpx;height:42rpx;margin:0;' src="./images/zengjiafill.png"></image>
                   </view>
                 </view>
+                <view wx:else class="anna-space anna-space-horizontal anna-space-align-center">
+                    剩余：{{item.overNum}} 份
+                </view>
               </view>
             </view>
           </view>
@@ -69,7 +77,7 @@
       </view>
     </scroll-view>
   </view>
-  <view class="shopping-cart">
+  <view class="shopping-cart" wx:if="{{!hideCart}}">
     <view class="row">
       <view >
         <view class="anna-space anna-space-horizontal anna-space-align-center">

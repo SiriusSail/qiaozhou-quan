@@ -75,7 +75,11 @@ const Index = () => {
 
   return (
     <View className={styles.product}>
-      <ProductMenu render={(d) => <GoodsList data={d} />} data={data || []} />
+      <ProductMenu
+        hideCart
+        // render={(d) => <GoodsList data={d} />}
+        data={data || []}
+      />
       <BottomButton
         size='large'
         noHeight
