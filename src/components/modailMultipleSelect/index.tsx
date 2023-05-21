@@ -6,7 +6,15 @@ import React, {
   useCallback,
 } from 'react';
 import { View, stopPullDownRefresh } from 'remax/wechat';
-import { Popup, SearchBar, Cell, Space, Tag, Icon } from 'anna-remax-ui';
+import {
+  Popup,
+  SearchBar,
+  Cell,
+  Space,
+  Tag,
+  Icon,
+  Button,
+} from 'anna-remax-ui';
 import NoData from '../no-data';
 import './index.less';
 import styles from './index.module.less';
@@ -157,12 +165,7 @@ export const Img: React.FC<NewPopupProps> = ({
           <View className='anna-form-value-placeholder'>{placeholder}</View>
         )}
       </View>
-      <Popup
-        position={position}
-        closeable
-        {...props}
-        open={show}
-        onClose={close}>
+      <Popup position={position} {...props} open={show} onClose={close}>
         <View className={styles.content}>
           <View className={styles.serchbar}>
             <SearchBar
@@ -207,6 +210,18 @@ export const Img: React.FC<NewPopupProps> = ({
                 })
               )}
             </View>
+          </View>
+          <View className={styles['content-foot']}>
+            <Button
+              size='large'
+              block
+              onTap={() => {
+                setShow(false);
+              }}
+              look='orange'
+              style={{ marginBottom: '30px' }}>
+              确定
+            </Button>
           </View>
         </View>
       </Popup>

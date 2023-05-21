@@ -56,7 +56,7 @@ const Index = () => {
 
   return (
     <LoginLayout>
-      <Form component={false} form={form}>
+      <Form form={form} component={false}>
         {/* <Field name='userId' /> */}
         <Cell label='头像'>
           <FormItem name='merAvatarurl' rules={[{ required: true }]}>
@@ -89,7 +89,6 @@ const Index = () => {
         <FormItem
           name='merPersonTel'
           rules={[
-            { required: true },
             {
               max: 11,
               pattern: /^1[3456789]\d{9}$/,

@@ -29,6 +29,11 @@ const Index: React.SFC = () => {
       return coupon({
         userId: userInfo?.id,
         couponNo: couponNoRef.current,
+      }).then((res) => {
+        console.log(res);
+        return {
+          data: res,
+        };
       });
     },
     {
@@ -73,6 +78,7 @@ const Index: React.SFC = () => {
     });
   }, [run]);
 
+  console.log(data);
   return (
     <LoginLayout>
       <Result
@@ -141,7 +147,10 @@ const Index: React.SFC = () => {
                     placeholder='请输入优惠卷码'
                     border={false}
                     value={couponNoRef.current}
-                    onChange={(v: any) => (couponNoRef.current = v)}
+                    onChange={(v: any) => {
+                      console.log(v);
+                      couponNoRef.current = v.target.value;
+                    }}
                     extra={
                       <Button onTap={run} type='primary' size='small'>
                         核销

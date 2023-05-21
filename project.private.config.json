@@ -171,6 +171,13 @@
                     "query": "id=25796852e390723be5a92db5d1089b10",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "商家信息修改",
+                    "pathName": "pages/shopPages/shopEdit/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
