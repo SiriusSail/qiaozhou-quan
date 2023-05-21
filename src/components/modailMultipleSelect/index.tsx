@@ -16,6 +16,7 @@ import {
   Button,
 } from 'anna-remax-ui';
 import NoData from '../no-data';
+import { useControllableValue } from 'ahooks';
 import './index.less';
 import styles from './index.module.less';
 import type { PopupProps } from 'anna-remax-ui/esm/popup';
@@ -25,6 +26,7 @@ export interface NewPopupProps extends PopupProps {
     | ((value?: string, item?: API.OptionsType) => React.ReactNode)
     | React.ReactNode;
   value?: string[];
+  defaultValue?: string[];
   placeholder?: string;
   onChange?: (value?: string[]) => void;
   onClick?: () => void;
@@ -35,9 +37,9 @@ export interface NewPopupProps extends PopupProps {
 
 export const Img: React.FC<NewPopupProps> = ({
   position = 'bottom',
-  value: _value,
   placeholder,
-  onChange: _onChange,
+  value: _value,
+  // onChange: _onChange,
   options: _options = [],
   onClose,
   disabled,
@@ -47,16 +49,15 @@ export const Img: React.FC<NewPopupProps> = ({
   ...props
 }) => {
   const [show, setShow] = useState(false);
-
   // 选择结果
-  const [value, setValue] = useState<string[]>();
+  const [value, setValue] = useControllableValue<string[]>(props);
 
+  console.log(value, 'valuevaluevalue');
   const [key, setKey] = useState(0);
 
   const updateKey = useCallback(() => {
     setKey(key + 1);
   }, [key]);
-  const valueRef = useRef(JSON.stringify(_value));
   // 输入文字的结果
   const [thenValue, setThenValue] = useState<string>();
 
@@ -70,12 +71,6 @@ export const Img: React.FC<NewPopupProps> = ({
         item?.key?.includes(thenValue) || item?.value?.includes(thenValue)
     );
   }, [_options, thenValue]);
-
-  useEffect(() => {
-    if (valueRef.current !== JSON.stringify(_value)) {
-      setValue(_value);
-    }
-  }, [_value]);
 
   const clearThenValue = useCallback(() => {
     setThenValue(undefined);
@@ -91,10 +86,8 @@ export const Img: React.FC<NewPopupProps> = ({
   const onChange = useCallback(
     (v: string[]) => {
       setValue(v);
-      valueRef.current = JSON.stringify(v);
-      _onChange?.(v);
     },
-    [_onChange]
+    [setValue]
   );
 
   const addValues = useCallback(

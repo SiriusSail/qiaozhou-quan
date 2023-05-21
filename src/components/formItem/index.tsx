@@ -18,14 +18,16 @@ const Index = ({
   const formRef = useRef<FormInstance>();
   const timeout = useRef<any>();
   const [key, setKey] = useState(new Date().getTime());
+  const [defaultValue, setDefaultValue] = useState<string>();
   const [errorText, setErrorText] = useState<string>();
   const value = useRef<any>();
   const Dom = useMemo(() => {
     return React.cloneElement(children, {
       value: value.current,
+      defaultValue: defaultValue,
       key,
       onChange: (e: any) => {
-        const val = e?.target?.value || value;
+        const val = e?.target ? e?.target?.value : e;
         value.current = val;
         if (fieldProps.name) {
           formRef.current?.setFieldValue(fieldProps.name, val);
@@ -33,7 +35,7 @@ const Index = ({
         }
       },
     });
-  }, [children, fieldProps.name, key]);
+  }, [children, fieldProps.name, key, defaultValue]);
 
   return (
     <View>
@@ -52,12 +54,14 @@ const Index = ({
         {(props, { errors }) => {
           if (value.current !== props.value) {
             value.current = props.value;
+            setDefaultValue(props.value);
             setKey(new Date().getTime());
           }
           if (timeout.current) {
             clearTimeout(timeout.current);
           }
           timeout.current = setTimeout(() => {
+            setKey(key);
             if (!errors[0]) {
               setErrorText('');
               return;

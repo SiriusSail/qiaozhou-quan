@@ -50,7 +50,7 @@ const ImageUpload = ({
 }: ImageUploadProps) => {
   const [files, setFiles] = useControllableValue<string[]>(
     {
-      value,
+      // value,
       defaultValue,
       onChange: _onChange,
     },
