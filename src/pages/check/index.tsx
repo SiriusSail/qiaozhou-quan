@@ -25,7 +25,11 @@ const Index: React.SFC = () => {
 
   const { loading, run } = useRequest(
     () => {
-      if (!couponNoRef.current) return Promise.resolve('');
+      if (!couponNoRef.current) return Promise.resolve(undefined);
+      // return {
+      //   data: '',
+      //   success: true,
+      // };
       return coupon({
         userId: userInfo?.id,
         couponNo: couponNoRef.current,
@@ -33,6 +37,7 @@ const Index: React.SFC = () => {
         console.log(res);
         return {
           data: res,
+          success: true,
         };
       });
     },
@@ -41,7 +46,7 @@ const Index: React.SFC = () => {
       refreshDeps: [userInfo?.id],
       onError: (e) => {
         setData(e as any as API.PropsType);
-        if (e.code === '401') {
+        if (e?.code === '401') {
           navigateTo({
             url: '/pages/login/index',
           });
@@ -101,14 +106,24 @@ const Index: React.SFC = () => {
         extra={
           <View>
             {data?.success || loading ? (
-              <Button
-                onTap={() =>
-                  switchTab({
-                    url: `/pages/index/index`,
-                  })
-                }>
-                回到首页
-              </Button>
+              <Space>
+                <Button
+                  onTap={() =>
+                    switchTab({
+                      url: `/pages/index/index`,
+                    })
+                  }>
+                  回到首页
+                </Button>
+                <Button
+                  type='primary'
+                  onTap={() => {
+                    couponNoRef.current = '';
+                    setData(undefined);
+                  }}>
+                  继续核销
+                </Button>
+              </Space>
             ) : (
               <View className={styles.content}>
                 <Space>

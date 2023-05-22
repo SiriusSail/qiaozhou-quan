@@ -94,10 +94,30 @@ const Index = () => {
     <Form form={form}>
       <Field name='couponId' />
       <View className={styles.my}>
-        {/* {isMerchant ? (
+        {isMerchant ? (
           <Block title='用户信息'>
-            <Cell icon='shop' label='用户昵称'>
+            {/* <Cell icon='shop' label='用户昵称'>
               {orderData?.merName}
+            </Cell> */}
+            <Cell
+              icon='phone'
+              onTap={() => {
+                if (!orderData?.mobile) return;
+                makePhoneCall({
+                  phoneNumber: orderData.mobile,
+                });
+              }}
+              label='用户电话'>
+              {orderData?.mobile}
+            </Cell>
+          </Block>
+        ) : (
+          <Block title='店铺信息'>
+            <Cell icon='shop' label='店铺'>
+              {orderData?.merName}
+            </Cell>
+            <Cell icon='location' label='地址'>
+              {merchant?.merAddress}
             </Cell>
             <Cell
               icon='phone'
@@ -111,27 +131,7 @@ const Index = () => {
               {merchant?.merPersonTel}
             </Cell>
           </Block>
-        ) : ( */}
-        <Block title='店铺信息'>
-          <Cell icon='shop' label='店铺'>
-            {orderData?.merName}
-          </Cell>
-          <Cell icon='location' label='地址'>
-            {merchant?.merAddress}
-          </Cell>
-          <Cell
-            icon='phone'
-            onTap={() => {
-              if (!merchant?.merPersonTel) return;
-              makePhoneCall({
-                phoneNumber: merchant.merPersonTel,
-              });
-            }}
-            label='电话'>
-            {merchant?.merPersonTel}
-          </Cell>
-        </Block>
-        {/* )} */}
+        )}
         <Block
           title={
             <View className={styles['order-title']}>

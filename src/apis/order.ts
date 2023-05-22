@@ -138,6 +138,10 @@ export type ResOrder = {
    */
   remarks: string;
   /**
+   * 	用户手机号
+   */
+  mobile: string;
+  /**
    * 	取餐号
    */
   pickNum: string;
