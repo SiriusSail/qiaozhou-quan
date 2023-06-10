@@ -164,7 +164,7 @@ const Index = () => {
             {<GoodsList type='see' data={selectGoods} />}
           </View>
           <Cell icon='sort' label='小计'>
-            <Favorable color='#fa8c16' favorable={tal} />
+            <Favorable color='#E8813E' favorable={tal} />
           </Cell>
           <Cell icon='sort' label='取餐时间'>
             <Field
@@ -196,7 +196,7 @@ const Index = () => {
             {coupon ? (
               <Space>
                 <View>{coupon.couponName}</View>
-                <Favorable color='#fa8c16' favorable={coupon.favorable} />
+                <Favorable color='#E8813E' favorable={coupon.favorable} />
               </Space>
             ) : (
               '请选择优惠券'
@@ -208,7 +208,7 @@ const Index = () => {
           <Space>
             <View>
               合计
-              <Favorable color='#fa8c16' favorable={favorable} />
+              <Favorable color='#E8813E' favorable={favorable} />
             </View>
             <Button look='orange' onTap={onSubmit} loading={placeLoading}>
               确定下单

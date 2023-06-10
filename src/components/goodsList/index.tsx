@@ -62,7 +62,7 @@ const Item: React.FC<
         </View>
         {type === 'edit' && (
           <View className={styles.foot}>
-            <Favorable color='#fa8c16' favorable={item.price} />
+            <Favorable color='#E8813E' favorable={item.price} />
             <View>
               <Space size={20}>
                 {parseInt(value?.value) > 0 && (
@@ -78,7 +78,7 @@ const Item: React.FC<
                         value: parseInt(value?.value || 0) - 1,
                       });
                     }}>
-                    <Iconfont name='qz-jianshao' size={42} color='#fa8c16' />
+                    <Iconfont name='qz-jianshao' size={42} color='#E8813E' />
                   </View>
                 )}
                 {parseInt(value?.value) > 0 && <View>{value?.value}</View>}
@@ -95,7 +95,7 @@ const Item: React.FC<
                       value: parseInt(value?.value || 0) + 1,
                     });
                   }}>
-                  <Iconfont name='qz-jiahao2fill' size={42} color='#fa8c16' />
+                  <Iconfont name='qz-jiahao2fill' size={42} color='#E8813E' />
                 </View>
               </Space>
             </View>
@@ -104,14 +104,14 @@ const Item: React.FC<
         {type === 'see' && (
           <View className={styles.foot}>
             <Space>
-              <Favorable color='#fa8c16' favorable={item.price} />
+              <Favorable color='#E8813E' favorable={item.price} />
               <View>×</View>
               <View>{item.number}</View>
             </Space>
 
             <View>
               <Favorable
-                color='#fa8c16'
+                color='#E8813E'
                 favorable={currency(item.price).multiply(item.number).toJSON()}
               />
             </View>

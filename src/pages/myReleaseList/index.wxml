@@ -1,0 +1,46 @@
+<view>
+  <list-scroll-view id="scroll" request="{{request}}" bindupdateList="setDataList" noDataText="您没有发布更多信息">
+    <shadow wx:for="{{list}}" wx:key="id" addstyle="margin: 10rpx 20rpx; padding: 0 19rpx;">
+      <view class="release-card" bindtap="toinfo">
+        <view>
+          <image src="{{item.avatarUrl}}" class="release-card-avatar"></image>
+        </view>
+        <view class="release-card-item">
+          <view class="release-card-top">
+            <view class="release-card-top-left">
+              <view class="release-card-title">{{item.name}}</view>
+              <view class="release-card-tags">
+                <text class="release-card-tag">#{{item.typeName}}</text>
+                <text class="release-card-tag">#{{item.tradeTypeName}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="release-card-info">
+            <view class="release-card-name">{{item.contact}}</view>
+            <view>{{item.phone}}</view>
+          </view>
+          <view class="release-card-address">
+            <view class="release-iconfont iconfont icon-e8c4"></view>
+            <view>{{item.address}}</view>
+          </view>
+          <view class="release-card-describe">
+            <contract-text text="{{item.content}}"/>
+          </view>
+          <view class="release-card-photos">
+            <backimage wx:for="{{item.merchantPhotoList}}" wx:key="image" wx:for-item="image" src="{{image}}" preview="{{true}}" height="18vw" width="100%"></backimage>
+          </view>
+          <view class="release-card-foot">
+            <view>{{item.createTimeDesc}}</view>
+            <view data-id="{{item.id}}" catchtap="delete" class="release-iconfont iconfont icon-e635"></view>
+          </view>
+        </view>
+      </view>
+    </shadow>
+  </list-scroll-view>
+  <bottom-button bindclick="toinfo">
+    <view class="release-card-bottom">
+      <view class="release-iconfont iconfont icon-e605"></view>
+      <view>发布动态</view>
+    </view>
+  </bottom-button>
+</view>

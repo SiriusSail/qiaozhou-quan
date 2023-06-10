@@ -73,14 +73,15 @@ export default createContainer(() => {
           storage.set('campu', e?.campusId);
         }
         storage.set('invitationCode', e?.invitationCode);
+        storage.set('userInfo', e);
       },
     }
   );
 
-  const isVip = useMemo(
-    () => dayjs(userInfo?.memberEndTime).diff(dayjs()) > 0,
-    [userInfo]
-  );
+  const isVip = useMemo(() => {
+    const _isVip = dayjs(userInfo?.memberEndTime).diff(dayjs()) > 0;
+    return _isVip;
+  }, [userInfo]);
 
   const { data: merchant, run: getMerchant } = useRequest(
     () => {
@@ -115,6 +116,7 @@ export default createContainer(() => {
     }
     return true;
   }, []);
+
   const valiApply = useCallback(
     ({
       isHideModal,
@@ -135,7 +137,7 @@ export default createContainer(() => {
           success: (e) => {
             if (e.confirm) {
               navigateTo({
-                url: '/pages/vips/index',
+                url: '/pages/myPages/vips/index',
               });
             }
           },
@@ -158,7 +160,7 @@ export default createContainer(() => {
           success: (e) => {
             if (e.confirm) {
               navigateTo({
-                url: '/pages/vips/index',
+                url: '/pages/myPages/vips/index',
               });
             }
           },

@@ -1,6 +1,10 @@
 {
     "miniprogramRoot": "dist/",
     "setting": {
+        "useCompilerPlugins": [
+            "typescript",
+            "less"
+        ],
         "urlCheck": false,
         "es6": true,
         "postcss": true,

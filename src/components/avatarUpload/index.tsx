@@ -1,29 +1,36 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { View } from 'remax/one';
-import Image from '@/components/image';
-import { previewImage, chooseMedia } from 'remax/wechat';
-import { sync, to, deepClone } from 'anna-remax-ui/esm/_util';
-import { getPrefixCls } from 'anna-remax-ui/esm/common';
-import Icon from 'anna-remax-ui/esm/icon';
+import {
+  previewImage,
+  chooseMedia,
+  showLoading,
+  hideLoading,
+} from 'remax/wechat';
+import { sync, to } from 'anna-remax-ui/esm/_util';
 import apis from '@/apis/index';
 import classnames from 'classnames';
 import { useControllableValue } from 'ahooks';
 import { urlPath } from '@/consts/index';
-
-const prefixCls = getPrefixCls('avatar-upload');
+import cameraSrc from './images/camera.png';
+import addimage from './images/addimage.png';
+import './index.less';
+import BackImage from '@/components/backImage';
 
 // files?: DataItem[];
 export interface ImageUploadProps {
   // files?: DataItem[];
   value?: string;
   defaultValue?: string;
+  size?: string | number;
   className?: string;
   multiple?: boolean;
   sizeType?: string[];
+  style?: React.CSSProperties;
   sourceType?: string[];
   deletable?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
+  icon?: React.ReactNode;
   onChange?: (e: string) => void;
 }
 
@@ -31,12 +38,26 @@ const ImageUpload = ({
   value,
   onChange: _onChange,
   multiple,
+  size = 50,
   defaultValue,
+  style,
   sizeType,
+  icon,
   sourceType,
   disabled,
   className,
 }: ImageUploadProps) => {
+  const sizeRef = useRef(size + 'rpx');
+  const defaultIcon = useRef(
+    <BackImage
+      preview={false}
+      className='avatar-upload-add-icon'
+      src={cameraSrc}
+      height={size / 3 + 'rpx'}
+      width={size / 3 + 'rpx'}
+    />
+  );
+
   const [files, setFiles] = useControllableValue<string>({
     // value,
     defaultValue,
@@ -77,27 +98,50 @@ const ImageUpload = ({
       return;
     }
     const targetFiles = resc.filePaths ? resc.filePaths[0] : resc.tempFiles[0];
-    apis.uploadFile(targetFiles.tempFilePath).then((res) => {
-      const resUrl = (res.data || res.message) as string;
-      const [, src] = resUrl.split('/home/data/upload/');
-      const url = `${urlPath}${src}`;
-      onChange?.(url);
-    });
+
+    showLoading();
+    apis
+      .uploadFile(targetFiles.tempFilePath)
+      .then((res) => {
+        const resUrl = (res.data || res.message) as string;
+        const [, src] = resUrl.split('/home/data/upload/');
+        const url = `${urlPath}${src}`;
+        onChange?.(url);
+        hideLoading();
+      })
+      .catch((res) => {
+        hideLoading();
+      });
   };
   return (
-    <View className={classnames(prefixCls, className)}>
+    <View
+      className={classnames('avatar-upload', className)}
+      style={{ borderRadius: '50%', border: '2rpx solid #E8813E', ...style }}>
       {files ? (
-        <View
-          key={files}
-          className={`${prefixCls}-item`}
-          onTap={() => (disabled ? handleClickImage() : handleAdd())}>
-          <Image mode='widthFix' height='50rpx' width='50rpx' src={files} />
-        </View>
+        <BackImage
+          height={sizeRef.current}
+          width={sizeRef.current}
+          preview={[files]}
+          style={{
+            borderRadius: '50%',
+            border: '2rpx solid #E8813E',
+            ...style,
+          }}
+          onTap={() => (disabled ? undefined : handleAdd())}
+          src={files}
+        />
       ) : (
-        <View onTap={handleAdd}>
-          <View className={`${prefixCls}-add`}>
-            <Icon type='add' size='48px' color='#BABEC6' />
-          </View>
+        <View
+          onTap={handleAdd}
+          style={{ height: sizeRef.current, width: sizeRef.current, ...style }}
+          className='avatar-upload-add'>
+          <BackImage
+            preview={false}
+            src={addimage}
+            height={size / 2 + 'rpx'}
+            width={size / 2 + 'rpx'}
+          />
+          {icon === undefined ? defaultIcon.current : icon}
         </View>
       )}
     </View>

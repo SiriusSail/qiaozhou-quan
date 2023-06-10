@@ -1,0 +1,9 @@
+<view class="popup">
+  <view bindtap="open"><slot name="btn" /></view>
+  <view class="popup-container popup-bottom {{show? 'popup-active' : ''}}" style="{{addstyle}}">
+    <slot name="label" />
+    <slot/>
+    <view class="popup-close" bindtap="close">×</view>
+  </view>
+  <view bindtap="close" class="mask {{show? 'mask-active' : ''}}"></view>
+</view>

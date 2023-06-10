@@ -1,0 +1,10 @@
+<view class="cell {{border? 'border': ''}}">
+  <view class="cell-container {{arrow? 'arrow': ''}}">
+    <view class="cell-container-main-left">
+      <slot name="label"></slot>
+    </view>
+    <view class="cell-container-main-right">
+      <slot></slot>
+    </view>
+  </view>
+</view>

@@ -1,23 +1,3 @@
-.info {
-  padding: 60rpx 30rpx 0;
-  background-color: #f9d46c;
-  position: relative;
-  margin-bottom: 20rpx;
-  border-bottom: solid 20px #fff;
-}
-.info::after {
-  content: '';
-  background-color: #ffe7a3;
-  height: 16rpx;
-  display: block;
-  position: absolute;
-  bottom: -16rpx;
-  left: 30rpx;
-  right: 30rpx;
-  border-bottom-left-radius: 16rpx;
-  border-bottom-right-radius: 16rpx;
-}
-
 .info-title {
   height: 80rpx;
   display: flex;
@@ -28,11 +8,62 @@
 .title {
   margin: 20rpx;
   background-color: #f9d46c;
-  color: #fa8c16;
+  color: #E8813E;
   border-radius: 20rpx;
-  border: 1px solid #fa8c16;
+  border: 1px solid #E8813E;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 10rpx 20rpx;
+}
+
+.avatar {
+  border-radius: 50%;
+  border: 4rpx solid #E8813E;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 0;
+  padding-left: 38rpx;
+}
+
+.content {
+  padding-left: 27rpx;
+  height: 75rpx;
+}
+
+.name {
+  color: #0D0D0D;
+  font-size: 30rpx;
+  font-weight: 400;
+  color: #0D0D0D;
+  padding-bottom: 20rpx;
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  padding: 80px 20rpx 0;
+}
+
+.vip {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: #999999;
+}
+
+.huiyuan-icon {
+  height: 38rpx;
+  width: 38rpx;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  bottom: 0;
+  background-color: #FCECCB;
+  border: 2rpx solid #E8813E;
+  border-radius: 50%;
 }

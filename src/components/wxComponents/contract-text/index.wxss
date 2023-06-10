@@ -1,0 +1,31 @@
+
+.contract {
+  position: relative;
+  max-height: 92rpx;
+  transition: all 0.6s;
+}
+.active {
+  overflow: auto;
+  max-height: 600rpx;
+  padding-bottom: 30rpx;
+}
+
+.active-btn-icon {
+  display: inline-block;
+  width: 20rpx;
+  height:20rpx;
+  transform: rotate(180deg);
+  transition: all 0.6s;
+}
+.active .active-btn-icon {
+  transform: rotate(0deg);
+}
+
+.active-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  padding-right: 20rpx;
+  color: #999999;
+}

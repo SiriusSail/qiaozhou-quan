@@ -59,7 +59,7 @@ interceptors.response.use(
         success: (e) => {
           if (e.confirm) {
             navigateTo({
-              url: '/pages/vips/index',
+              url: '/pages/myPages/vips/index',
             });
           }
         },

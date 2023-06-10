@@ -9,6 +9,7 @@ import styles from './index.less';
 const Index = ({
   children,
   validateTrigger = 'onChange',
+  trigger = 'onChange',
   padding = 230,
   ...fieldProps
 }: {
@@ -45,11 +46,11 @@ const Index = ({
           return '';
         }}
       </Field>
-      <Field trigger={'onChange'} {...fieldProps} />
+      <Field trigger={trigger} {...fieldProps} />
       {Dom}
       <Field
         validateTrigger={validateTrigger}
-        trigger={'onChange'}
+        trigger={trigger}
         {...fieldProps}>
         {(props, { errors }) => {
           if (value.current !== props.value) {
@@ -83,6 +84,7 @@ const Index = ({
         style={{
           display: errorText ? 'block' : 'none',
           paddingLeft: padding + 'rpx',
+          textAlign: 'right',
         }}
         className={styles.error}>
         {errorText}

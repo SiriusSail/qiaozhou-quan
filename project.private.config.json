@@ -20,7 +20,7 @@
                 },
                 {
                     "name": "设置",
-                    "pathName": "pages/setting/index",
+                    "pathName": "pages/myPages/setting/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "申请成为商家",
-                    "pathName": "pages/shopApply/index",
+                    "pathName": "pages/shopPages/shopApply/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -178,6 +178,34 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "发布招聘",
+                    "pathName": "pages/shopPages/shopRecruit/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "发布信息",
+                    "pathName": "pages/shopPages/shopRelease/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "我的动态",
+                    "pathName": "pages/myReleaseList/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "会员中心",
+                    "pathName": "pages/myPages/vips/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
@@ -185,7 +213,7 @@
     "setting": {
         "useIsolateContext": true,
         "bigPackageSizeSupport": true,
-        "compileHotReLoad": true
+        "compileHotReLoad": false
     },
     "projectname": "qiaozhou-quan"
 }

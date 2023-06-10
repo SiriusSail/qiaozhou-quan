@@ -167,7 +167,7 @@
 }
 
 .anna-tag-yellow {
-  color: #fa8c16;
+  color: #E8813E;
   background-color: #fff7e6;
   border: 2rpx solid #ffd591;
 }
@@ -245,8 +245,8 @@
 
 .anna-btn-look-orange {
   color: #fff;
-  background-color: #fa8c16 !important;
-  border-color: #fa8c16 !important;
+  background-color: #E8813E !important;
+  border-color: #E8813E !important;
 }
 
 

@@ -163,7 +163,7 @@ const Index = () => {
           className={styles.title}
           onTap={() =>
             navigateTo({
-              url: '/pages/vips/index',
+              url: '/pages/myPages/vips/index',
             })
           }>
           <View>开通会员获，获得更多惊喜权益</View>
@@ -187,7 +187,7 @@ const Index = () => {
               iconColor='#e91e63'
               onTap={() =>
                 navigateTo({
-                  url: '/pages/vips/index',
+                  url: '/pages/myPages/vips/index',
                 })
               }
               icon='vip'
@@ -303,12 +303,12 @@ const Index = () => {
         <Block title='其他服务'>
           <Row gutter={16}>
             <TagItem
-              iconColor='#fa8c16'
+              iconColor='#E8813E'
               icon='settings'
               text='设置'
               onTap={() =>
                 navigateTo({
-                  url: '/pages/setting/index',
+                  url: '/pages/myPages/setting/index',
                 })
               }
             />

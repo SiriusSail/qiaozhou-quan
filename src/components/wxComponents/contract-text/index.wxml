@@ -1,0 +1,7 @@
+<view class="contract {{expand? 'active' :''}}" catch:tap="none" style="-webkit-line-clamp:{{lineClamp || 2}};{{addstyle}}">
+  {{content}}
+  <view class='active-btn' catch:tap="toggle" wx:if="{{!noHide}}">
+    {{expand? '收起':'更多'}}
+    <image class="active-btn-icon" src='./images/up.png' />
+  </view>
+</view>

@@ -80,7 +80,7 @@ const Index = () => {
           <Input label='分类名称' placeholder='请输入分类名称' />
         </FormItem>
         <FormItem padding={130} name='sort' trigger='onChange'>
-          <Input label='排序' type='digit' placeholder='请输入分类排序' />
+          <Input label='分类排序' type='digit' placeholder='请输入序号' />
         </FormItem>
         {id && (
           <Button
@@ -110,7 +110,10 @@ const Index = () => {
           onTap={() => {
             form.validateFields().then(async (value) => {
               if (id) {
-                update(value);
+                update({
+                  ...value,
+                  id,
+                });
               } else {
                 add(value);
               }

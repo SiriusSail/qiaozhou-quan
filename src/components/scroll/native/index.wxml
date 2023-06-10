@@ -55,8 +55,8 @@
               </view>
               <view class='foot'>
                 <view class="anna-space anna-space-horizontal anna-space-align-center">
-                  <view class="anna-space-item" style="font-size:8px;color:#fa8c16;padding-top: 10rpx;">¥</view>
-                  <view class="anna-space-item" style="font-size:12px;color:#fa8c16;">{{item.price}}</view>
+                  <view class="anna-space-item" style="font-size:8px;color:#E8813E;padding-top: 10rpx;">¥</view>
+                  <view class="anna-space-item" style="font-size:12px;color:#E8813E;">{{item.price}}</view>
                 </view>
                 <view wx:if="{{!hideCart}}" class="anna-space anna-space-horizontal anna-space-align-center">
                   <view style="display:{{(values[item.goodsId] && (values[item.goodsId] > 0))? 'flex': 'none'}}" bind:tap="subtraction" data-item="{{item}}" class="anna-space-item">
@@ -89,8 +89,8 @@
           </view>
           <view class="anna-space-item anna-space-horizontal-small">
             <view class="anna-space anna-space-horizontal anna-space-align-center">
-              <view class="anna-space-item" style="font-size:8px;color:#fa8c16;padding-top: 10rpx;">¥</view>
-              <view class="anna-space-item" style="font-size:12px;color:#fa8c16;">{{totalPrice}}</view>
+              <view class="anna-space-item" style="font-size:8px;color:#E8813E;padding-top: 10rpx;">¥</view>
+              <view class="anna-space-item" style="font-size:12px;color:#E8813E;">{{totalPrice}}</view>
             </view>
           </view>
         </view>

@@ -71,7 +71,7 @@ declare namespace API {
     /**
      * 性别
      */
-    gender: string;
+    gender: 1 | 2;
     /**
      * 是否有资格创建商户
      */
@@ -100,6 +100,10 @@ declare namespace API {
      * 手机号
      */
     mobile: string;
+    /**
+     * 性别
+     */
+    gender: string;
     /**
      * 用户区域
      */
@@ -131,3 +135,6 @@ declare namespace API {
     dataValue: string;
   };
 }
+declare let wx: WechatMiniprogram.Wx;
+declare let Page: WechatMiniprogram.Page;
+declare let Component: any;

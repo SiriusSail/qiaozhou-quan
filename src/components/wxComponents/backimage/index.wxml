@@ -1,0 +1,5 @@
+<View 
+  bindtap="handleClickImage"
+  class="back {{className}}"
+  style="background-image: url({{src}}); height:{{height}}; width: {{width}};{{style}}"
+/>

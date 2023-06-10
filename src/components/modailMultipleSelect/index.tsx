@@ -152,7 +152,7 @@ export const Img: React.FC<NewPopupProps> = ({
           onClick?.();
           setShow(true);
         }}>
-        {value ? (
+        {value && value.length > 0 ? (
           <View>{selectTab}</View>
         ) : (
           <View className='anna-form-value-placeholder'>{placeholder}</View>

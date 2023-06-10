@@ -1,0 +1,67 @@
+<view class="vip-page">
+  <view class="vip-content">
+    <shadow addstyle="background: #2A2A2A; margin: 0 38rpx;">
+      <view class="vip-shadow">
+        <view>
+          <view class="border-EACE99">
+            <backimage src="{{userInfo.avatarurl}}" height="116rpx" width="116rpx" />
+          </view>
+        </view>
+        <view class="vip-avatar-content">
+          <view>{{userInfo.nickname}}</view>
+          <view>有效期至: {{memberEndTime}}</view>
+        </view>
+        <!-- <view><button class="vip-avatar-btn">续费</button></view> -->
+      </view>
+    </shadow>
+    <shadow addstyle="background: #2A2A2A; margin: 5rpx 38rpx 0;">
+      <view class="vip-type">
+        <view wx:for="{{typeList}}" wx:key="value" data-item="{{item}}" bindtap="setType" class="vip-type-item {{item.value === member.value? 'active': ''}}">
+          <view class="vip-type-item-title">{{item.title}}</view>
+          <price-text textstyle="font-weight: 600;" size="26" color="{{item.value === member.value? '#574417': '#E8813E'}}" text="{{item.amount}}" />
+          <view class="vip-type-item-text">{{item.text}}</view>
+        </view>
+      </view>
+    </shadow>
+    <shadow addstyle="background: #EACE99; margin: 23rpx 38rpx 0;">
+      <view class="vip-info">
+        <view class="vip-info-label">我的专属权利</view>
+        <view class="vip-info-content">
+          <view class="vip-info-item">
+            <view class="vip-info-icon">
+              <view class="iconfont icon-e608"></view>
+            </view>
+            <view class="vip-info-text">每天领红包</view>
+            <view class="vip-info-describe">每天获取海量商机</view>
+          </view>
+          <view class="vip-info-item">
+            <view class="vip-info-icon">
+              <view class="iconfont icon-e609"></view>
+            </view>
+            <view class="vip-info-text">区域代理</view>
+            <view class="vip-info-describe">开启财富之路</view>
+          </view>
+          <view class="vip-info-item">
+            <view class="vip-info-icon">
+              <view class="iconfont icon-e632;"></view>
+            </view>
+            <view class="vip-info-text">邀新奖励</view>
+            <view class="vip-info-describe">月月有奖励</view>
+          </view>
+        </view>
+      </view>
+    </shadow>
+    <view class="vip-foot">
+      <button class="vip-button" bindtap="pay">同意协议并立即支付开通会员</button>
+      <view class="vip-foot-text">
+        登录代表您已同意饕餮
+        <agreement type="用户服务协议">
+          <view class="agreement-type">用户服务协议</view>
+        </agreement>,
+        <agreement type="隐私协议">
+          <view class="agreement-type">隐私协议</view>
+        </agreement>
+      </view>
+    </view>
+  </view>
+</view>

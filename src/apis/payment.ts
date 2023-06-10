@@ -4,6 +4,7 @@ import { request } from '@/apis';
 type PayParams = {
   amount: string;
   userId: string;
+  memberType: string;
 };
 
 type PayReq = {

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   navigateTo,
@@ -6,21 +6,24 @@ import {
   openSetting,
   requestSubscribeMessage,
   showModal,
+  Button,
 } from 'remax/wechat';
 import styles from './index.less';
 import Image from '@/components/image';
-import Block from '@/components/block';
 import userInfoStores from '@/stores/userInfo';
-import { Tag, Row, Col, Icon, Popup, Space } from 'anna-remax-ui';
+import { Popup } from 'anna-remax-ui';
 import UserCard from '@/components/userCard';
 import { usePageEvent } from 'remax/macro';
 import Painter from '@/components/painter';
+import Iconfont from '@/components/iconfont';
+import Shadow from '@/components/shadow';
 
 type TagItemProps = {
   onTap?: () => void;
   text?: React.ReactNode;
   image?: string;
   icon?: string;
+  disable?: boolean;
   iconColor?: string;
   access?: string;
 };
@@ -30,24 +33,37 @@ const TagItem: React.FC<TagItemProps> = ({
   icon,
   access,
   image,
+  disable,
   onTap,
   iconColor = '#666',
 }) => {
   const { menuList } = userInfoStores.useContainer();
   if (access && !menuList?.find((item) => item.id === access)) return <></>;
   return (
-    <Col span={6}>
-      <View onTap={onTap}>
-        <View className={styles['tag-image']}>
-          {icon ? (
-            <Icon type={icon} size='60rpx' color={iconColor} />
-          ) : (
-            <Image height='100rpx' width='100rpx' src={image} />
-          )}
+    <View className={styles.item}>
+      <View className={styles['item-content']}>
+        <View
+          onTap={(e) => {
+            if (disable) {
+              return;
+            }
+            onTap?.(e);
+          }}>
+          <View className={styles['tag-image']}>
+            {icon ? (
+              <Iconfont
+                name={icon as any}
+                size={60}
+                color={disable ? '#797979' : iconColor}
+              />
+            ) : (
+              <Image height='100rpx' width='100rpx' src={image} />
+            )}
+          </View>
+          <View className={styles['body-text']}>{text}</View>
         </View>
-        <View className={styles['body-text']}>{text}</View>
       </View>
-    </Col>
+    </View>
   );
 };
 
@@ -57,7 +73,7 @@ const Friend = () => {
   return (
     <>
       <TagItem
-        icon='friend'
+        icon='qz-yaoqingjiangli'
         text='邀新奖励'
         iconColor='#03c9e8'
         onTap={() => valiLoading() && setVoucher(true)}
@@ -140,210 +156,191 @@ const Index = () => {
     });
   }, []);
   return (
-    <View className={styles.my}>
-      <UserCard />
-      {isVip || (
-        <View
-          className={styles.title}
-          onTap={() =>
-            navigateTo({
-              url: '/pages/vips/index',
-            })
-          }>
-          <View>开通会员获，获得更多惊喜权益</View>
-          <Tag color='yellow'>开通会员</Tag>
-        </View>
-      )}
-      <View className={styles.body}>
-        <Block title='我的账户'>
-          <Row gutter={16}>
-            <TagItem
-              iconColor='#41de87'
-              onTap={() =>
-                navigateTo({
-                  url: '/pages/userInfo/index',
-                })
-              }
-              icon='vipcard'
-              text='个人认证'
-            />
-            <TagItem
-              iconColor='#e91e63'
-              onTap={() =>
-                navigateTo({
-                  url: '/pages/vips/index',
-                })
-              }
-              icon='vip'
-              text='会员中心'
-            />
-            <TagItem
-              iconColor='#e91e63'
-              onTap={() =>
-                navigateTo({
-                  url: '/pages/bag/index',
-                })
-              }
-              icon='redpacket'
-              text='我的红包'
-            />
-          </Row>
-        </Block>
-        <Block title='商家服务'>
-          <Space direction='vertical' size={32}>
-            <Row gutter={16}>
-              {isMerchant ? (
-                <>
-                  <TagItem
-                    iconColor='#e65656'
-                    icon='form'
-                    access='5000'
-                    text='店铺信息'
-                    onTap={() =>
-                      navigateTo({
-                        url: '/pages/shopPages/shopInfo/index',
-                      })
-                    }
-                  />
-                </>
-              ) : (
+    <View
+      className={styles.my}
+      style={{
+        backgroundImage:
+          'url(https://www.chqheiyou.com/uploads/198d822acf73422f803290b7b405f00e.png)',
+      }}>
+      <View style={{ overflowY: 'auto', overflowX: 'hidden' }}>
+        <UserCard />
+        {isVip || (
+          <View
+            className={styles.vip}
+            onTap={() =>
+              navigateTo({
+                url: '/pages/myPages/vips/index',
+              })
+            }>
+            <View className={styles['vip-left']}>
+              <Iconfont name='qz-huiyuan2' color='#D8C8C3' />
+              <View>会员</View>
+            </View>
+            <View className={styles['vip-center']}>
+              开通会员，获取更多惊喜权益
+            </View>
+            <View className={styles['vip-right']}>
+              <Button
+                style={{
+                  padding: 0,
+                  background: '#EAD1A1',
+                  color: '#5D450C',
+                  width: '166rpx',
+                  height: '56rpx',
+                  lineHeight: '56rpx',
+                  borderRadius: '28rpx',
+                }}>
+                立即开通
+              </Button>
+            </View>
+          </View>
+        )}
+        <View className={styles.body}>
+          <View className={styles.title}>我的服务</View>
+          <Shadow addstyle='padding: 10rpx 0'>
+            <View className={styles.row}>
+              <TagItem
+                iconColor='#E8813E'
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/myPages/vips/index',
+                  })
+                }
+                icon='qz-huiyuan3'
+                text='会员中心'
+              />
+
+              <>
                 <TagItem
-                  iconColor='#e65656'
-                  icon='shop'
-                  text='商家入驻'
+                  iconColor='#F65C60'
+                  disable={!isMerchant}
+                  onTap={() =>
+                    navigateTo({
+                      url: '/pages/shopPages/shopInfo/index',
+                    })
+                  }
+                  icon='qz-shangdian'
+                  text='店铺管理'
+                />
+                <TagItem
+                  iconColor='#E8813E'
+                  disable={!isMerchant}
+                  onTap={() =>
+                    navigateTo({
+                      url: '/pages/activityPages/activitySetting/index',
+                    })
+                  }
+                  icon='qz-huodongguanli'
+                  text='活动管理'
+                />
+              </>
+
+              <TagItem
+                iconColor='#F65C60'
+                disable={!isMerchant}
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/check/index',
+                  })
+                }
+                icon='qz-youhuiquan'
+                text='核销优惠券'
+              />
+            </View>
+          </Shadow>
+          <Shadow addstyle='padding: 20rpx 0'>
+            <View className={styles.row}>
+              {!isMerchant && (
+                <TagItem
+                  iconColor='#F65C60'
                   onTap={handleMechart}
+                  icon='qz-jiamengguanli'
+                  text='商家入驻'
                 />
               )}
-
-              {isMerchant ? (
-                <>
-                  <TagItem
-                    iconColor='#e65656'
-                    icon='shop'
-                    text='进入店铺'
-                    onTap={() =>
-                      navigateTo({
-                        url: `/pages/shop/index?id=${userInfo?.merchantId}`,
-                      })
-                    }
-                  />
-                  <TagItem
-                    iconColor='#e65656'
-                    text='活动管理'
-                    access='2000'
-                    icon='activity'
-                    onTap={() =>
-                      navigateTo({
-                        url: '/pages/activityPages/activitySetting/index',
-                      })
-                    }
-                  />
-                  <TagItem
-                    iconColor='#e65656'
-                    text='核销优惠券'
-                    access='3000'
-                    icon='ticket'
-                    onTap={() =>
-                      navigateTo({
-                        url: '/pages/check/index',
-                      })
-                    }
-                  />
-                </>
-              ) : (
-                <View />
-              )}
-            </Row>
-            {isMerchant ? (
-              <Row gutter={16}>
-                <>
-                  <TagItem
-                    iconColor='#e65656'
-                    icon='profile'
-                    text='员工管理'
-                    access='4000'
-                    onTap={() =>
-                      navigateTo({
-                        url: `/pages/shopPages/staff/index`,
-                      })
-                    }
-                  />
-                  <TagItem
-                    iconColor='#e65656'
-                    icon='sort'
-                    text='商品管理'
-                    // access='4000'
-                    onTap={() => {
-                      getSetting({
-                        withSubscriptions: true,
-                        success(res) {
-                          if (res.subscriptionsSetting.mainSwitch) {
-                            // 用户打开了订阅消息总开关
-                            console.log(
-                              res,
-                              res.subscriptionsSetting.itemSettings,
-                              'res.subscriptionsSetting.itemSettings'
-                            );
-                            if (res.subscriptionsSetting.itemSettings) {
-                              // 用户同意总是保持是否推送消息的选择, 这里表示以后不会再拉起推送消息的授权
-                              const moIdState =
-                                res.subscriptionsSetting.itemSettings[
-                                  'ty2IsUqnNeCCFhVBSp-eMb7XxEZutIGYw-sFYKcHjTw'
-                                ]; // 用户同意的消息模板id
-                              if (moIdState === 'reject') {
-                                console.log('拒绝了消息推送');
-                                subscribeMessage();
-                                return;
-                              }
-                              navigateTo({
-                                url: `/pages/productPages/productList/index`,
-                              });
-                            } else {
-                              subscribeMessage();
-                            }
-                          } else {
-                            openSetting({
-                              withSubscriptions: true,
-                            });
+              <TagItem
+                iconColor='#E8813E'
+                disable={!isMerchant}
+                onTap={() =>
+                  navigateTo({
+                    url: `/pages/shopPages/staff/index`,
+                  })
+                }
+                icon='qz-yuangongguanli'
+                text='员工管理'
+              />
+              <TagItem
+                iconColor='#E8813E'
+                disable={!isMerchant}
+                onTap={() => {
+                  getSetting({
+                    withSubscriptions: true,
+                    success(res) {
+                      if (res.subscriptionsSetting.mainSwitch) {
+                        // 用户打开了订阅消息总开关
+                        console.log(
+                          res,
+                          res.subscriptionsSetting.itemSettings,
+                          'res.subscriptionsSetting.itemSettings'
+                        );
+                        if (res.subscriptionsSetting.itemSettings) {
+                          // 用户同意总是保持是否推送消息的选择, 这里表示以后不会再拉起推送消息的授权
+                          const moIdState =
+                            res.subscriptionsSetting.itemSettings[
+                              'ty2IsUqnNeCCFhVBSp-eMb7XxEZutIGYw-sFYKcHjTw'
+                            ]; // 用户同意的消息模板id
+                          if (moIdState === 'reject') {
+                            console.log('拒绝了消息推送');
+                            subscribeMessage();
+                            return;
                           }
-                        },
-                        fail: (err) => {
-                          console.log(err.errMsg);
-                        },
-                      });
-                    }}
-                  />
-                  <TagItem
-                    iconColor='#e65656'
-                    icon='text'
-                    text='店铺订单'
-                    // access='4000'
-                    onTap={() =>
-                      navigateTo({
-                        url: `/pages/shopPages/shopOrder/index`,
-                      })
-                    }
-                  />
-                </>
-              </Row>
-            ) : undefined}
-          </Space>
-        </Block>
-        <Block title='其他服务'>
-          <Row gutter={16}>
-            <TagItem
-              iconColor='#fa8c16'
-              icon='settings'
-              text='设置'
-              onTap={() =>
-                navigateTo({
-                  url: '/pages/setting/index',
-                })
-              }
-            />
-            <Friend />
-          </Row>
-        </Block>
+                          navigateTo({
+                            url: `/pages/productPages/productList/index`,
+                          });
+                        } else {
+                          subscribeMessage();
+                        }
+                      } else {
+                        openSetting({
+                          withSubscriptions: true,
+                        });
+                      }
+                    },
+                    fail: (err) => {
+                      console.log(err.errMsg);
+                    },
+                  });
+                }}
+                icon='qz-shangdian'
+                text='商品管理'
+              />
+              <TagItem
+                iconColor='#E8813E'
+                disable={!isMerchant}
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/shopPages/shopRecruit/index',
+                  })
+                }
+                icon='qz-gongzuozhengrenzheng'
+                text='发布招聘'
+              />
+              <TagItem
+                iconColor='#E8813E'
+                disable={!isMerchant}
+                onTap={() =>
+                  navigateTo({
+                    // url: '/pages/shopPages/shopRelease/index',
+                    url: '/pages/myReleaseList/index',
+                  })
+                }
+                icon='qz-fabu'
+                text='我的动态'
+              />
+              <Friend />
+            </View>
+          </Shadow>
+        </View>
       </View>
     </View>
   );

@@ -1,0 +1,13 @@
+<view class="shadow {{className}}" style="{{addstyle}}">
+    <slot name="top"/>
+    <view class="shadow-flex">
+      <view class="shadow-label">
+        <slot name="label" />
+      </view>
+      <view class="shadow-body">
+        <view class="shadow-content" style="{{contentstyle}}"><slot /></view>
+      </view>
+      <view wx:if="{{arrow}}" class="shadow-arrow"></view>
+    </view>
+</view>
+

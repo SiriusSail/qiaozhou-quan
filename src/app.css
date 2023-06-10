@@ -1,5 +1,15 @@
+@import"../static/iconfont/iconfont.wxss";
+
 page {
-  background: #fff;
+  background-color: #F5F5F5;
   font-size: 28px;
+  font-family: Microsoft YaHei;
   color: #666
+}
+
+.border-bottom {
+  border-bottom: 1px solid #DFDFDF;
+}
+button::after, button::before {
+  display: none;
 }

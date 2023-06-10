@@ -1,22 +1,15 @@
-import React, { useCallback } from 'react';
-import { View, Image } from 'remax/one';
+import React, { useCallback, useRef, useMemo } from 'react';
+import { View } from 'remax/one';
 import { previewImage, chooseMedia, showToast } from 'remax/wechat';
 import { sync, to, deepClone } from 'anna-remax-ui/esm/_util';
-import { getPrefixCls } from 'anna-remax-ui/esm/common';
 import Icon from 'anna-remax-ui/esm/icon';
 import { urlPath } from '@/consts/index';
 import classnames from 'classnames';
+import addimage from '@/components/avatarUpload/images/addimage.png';
 import apis from '@/apis/index';
 import { useControllableValue } from 'ahooks';
-
-const prefixCls = getPrefixCls('image-upload');
-
-// export interface ImageProps {
-//   key: string;
-//   url: string;
-// }
-
-// export type DataItem = ImageProps | string;
+import './index.less';
+import BackImage from '@/components/backImage';
 
 export interface ImageUploadProps {
   // files?: DataItem[];
@@ -24,11 +17,16 @@ export interface ImageUploadProps {
   defaultValue?: string[];
   className?: string;
   multiple?: boolean;
+  columns?: number;
   sizeType?: string[];
   sourceType?: string[];
+  style?: React.CSSProperties;
+  imageStyle?: React.CSSProperties;
   deletable?: boolean;
   disabled?: boolean;
   maxCount?: number;
+  width?: number;
+  height?: number;
   children?: React.ReactNode;
   onChange?: (e: string[]) => void;
 }
@@ -42,12 +40,29 @@ const ImageUpload = ({
   multiple,
   sizeType,
   sourceType,
+  style,
+  imageStyle,
+  columns = 3,
+  height,
+  width = 129,
   deletable = true,
   disabled,
   maxCount = 99,
   className,
   children,
 }: ImageUploadProps) => {
+  const imaStyle = useRef({
+    height: height ? height + 'rpx' : 64 / columns + 'vw',
+    ...imageStyle,
+  });
+  const addSize = useRef(height ? height * 0.6 + 'rpx' : 36 / columns + 'vw');
+  const gridTemplateColumns = useMemo(() => {
+    const a = [];
+    for (let i = 0; i < columns; i++) {
+      a.push('1fr');
+    }
+    return a.join(' ');
+  }, [columns]);
   const [files, setFiles] = useControllableValue<string[]>(
     {
       // value,
@@ -137,14 +152,19 @@ const ImageUpload = ({
   }, [disabled, files, multiple, onChange, maxCount, sizeType, sourceType]);
 
   return (
-    <View className={classnames(prefixCls, className)}>
+    <View
+      className={classnames('image-upload', className)}
+      style={{
+        gridTemplateColumns,
+      }}>
       {files?.map?.((item, index: number) => (
         <View
           key={item}
-          className={`${prefixCls}-item`}
+          className='image-upload-item'
+          style={imaStyle.current}
           onTap={() => handleClickImage(index)}>
           {deletable ? (
-            <View className={`${prefixCls}-item-delete`}>
+            <View className='image-upload-item-delete'>
               <View
                 style={{ height: '24px' }}
                 onTap={(e) => {
@@ -163,15 +183,21 @@ const ImageUpload = ({
               </View>
             </View>
           ) : null}
-          <Image mode='widthFix' src={item} />
+          <BackImage preview={false} style={imaStyle.current} src={item} />
         </View>
       ))}
       {!maxCount || !files || files.length < maxCount ? (
-        <View onTap={handleAdd}>
+        <View
+          onTap={handleAdd}
+          style={imaStyle.current}
+          className='image-upload-add'>
           {children ?? (
-            <View className={`${prefixCls}-add`}>
-              <Icon type='add' size='48px' color='#BABEC6' />
-            </View>
+            <BackImage
+              preview={false}
+              src={addimage}
+              height={addSize.current}
+              width={addSize.current}
+            />
           )}
         </View>
       ) : null}

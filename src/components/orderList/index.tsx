@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 const { TabContent } = Tabs;
 
 const statusColor: Record<string, string> = {
-  进行中: '#fa8c16',
+  进行中: '#E8813E',
   已完成: '#52c41a',
 };
 

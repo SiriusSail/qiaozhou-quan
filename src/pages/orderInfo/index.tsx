@@ -28,7 +28,7 @@ import {
 import dayjs from 'dayjs';
 
 const statusColor: Record<string, string> = {
-  进行中: '#fa8c16',
+  进行中: '#E8813E',
   已完成: '#52c41a',
 };
 
@@ -158,7 +158,7 @@ const Index = () => {
           </View>
           <Cell icon='sort' label='小计'>
             <Favorable
-              color='#fa8c16'
+              color='#E8813E'
               favorable={currency(orderData?.payMoney || 0)
                 .add(orderData?.couponMoney || 0)
                 .toJSON()}
@@ -171,7 +171,7 @@ const Index = () => {
           )}
           {orderData?.couponMoney && (
             <Cell icon='ticket' label='优惠券' border={false}>
-              <Favorable color='#fa8c16' favorable={orderData?.couponMoney} />
+              <Favorable color='#E8813E' favorable={orderData?.couponMoney} />
             </Cell>
           )}
           <Cell icon='countdown' label='下单时间'>
@@ -213,7 +213,7 @@ const Index = () => {
           <Space>
             <View>
               合计
-              <Favorable color='#fa8c16' favorable={orderData?.payMoney} />
+              <Favorable color='#E8813E' favorable={orderData?.payMoney} />
             </View>
             {isMerchant &&
               (orderData?.statusDesc === '进行中' ? (

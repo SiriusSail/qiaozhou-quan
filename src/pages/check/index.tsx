@@ -96,7 +96,7 @@ const Index: React.SFC = () => {
           ) : loading ? (
             {
               name: 'loading',
-              color: '#fa8c16',
+              color: '#E8813E',
             }
           ) : undefined
         }

@@ -1,0 +1,52 @@
+.anna-btn-look-orange {
+  color: #fdfffd;
+  background-color: #E8813E !important;
+  border-color: #E8813E !important;
+}
+
+.bottom-button-content {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20rpx 20rpx 50rpx;
+  display: flex;
+  box-sizing: content-box;
+  justify-content: center;
+}
+
+.anna-btn-square {
+  padding: 0 30rpx;
+  border-radius: 12rpx;
+}
+.anna-btn ::after, .anna-btn::before {
+  content: none;
+}
+
+.anna-btn {
+  min-height: 80rpx;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0 32rpx;
+  background-color: #ededef;
+  line-height: 60rpx;
+  border: 1PX solid #ededef;
+  border-radius: 64rpx;
+  font-weight: 500;
+  font-size: 28rpx;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  margin: 0;
+  outline: 0;
+  cursor: pointer;
+  overflow: unset;
+}

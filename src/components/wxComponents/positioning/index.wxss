@@ -1,0 +1,126 @@
+.postioning-picker {
+  display: flex;
+  align-items: center;
+  color:#fff;
+}
+
+.anna-popup-container {
+  position: fixed;
+  z-index: 1000;
+  background-color: #fdfffd;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.anna-popup-container-bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translate3d(0, 100%, 0);
+  visibility: hidden;
+  border-radius: 20rpx 20rpx 0 0;
+}
+.anna-popup-container-active {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+}
+
+.modail-select .anna-popup-container-active {
+  border-radius: 0;
+  height: 100vh;
+  padding: 0 30rpx;
+}
+
+.anna-popup-container-title {
+  padding: 30rpx 0;
+  text-align: center;
+  color: #000;
+}
+
+.serchbar___aftpQ {
+  height: 64rpx;
+}
+
+.anna-search_bar {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.anna-search_bar-input {
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 64rpx;
+  border-radius: 64rpx;
+  padding: 16rpx;
+  background-color: #f7f7f7;
+}
+
+.anna-search_bar-input-value {
+  flex: 1;
+  padding: 0 10rpx 0 0;
+  background-color: transparent;
+  color: #333;
+  font-size: 28rpx;
+  outline: none;
+  border: none;
+}
+.anna-search_bar-input-synthetic.anna-search_bar-input-is_left {
+  left: 16rpx;
+  transform: translate(0, -50%);
+}
+.anna-search_bar-input-value {
+  text-align: left;
+}
+.content-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.options-content {
+  overflow: auto;
+  flex: 1;
+  padding-bottom: 400rpx;
+}
+.anna-cell {
+  position: relative;
+  padding: 20rpx 32rpx;
+  font-size: 28rpx;
+  line-height: 48rpx;
+  background-color: #fdfffd;
+  margin-bottom: 1PX;
+}
+.anna-cell-container {
+  flex-direction: column;
+  display: flex;
+}
+.anna-cell-border {
+  position: absolute;
+  left: 32rpx;
+  right: 0;
+  bottom: -1PX;
+  height: 1PX;
+  background-color: #e8e8e8;
+  transform: scaleY(0.5);
+}
+
+.anna-cell-border::after {
+  box-sizing: border-box;
+  position: absolute;
+  left: 32rpx;
+  right: 0;
+  bottom: -1rpx;
+  content: '';
+  border-bottom: 1rpx solid #e8e8e8;
+  transform: scaleY(0.5);
+  pointer-events: none;
+  z-index: 9;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(232, 232, 232);
+}

@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "popup": "/components/wxComponents/popup/index",
+    "merchant": "./native/merchant/index",
+    "priacy": "./native/priacy/index",
+    "userInfo": "./native/userInfo/index",
+    "vip": "./native/vip/index"
+  }
+}

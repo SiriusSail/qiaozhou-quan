@@ -8,7 +8,7 @@ const Index = () => {
       height='100vh'
       status='success'
       icon={{
-        color: '#fa8c16',
+        color: '#E8813E',
         name: 'roundcheckfill',
       }}
       title='下单成功'

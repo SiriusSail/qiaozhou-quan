@@ -1,0 +1,75 @@
+<view class="home-page">
+  <view class="positioning" style="top: {{menuOption.top * 2}}rpx">
+    <positioning bindchange="updataCampuId" range="{{campuList}}" defaultOpen="{{true}}"value="{{campuId}}" />
+  </view>
+  <list-scroll-view request="{{request}}" bindupdateList="updateList" params="{{params}}" navigationStyle="custom">
+    <view class="home-background" style="padding-top: {{menuOption.top * 2}}rpx"></view>
+    <view style="padding-top: {{menuOption.bottom * 2 + 16}}rpx" class="home-page-banner">
+      <swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{true}}" interval="{{3000}}" duration="{{500}}" class="home-page-banner-swiper" style="height: 45vw">
+        <block wx:if="{{banner.length > 0}}">
+            <block wx:for="{{banner}}" wx:key="*this" >
+              <swiper-item class="seiper-item">
+                <view
+                class="banner-src"
+                style="background-image: url({{item.url}})"
+              />
+              </swiper-item>
+            </block>
+        </block>
+        <swiper-item wx:else class="seiper-item">
+          <view
+            class="banner-src"
+            style="background-image: url(/images/banner.png)"
+          />
+        </swiper-item>
+      </swiper>
+      <shadow addstyle="margin: 20rpx 0">
+        <view class="list-type">
+          <view class="list-type-item" data-value="{{item.value}}" bind:tap="check" wx:for="{{typeImages}}" wx:key="value" >
+            <image src="{{ selectType === item.value? item.imageActive: item.image}}" class="list-type-image"></image>
+            <view style="color: {{selectType === item.value ? item.color: '#666'}}">{{item.label}}</view>
+          </view>
+        </view>
+      </shadow>
+      <shadow wx:for="{{dataList}}" wx:key="id" addstyle="margin: 0 0 20rpx 0; padding: 0 19rpx;">
+        <view class="home-card">
+          <view>
+            <image src="{{item.avatarUrl}}" class="home-card-avatar"></image>
+          </view>
+          <view class="home-card-item">
+            <view class="home-card-top">
+              <view class="home-card-top-left">
+                <view class="home-card-title">{{item.name}}</view>
+                <view class="home-card-tags">
+                  <text class="home-card-tag">#{{item.typeName}}</text>
+                  <text class="home-card-tag">#{{item.tradeTypeName}}</text>
+                </view>
+              </view>
+              <view class="home-card-top-right">
+                <view>{{item.createTimeDesc}}</view>
+                <view class="home-card-icons">
+                  <view class="home-card-icon">
+                    <view class="iconfont icon-e8c4"></view>
+                  </view>
+                  <view class="home-card-icon">
+                    <view class="iconfont icon-e96c"></view>
+                  </view>
+                  <view class="home-card-icon">
+                    <view class="iconfont icon-e647"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="home-card-describe">
+              <contract-text text="{{item.content}}"/>
+            </view>
+            <view class="home-card-photos">
+              <backimage wx:for="{{item.merchantPhotoList}}" wx:for-item="image" wx:key="image" src="{{image}}" preview="{{true}}" height="18vw" width="100%"></backimage>
+            </view>
+          </view>
+        </view>
+      </shadow>
+    </view>
+  </list-scroll-view>
+</view>

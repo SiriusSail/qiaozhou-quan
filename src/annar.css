@@ -52,8 +52,8 @@
 
 .anna-btn-look-orange {
   color: #fdfffd;
-  background-color: #fa8c16 !important;
-  border-color: #fa8c16 !important;
+  background-color: #E8813E !important;
+  border-color: #E8813E !important;
 }
 .anna-result-icon-status .icon-loading {
   animation: loading 1s linear infinite;
@@ -62,10 +62,17 @@
 .anna-picker .anna-form-value {
   text-align: right !important;
 }
+.anna-picker {
+  text-align: right !important;
+}
+.anna-cell .anna-cell {
+  padding: 0;
+  border: none;
+}
 .anna-picker .anna-form-value, .anna-form-value-placeholder {
   text-align: right !important;
 }
 
 .anna-switch-checked-small + .anna-switch-checkbox {
-  background-color: #fa8c16 !important;
+  background-color: #E8813E !important;
 }

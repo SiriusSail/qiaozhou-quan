@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "会员中心",
+  "navigationBarBackgroundColor": "#EACE99",
+  "usingComponents": {
+    "backimage": "../../../components/wxComponents/backimage/index",
+    "price-text": "../../../components/wxComponents/price/index",
+    "agreement": "../components/agreement/index",
+    "shadow": "../../../components/shadow/native/index"
+  }
+}

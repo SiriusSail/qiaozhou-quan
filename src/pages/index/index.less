@@ -1,96 +1,182 @@
-.app {
-  text-align: center;
-  padding: 0 24rpx;
+.home-page {
+  position: relative;
 }
 
-.logo {
-  animation: logo-spin infinite 20s linear;
-  height: 240rpx;
-  width: 240rpx;
-  pointer-events: none;
+.home-background {
+  position: absolute;
+  background-color: #E8813E;  
+  width: 100vw;
+  z-index: 1;
+  top: 0;
+  left: 0;
 }
 
-.top {
-  padding: 10rpx;
-  display: flex;
-  
-}
-
-.body {
-  font-size: 40rpx;
-  padding: 24rpx;
-}
-
-.seiper-item {
+.home-background::before {
   width: 100%;
-  height: 400rpx;
+  height: 45vw;
+  content: '';
+  display: block;
+  position: relative;
 }
 
-.card-head {
-  padding: 24rpx 0;
+.home-background::after {
+  content: '';
+  display: block;
+  width: 100vw;
+  height: 20vw;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #fff;
+  bottom: -10vw;
+  left: 0;
+  z-index: 0;
 }
 
-
-.card-title {
-  text-align: left;
-  font-weight: 600;
+.home-page-banner {
+  padding: 16rpx 5vw;
+  position: relative;
+  z-index: 5;
 }
 
-.envelopes {
-  padding-left: 10rpx;
-  padding-right: 10rpx;
-  margin-bottom: 10rpx;
-}
-
-.description {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+.home-page-banner-swiper {
+  border-radius: 10rpx;
   overflow: hidden;
-  color: #333;
-  font-size: 28rpx;
+}
+.banner-src {
+  width: 90vw;
+  height: 45vw;
+  background-size: 100% ;
 }
 
-.title{
-  box-sizing: border-box;
-  height: 112rpx;
-  line-height: 112rpx;
+.home-loading {
+  color: #fff;
+  background-color: #E8813E;
+  position: absolute;
+  top: -100rpx;
+  line-height: 100rpx;
   text-align: center;
-  font-size: 32rpx;
-  font-weight: 500;
+  width: 100vw;
+  z-index: 2;
 }
 
-.padding{
-  padding: 28rpx;
+.list-type-image {
+  height:106rpx;
+  width: 112rpx;
 }
 
-.demo-grid-item {
+.list-type {
+  padding: 10rpx 0;
   width: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.card-footer {
-  // text-align: right;
-  padding: 0rpx 20rpx 0;
-  background: #fff;
+.home-card-avatar {
+  width: 89rpx;
+  height: 89rpx;
+  margin-top: 8rpx;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.home-card-item {
+  flex: 1;
+  padding: 20rpx 0 20rpx 20rpx;
+  line-height: 46rpx;
+}
+.home-card-title {
+  font-size: 29rpx;
+  line-height: 29rpx;
+  font-weight: 400;
+  color: #0D0D0D;
+}
+
+.home-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.campus-text {
-  font-size: 36rpx;
+.home-card-top-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 67rpx;
 }
 
-.share {
-  border: none !important;
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-  border-radius: 0;
-  &::after{ border: none; }
+.home-card-tags {
+  font-size: 24rpx;
+  line-height: 24rpx;
+  font-weight: 400;
+  color: #FE3939;
+  display: flex;
 }
 
-.browse {
-  color: #666;
+.home-card-tag {
+  display: block;
+  margin-right: 10rpx;
+}
+
+.home-card-top-right {
+  width: 280rpx;
+  display: flex;
+  font-size: 22rpx;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-card-icons {
+  display: flex;
+  width: 170rpx;
+  height: 50rpx;
+  justify-content: space-between;
+}
+
+.home-card-icon {
+  height: 50prx;
+  width: 50rpx;
+  border-radius: 50%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: #EFEFEF;
+}
+.iconfont {
+  display: inline-block;
+  font-size: 32rpx;
+}
+
+.home-card-describe {
+  padding: 10rpx 0;
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.home-card {
+  display: flex;
+  box-sizing: border-box;
+  min-height: 100rpx;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.home-card-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 6rpx;
+  grid-row-gap: 6rpx;
+}
+
+.home-card-photo {
+  width: 30%;
+}
+
+.positioning{
+  position: absolute; 
+  z-index: 100; 
+  margin-left: 30rpx; 
+  padding: 10rpx; 
+  border-radius: 32rpx; 
+  background: #E8813E;
 }

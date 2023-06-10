@@ -1,0 +1,30 @@
+<!-- <picker bindchange="onChange" value="{{value}}" range="{{range2}}"> -->
+<view class="modail-select">
+  <view class="postioning-picker" bindtap="open">
+    <image style="height:35rpx; width: 35rpx;padding-right:10rpx;" src="./images/opting.png" ></image><view>{{rangeObject[value] || value || placeholder}}</view>
+  </view>
+  <view class="anna-popup-container anna-popup-container-bottom {{isOpen?'anna-popup-container-active': ''}}">
+    <view class="anna-popup-container-title" style="margin-top:{{menuOption.top * 2}}rpx">请选择校区</view>
+    <view>
+      <view class="serchbar">
+        <view style="margin-bottom:15px;" class="anna-search_bar">
+          <view style="border:1px solid #FF7777;background-color:#FDFFFD;" class="anna-search_bar-input">
+            <image style="height:35rpx; width: 35rpx;padding-right:10rpx;" src="./images/search.png" ></image>
+            <input bindblur="onBlur" placeholder="搜索" bindfocus="onFocus" bindinput="onInput" type="text" class="anna-search_bar-input-value" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="content-body">
+      <view class="options-content">
+        <view wx:for="{{option}}" data-item="{{item}}" bindtap="onChange" class="anna-cell">
+          <view class="anna-cell-container">
+            <view>{{item}}</view>
+          </view>
+          <view class="anna-cell-border"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- </picker> -->

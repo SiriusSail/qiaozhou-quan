@@ -1,0 +1,9 @@
+<view 
+  bindtap="tap"
+  class="bottom-button-content"
+  style="{{addstyle}}"
+>
+<button class="anna-btn anna-btn-square anna-btn-look-orange" style="{{addstyle}}">
+  <slot></slot>
+</button>
+</view>

@@ -1,0 +1,39 @@
+<scroll-view 
+      class="scroll-view" 
+      style="height:100vh;"
+      scroll-y
+      refresher-default-style="none"
+      refresher-enabled
+      refresher-background="transparent"
+      refresher-triggered="{{isTriggered}}"
+      bindrefresherrefresh="handleRefresherRefresh" 
+      bindscrolltolower="handleScrollToLower"
+      refresher-enabled="{{true}}"
+      refresher-threshold="{{menuOptionTop + 50}}"
+      refresher-triggered="{{triggered}}"
+  >
+  <view slot="refresher" 
+      class="refresh-container center" 
+      style="padding-top:{{menuOptionTop + 50}}rpx; "
+    >
+      <view class="center">
+        <image style="display: {{loading && triggered? 'block': 'none'}}" class="loading" src="./images/loading.png"></image>
+        <view style="display: {{loading && triggered? 'block': 'none'}}; padding-left: 10rpx;">加载中</view>  
+        <view style="display: {{loading || !triggered? 'none': 'block'}}">刷新成功</view>
+      </view>
+  </view>
+  <slot></slot>
+  <view class="center footer" style="display: {{!end && loading && !triggered? 'flex': 'none'}}">
+    <image class="loading" src="./images/loading.png"></image>
+    <view style="padding-left: 10rpx;">加载中</view>  
+  </view>
+  <view class="center footer" style="display: {{end && list.length > 0? 'flex': 'none'}}">
+    <view>{{noDataText || '已经到我的底线了'}}</view>
+  </view>
+  <view class="center no-data" style="display: {{!loading && end && list.length === 0? 'flex': 'none'}}">
+    <view class="center column">
+      <image class="no-data-image" src="./images/discover.png"></image>
+      <view>没有找到信息</view>
+    </view>
+  </view>
+</scroll-view>

@@ -26,13 +26,15 @@ const Index = () => {
             overflow: 'hidden',
             borderRadius: '50%',
           }}
-          src={avatarSrc}
+          src={userInfo?.avatarurl || avatarSrc}
         />
       </Cell>
-      <Cell label='昵称'>{userInfo?.userNo}</Cell>
+      <Cell label='昵称'>{userInfo?.nickname || userInfo?.userNo}</Cell>
+      <Cell label='性别'>
+        {userInfo?.gender === 2 ? '女' : userInfo?.gender === 1 ? '男' : '-'}
+      </Cell>
       <Cell label='手机号'>{userInfo?.mobile}</Cell>
       <Cell label='区域'>{userInfo?.campusName}</Cell>
-      {/* <Cell label='地址'>环球大厦</Cell> */}
       <BottomButton
         size='large'
         onTap={() => {

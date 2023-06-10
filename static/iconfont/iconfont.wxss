@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'iconfont';  /* Project id 3880061 */
+  src: url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.woff2?t=1686064423891') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.woff?t=1686064423891') format('woff'),
+       url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.ttf?t=1686064423891') format('truetype'),
+       url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.svg?t=1686064423891#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 26rpx;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-e647:before{content: '\e647';}
+.icon-e621:before{content: '\e621';}
+.icon-e609:before{content: '\e609';}
+.icon-e607:before{content: '\e607';}
+.icon-e606:before{content: '\e606';}
+.icon-e638:before{content: '\e638';}
+.icon-e635:before{content: '\e635';}
+.icon-e60c:before{content: '\e60c';}
+.icon-e61f:before{content: '\e61f';}
+.icon-e600:before{content: '\e600';}
+.icon-e602:before{content: '\e602';}
+.icon-e603:before{content: '\e603';}
+.icon-e64b:before{content: '\e64b';}
+.icon-e659:before{content: '\e659';}
+.icon-e632:before{content: '\e632';}
+.icon-e688:before{content: '\e688';}
+.icon-e610:before{content: '\e610';}
+.icon-e605:before{content: '\e605';}
+.icon-e96c:before{content: '\e96c';}
+.icon-e620:before{content: '\e620';}
+.icon-e608:before{content: '\e608';}
+.icon-e8b2:before{content: '\e8b2';}
+.icon-e8b3:before{content: '\e8b3';}
+.icon-e8b7:before{content: '\e8b7';}
+.icon-e8c1:before{content: '\e8c1';}
+.icon-e8c4:before{content: '\e8c4';}
+.icon-e8c5:before{content: '\e8c5';}
+.icon-e636:before{content: '\e636';}
+.icon-e6ad:before{content: '\e6ad';}
+.icon-e62c:before{content: '\e62c';}
+.icon-e63b:before{content: '\e63b';}
+.icon-e652:before{content: '\e652';}
+.icon-e63f:before{content: '\e63f';}
+.icon-fcff:before{content: '\fcff';}
+.icon-e645:before{content: '\e645';}
+.icon-10102:before{content: '\10102';}
+.icon-e666:before{content: '\e666';}
+.icon-e628:before{content: '\e628';}
+.icon-e8b4:before{content: '\e8b4';}
+.icon-e8b8:before{content: '\e8b8';}
+.icon-e8b9:before{content: '\e8b9';}
+.icon-e604:before{content: '\e604';}
+.icon-e728:before{content: '\e728';}
+.icon-e8c0:before{content: '\e8c0';}
+.icon-e8b1:before{content: '\e8b1';}
+.icon-e6db:before{content: '\e6db';}
+.icon-e64a:before{content: '\e64a';}
+.icon-e6da:before{content: '\e6da';}
+.icon-e601:before{content: '\e601';}
+.icon-e664:before{content: '\e664';}

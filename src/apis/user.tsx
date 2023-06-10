@@ -22,9 +22,17 @@ type UpdateCampusParams = {
    */
   city?: string;
   /**
-   * 国家
+   * 昵称
    */
-  country?: string;
+  nickname?: string;
+  /**
+   * 头像
+   */
+  avatarUrl?: string;
+  /**
+   * 性别
+   */
+  gender?: string;
   /**
    * 省份
    */
@@ -34,6 +42,19 @@ type UpdateCampusParams = {
    */
   userId?: string;
 };
+/**
+ * 修改用户信息
+ */
+export const updateUserInfo = (data: UpdateCampusParams) =>
+  request<string>(
+    {
+      method: 'POST',
+      url: '/wx/api/user/updateUserInfo',
+      data,
+      dataType: 'json',
+    },
+    true
+  );
 /**
  * 通过用户id修改校区
  */

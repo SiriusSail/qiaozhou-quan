@@ -7,7 +7,16 @@ import { request } from '@/apis';
 export const campusPage = () =>
   request<CampusPageType[]>({
     method: 'POST',
-    url: '/wx/api/campus/page',
+    url: `/wx/api/campus/allCampusList`,
+    dataType: 'json',
+  });
+/**
+ * 查询枚举
+ */
+export const getEnums = (code: string) =>
+  request<CampusPageType[]>({
+    method: 'POST',
+    url: `/wx/api/campus/allCampusList/${code}`,
     dataType: 'json',
   });
 

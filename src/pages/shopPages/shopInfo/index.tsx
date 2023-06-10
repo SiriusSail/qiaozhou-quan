@@ -56,7 +56,7 @@ const Index = () => {
             sizeType={['compressed']}
           />
         </Block>
-        <Block contentStyle={{ padding: '0 30rpx' }} title='店铺资质上传'>
+        <Block contentStyle={{ padding: '0 30rpx' }} title='店铺资质'>
           <ImageUpload
             files={data?.aptitudeUrl || []}
             deletable={false}

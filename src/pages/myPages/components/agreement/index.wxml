@@ -1,0 +1,11 @@
+<popup style="display: inline-block;">
+  <view slot='btn'>
+    <slot />
+  </view>
+  <view style="max-height: 80vh;padding: 20rpx;overflow: auto;">
+    <merchant wx:if="{{type === '平台商户服务规范'}}"></merchant>
+    <priacy wx:if="{{type === '隐私协议'}}"></priacy>
+    <userInfo wx:if="{{type === '用户服务协议'}}"></userInfo>
+    <vip wx:if="{{type === '会员服务协议'}}"></vip>
+  </view>
+</popup>

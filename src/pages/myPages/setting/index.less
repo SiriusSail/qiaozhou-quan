@@ -1,0 +1,173 @@
+.vip-page {
+  position: relative;
+  padding-top: 20rpx;
+}
+.vip-page::after {
+  content: '';
+  width: 106vw;
+  height: 380rpx;
+  position: absolute;
+  background-color: #EACE99;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  top: 0;
+  left: -3vw;
+  z-index: 1;
+}
+
+.vip-content {
+  position: relative;
+  z-index: 2;
+}
+
+.border-EACE99 {
+  border-radius: 50%;
+  border: 3rpx solid #EACE99;
+  overflow: hidden;
+}
+
+.vip-shadow {
+  display: flex;
+  align-items: center;
+  padding: 26rpx 0;
+}
+
+.vip-type {
+  display: grid;
+  padding: 26rpx 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10rpx;
+  grid-row-gap: 10rpx;
+}
+
+.vip-type-item {
+  background: #E7E7E7;
+  border: 1px solid #CCC4B2;
+  border-radius: 10rpx;
+  height: 168rpx;
+  padding: 20rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.vip-type-item-title {
+  font-size: 28rpx;
+  color: #666666;
+}
+.vip-type-item-text {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.vip-type-item.active {
+  background: #EACE99;
+  border: 1px solid #9F8E67;
+  color: #574417;
+}
+
+.vip-avatar-content {
+  flex: 1;
+  padding-left: 27rpx;
+  color: #CAC5BB;
+  line-height: 50rpx;
+}
+
+.vip-info-content {
+  display: grid;
+  padding: 45rpx 0 23rpx;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10rpx;
+  grid-row-gap: 10rpx;
+  background-color: #F3ECE1;
+  border-radius: 10rpx;
+}
+
+.vip-info-item {
+  height: 205rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vip-info-icon {
+  height:100rpx;
+  width: 100rpx;
+  background-color: #EACE99;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25rpx;
+  margin-bottom: 20rpx;
+}
+
+.vip-info-icon .iconfont {
+  font-size: 45rpx;
+}
+
+.vip-info {
+  padding-bottom: 10rpx;
+}
+
+.vip-info-text {
+  font-size: 24rpx;
+  color: #52483D;
+}
+
+.vip-info-describe {
+  font-size: 22rpx;
+  color: #52483D;
+}
+
+.vip-info-label {
+  text-align: center;
+  line-height: 70rpx;
+  position: relative;
+  font-size: 30rpx;
+}
+
+.vip-info-label::before, .vip-info-label::after {
+  content: '';
+  height: 1rpx;
+  background-color: #3D3D3D;
+  width: 197rpx;
+  position: absolute;
+  top: 50%;
+}
+
+.vip-info-label::before {
+  left: 0
+}
+.vip-info-label::after {
+  right: 0;
+}
+
+.vip-button {
+  width: 658rpx;
+  height: 90rpx;
+  background: #EACE99;
+  border-radius: 45rpx;
+  color: #574417;
+  line-height: 90rpx;
+}
+
+.vip-foot {
+  padding-top: 234rpx;
+  position: relative;
+  top: -106rpx;
+  background: url(https://www.chqheiyou.com/uploads/d5f99e3a95bd42d39bd780101164b529.png) no-repeat;
+  background-size: 100% 308rpx;
+}
+
+.vip-foot-text {
+  margin-top: 81rpx;
+  text-align: center;
+  font-size: 24rpx;
+}
+
+.agreement-type {
+  color: #E8813E;
+  display: inline;
+}
