@@ -22,10 +22,10 @@ Component({
     menuOption: wx.getMenuButtonBoundingClientRect(),
     id: '',
     placeholder: '请选择',
-    range2: [],
     rangeObject: {},
     value: '',
     isOpen: false,
+    inputValue: '',
     isBlur: false,
     searchValue: undefined,
     option: [],
@@ -33,17 +33,15 @@ Component({
   observers: {
     range: function (newVal) {
       //  'params'是要监听的字段，（params）是已更新变化后的数据
-      const option = newVal?.map((item) => item.label);
       this.setData({
-        range2: option,
-        option: option,
         rangeObject: newVal?.reduce((a, b) => {
           return { ...a, [b.value]: b.label };
         }, {}),
       });
+      this.updateOption();
       if (
         this.properties.defaultOpen &&
-        this.data.range2?.length > 0 &&
+        newVal?.length > 0 &&
         !this.data.value
       ) {
         this.setData({
@@ -54,6 +52,16 @@ Component({
   },
 
   methods: {
+    updateOption: function () {
+      const inputValue = this.data.inputValue;
+      const option = this.properties.range?.map((item) => item.label);
+      console.log(option);
+      this.setData({
+        option: inputValue
+          ? option.filter((item) => item.includes(inputValue))
+          : option,
+      });
+    },
     onChange: function (e) {
       const find =
         this.properties.range?.find(
@@ -86,12 +94,8 @@ Component({
       });
     },
     onInput: function (e) {
-      // this.setData({
-      //   searchValue: e.detail.value,
-      //   option: this.data.range2.filter((item) =>
-      //     item.includes(e.detail.value)
-      //   ),
-      // });
+      this.data.inputValue = e.detail.value;
+      this.updateOption();
     },
   },
 

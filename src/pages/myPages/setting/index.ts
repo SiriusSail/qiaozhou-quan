@@ -1,7 +1,4 @@
-import { campusPage } from '@/apis/campus';
-import { publishInfoPage } from '@/apis/infoPublish';
-import useApi from '@/apis';
-import { pay } from '@/apis/payment';
+import { logout } from '@/apis/auth';
 
 Page({
   data: {
@@ -9,16 +6,21 @@ Page({
     dataList: [],
     memberEndTime: '',
   },
-  updataUserInfo() {
-    useApi.userInfo().then((e) => {
-      wx.setStorage({
-        key: 'userInfo',
-        data: e,
-      });
-      this.setData({
-        userInfo: e,
-        memberEndTime: e?.memberEndTime.split(' ')[0],
-      });
+  outlogin() {
+    wx.showModal({
+      title: '确定退出当前账号',
+      cancelText: '取消',
+      confirmText: '确定',
+      success: (e) => {
+        logout();
+        wx.removeStorage({
+          key: 'token',
+        });
+        wx.removeStorage({
+          key: 'userInfo',
+        });
+        wx.navigateBack();
+      },
     });
   },
   onLoad: function () {

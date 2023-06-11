@@ -1,9 +1,8 @@
 {
-  "navigationBarTitleText": "设置",
+  "component": true,
   "usingComponents": {
     "cell": "../../../components/wxComponents/cell/index",
     "bottom-button": "../../../components/wxComponents/bottom-button/index",
-    "layout": "../../../components/wxComponents/layout/index",
-    "agreement": "../components/agreement/index"
+    "backimage": "../backimage/index"
   }
 }

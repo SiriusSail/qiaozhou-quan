@@ -120,9 +120,29 @@ export type MerchantApplyParams = {
    */
   merAddress?: string;
   /**
+   * 	营业开始时间
+   */
+  businessStartTime?: string;
+  /**
+   * 	营业结束时间
+   */
+  businessEndTime?: string;
+  /**
+   * 	最低订单价
+   */
+  minOrderAmount?: string;
+  /**
    * 	店铺简介
    */
   merDescribe?: string;
+  /**
+   * 	支付方式
+   */
+  payType?: 1 | 2;
+  /**
+   * 	是否营业
+   */
+  status?: 0 | 1;
   /**
    * 	审批结果
    */

@@ -1,0 +1,16 @@
+<view>
+  <view wx:if="{{token}}">
+    <slot></slot>
+  </view>
+  <view wx:else style="position: fixed;display: flex;height: 100%;padding: 30rpx;width: 100%;left: 0;top: 0;padding-top: 100rpx;flex-direction: column;justify-content: space-around;align-items: center;">
+    <view style="text-align: center">
+      <view style="display:inline-block">
+        <backimage height="120rpx" width="120rpx" src="https://www.chqheiyou.com/uploads/6ada834e9ebc4409b638246d9dcdad31.png"></backimage>
+      </view>
+      <view style="padding-top: 30rpx">暂无内容登陆后可查看</view>
+    </view>
+    <bottom-button addstyle="margin-bottom:100rpx">
+      <view bindtap="tologin" style="width: 80vw">点击跳转至登录页面</view>
+    </bottom-button>
+  </view>
+</view>

@@ -76,6 +76,25 @@ export const getPublishInfo = (id: string) =>
     url: `/wx/api/infoPublish/getInfoPublishById/${id}`,
   });
 
+/**
+ * 根绝ID 查询电话
+ */
+
+export const getPhone = (id: string) =>
+  request<string>({
+    method: 'GET',
+    url: `/wx/api/infoPublish/getPhone/${id}`,
+  });
+/**
+ * 根绝ID 查询地址
+ */
+
+export const getAddress = (id: string) =>
+  request<string>({
+    method: 'GET',
+    url: `/wx/api/infoPublish/getAddress/${id}`,
+  });
+
 export const updatePublishInfo = (data: PublishInfo) =>
   request({
     method: 'POST',

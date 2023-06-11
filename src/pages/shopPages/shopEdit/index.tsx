@@ -105,7 +105,7 @@ const Index = () => {
           </Cell>
           <Cell label='区域选择'>
             <FormItem
-              name='campusIds'
+              name='campusId'
               trigger='onChange'
               rules={[{ required: true }]}>
               <ModailMultipleSelect
@@ -161,7 +161,7 @@ const Index = () => {
           </Cell>
           <Cell label='营业开始时间'>
             <FormItem
-              name='businessEndTime'
+              name='businessStartTime'
               initialValue='07:00'
               rules={[{ required: true }]}>
               <WechatPicker mode='time' placeholder='请输入营业时间'>
@@ -171,7 +171,7 @@ const Index = () => {
           </Cell>
           <Cell label='营业结束时间'>
             <FormItem
-              name='businessStartTime'
+              name='businessEndTime'
               initialValue='22:00'
               rules={[{ required: true }]}>
               <WechatPicker mode='time' placeholder='请输入结束时间'>
@@ -216,7 +216,7 @@ const Index = () => {
             </FormItem>
           </Cell>
 
-          <Cell border={false} label='营业结束时间'>
+          <Cell border={false} label='是否营业'>
             <FormItem name='status' initialValue={1} trigger='onChange'>
               <Switch
                 onChange={(e) => {

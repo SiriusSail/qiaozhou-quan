@@ -88,15 +88,15 @@ const Index = () => {
               </View>
             </Cell>
           </Shadow>
-          <Shadow label='学校' contentstyle='width: auto'>
+          <Shadow label='区域' contentstyle='width: auto'>
             <FormItem
               name='campusId'
               trigger='onChange'
               rules={[{ required: true }]}>
               <ModailMultipleSelect
-                title='请选择学校'
+                title='请选择区域'
                 maxLength={1}
-                placeholder='请选择学校'
+                placeholder='请选择区域'
                 options={campus?.data}
               />
             </FormItem>

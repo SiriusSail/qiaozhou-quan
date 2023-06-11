@@ -4,6 +4,7 @@
   "usingComponents": {
     "backimage": "../../../components/wxComponents/backimage/index",
     "price-text": "../../../components/wxComponents/price/index",
+    "layout": "../../../components/wxComponents/layout/index",
     "agreement": "../components/agreement/index",
     "shadow": "../../../components/shadow/native/index"
   }

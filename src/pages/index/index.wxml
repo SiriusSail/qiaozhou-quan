@@ -49,15 +49,15 @@
               <view class="home-card-top-right">
                 <view>{{item.createTimeDesc}}</view>
                 <view class="home-card-icons">
-                  <view class="home-card-icon">
+                  <view class="home-card-icon" bindtap="address" data-value="{{item.id}}">
                     <view class="iconfont icon-e8c4"></view>
                   </view>
-                  <view class="home-card-icon">
+                  <view class="home-card-icon" bindtap="phoneCall" data-value="{{item.id}}">
                     <view class="iconfont icon-e96c"></view>
                   </view>
-                  <view class="home-card-icon">
+                  <!-- <view class="home-card-icon">
                     <view class="iconfont icon-e647"></view>
-                  </view>
+                  </view> -->
                 </view>
               </view>
             </view>
@@ -72,4 +72,10 @@
       </shadow>
     </view>
   </list-scroll-view>
+  <bottom-button addstyle="right: 20rpx;left: auto;width: auto;">
+    <view class="home-card-bottom" bindtap="toinfo">
+      <view class="home-iconfont iconfont icon-e605"></view>
+      <!-- <view>发布动态</view> -->
+    </view>
+  </bottom-button>
 </view>

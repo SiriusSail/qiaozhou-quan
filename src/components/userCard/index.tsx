@@ -15,7 +15,9 @@ const Index: React.FC<{ showSetting?: boolean }> = ({ showSetting = true }) => {
   const { userInfo, isVip } = userInfoStores.useContainer();
   const menuOption = useRef(getMenuButtonBoundingClientRect());
   return (
-    <View className={styles.info}>
+    <View
+      className={styles.info}
+      style={{ paddingTop: menuOption.current.top * 2 + 'rpx' }}>
       {showSetting && (
         <View
           className={styles.icon}

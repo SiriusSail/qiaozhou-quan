@@ -86,6 +86,8 @@ const ImageUpload = ({
     }
     const params: any = {
       count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
     };
     if (sizeType) {
       params.sizeType = sizeType;

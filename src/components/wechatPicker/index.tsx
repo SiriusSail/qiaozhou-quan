@@ -15,7 +15,13 @@ export const Img: React.FC<
     }
   }, [_value]);
   return (
-    <Picker {...props} onChange={(e) => setValue(e.detail.value)}>
+    <Picker
+      {...props}
+      onChange={(e) => {
+        console.log(e);
+        setValue(e.detail.value);
+        onChange?.(e.detail.value);
+      }}>
       {value || placeholder}
     </Picker>
   );

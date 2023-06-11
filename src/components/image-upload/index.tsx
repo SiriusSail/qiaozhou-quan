@@ -106,7 +106,11 @@ const ImageUpload = ({
       return;
     }
     const addNumber = maxCount - (files?.length || 0);
-    const params: any = { count: addNumber };
+    const params: any = {
+      count: addNumber,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+    };
 
     if (multiple) {
       params.multiple = true;

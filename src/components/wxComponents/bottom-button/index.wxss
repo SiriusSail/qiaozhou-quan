@@ -31,7 +31,7 @@
   display: inline-block;
   padding: 0 32rpx;
   background-color: #ededef;
-  line-height: 60rpx;
+  line-height: 80rpx;
   border: 1PX solid #ededef;
   border-radius: 64rpx;
   font-weight: 500;

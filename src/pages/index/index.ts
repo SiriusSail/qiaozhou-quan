@@ -1,5 +1,7 @@
 import { campusPage } from '@/apis/campus';
 import apis from '@/apis/index';
+import { getPhone, getAddress } from '@/apis/infoPublish';
+import { valiVip } from '@/utils/index';
 import { publishInfoPage } from '@/apis/infoPublish';
 
 const typeImages = [
@@ -42,11 +44,11 @@ Page({
     banner: [],
     typeImages,
     request: publishInfoPage,
-    selectType: typeImages[0].value,
+    selectType: '',
     dataList: [],
     params: {
       campuId: wx.getStorageSync('campu'),
-      type: typeImages[0].value,
+      type: '',
     },
   },
   // 更新页面参数
@@ -62,7 +64,7 @@ Page({
   check: function (e) {
     const selectType = e.currentTarget.dataset.value;
     this.setData({
-      selectType,
+      selectType: selectType === this.data.selectType ? '' : selectType,
     });
     this.updataParams();
   },
@@ -78,9 +80,61 @@ Page({
     });
   },
   updateList(e) {
-    console.log(e);
     this.setData({
       dataList: e.detail.list,
+    });
+  },
+  toinfo() {
+    if (
+      valiVip({
+        content: '需要成为vip后才可以发布动态',
+      })
+    ) {
+      wx.navigateTo({
+        url: `/pages/shopPages/shopRelease/index`,
+        // url: '/pages/myReleaseList/index',
+      });
+    }
+  },
+
+  phoneCall: function (e) {
+    const id = e.currentTarget.dataset.value;
+    getPhone(id).then((res) => {
+      wx.makePhoneCall({
+        phoneNumber: res,
+      });
+    });
+  },
+
+  address: function (e) {
+    const id = e.currentTarget.dataset.value;
+    getAddress(id).then((res) => {
+      console.log(res);
+      wx.showActionSheet({
+        alertText: res,
+        itemList: ['复制地址'],
+        success: function (res) {
+          console.log(res, '成功');
+          wx.getClipboardData({
+            //这个api是把拿到的数据放到电脑系统中的
+            success: function (res) {
+              wx.showToast({
+                title: '地址已复制到剪切板',
+                icon: 'none',
+                duration: 2000,
+              });
+            },
+          });
+        },
+        fail: function (res) {
+          console.log(res, '失败');
+          wx.showToast({
+            title: res.errMsg,
+            icon: 'none',
+            duration: 2000,
+          });
+        },
+      });
     });
   },
   onLoad: function () {
@@ -132,20 +186,5 @@ Page({
     console.log(item.index);
     console.log(item.pagePath);
     console.log(item.text);
-  },
-  // 事件响应函数
-  viewTap: function () {
-    this.setData(
-      {
-        text: 'Set some data for updating view.',
-      },
-      function () {
-        // this is setData callback
-      }
-    );
-  },
-  // 自由数据
-  customData: {
-    hi: 'MINA',
   },
 });
