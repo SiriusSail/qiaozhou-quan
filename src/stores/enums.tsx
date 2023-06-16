@@ -22,13 +22,15 @@ export default createContainer(() => {
    */
   const { data: campus, run: getCampusPage } = useRequest(() =>
     campusPage().then((res) => ({
-      data: res.map(
-        (item) =>
-          ({
-            key: item.id,
-            value: item.campusName,
-          } as API.OptionsType)
-      ),
+      data: res
+        .filter((item) => item.campusName !== '全部')
+        .map(
+          (item) =>
+            ({
+              key: item.id,
+              value: item.campusName,
+            } as API.OptionsType)
+        ),
     }))
   );
   return {

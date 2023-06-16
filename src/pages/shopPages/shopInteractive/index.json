@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "首页",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "bottom-button": "../../../components/wxComponents/bottom-button/index",
+    "positioning": "../../../components/wxComponents/positioning/index",
+    "backimage": "../../../components/wxComponents/backimage/index",
+    "list-scroll-view": "../../../components/wxComponents/list-scroll-view/index",
+    "contract-text": "../../../components/wxComponents/contract-text/index",
+    "shadow": "../../../components/shadow/native/index"
+  }
+}

@@ -15,6 +15,7 @@ import { coupon } from '@/apis/usercoupon';
 import userInfoStores from '@/stores/userInfo';
 import styles from './index.less';
 import LoginLayout from '@/layout/loginLayout';
+import Price from '@/components/wxComponents/price';
 import { usePageEvent } from 'remax/macro';
 
 const Index: React.SFC = () => {
@@ -101,29 +102,36 @@ const Index: React.SFC = () => {
           ) : undefined
         }
         subTitle={
-          couponNoRef.current ? `核销优惠卷：${couponNoRef.current}` : undefined
-        }
-        extra={
           <View>
             {data?.success || loading ? (
-              <Space>
-                <Button
-                  onTap={() =>
-                    switchTab({
-                      url: `/pages/index/index`,
-                    })
-                  }>
-                  回到首页
-                </Button>
-                <Button
-                  type='primary'
-                  onTap={() => {
-                    couponNoRef.current = '';
-                    setData(undefined);
-                  }}>
-                  继续核销
-                </Button>
-              </Space>
+              <View>
+                <View className={styles.price}>
+                  <Price text={data?.data} size='80' />
+                </View>
+                <View className={styles.text}>
+                  {couponNoRef.current
+                    ? `核销优惠卷：${couponNoRef.current}`
+                    : undefined}
+                </View>
+                <Space>
+                  <Button
+                    onTap={() =>
+                      switchTab({
+                        url: `/pages/index/index`,
+                      })
+                    }>
+                    回到首页
+                  </Button>
+                  <Button
+                    type='primary'
+                    onTap={() => {
+                      couponNoRef.current = '';
+                      setData(undefined);
+                    }}>
+                    继续核销
+                  </Button>
+                </Space>
+              </View>
             ) : (
               <View className={styles.content}>
                 <Space>

@@ -1,7 +1,7 @@
 import { PageConfig } from 'remax/wechat';
 
 const config: PageConfig = {
-  navigationBarTitleText: '我的订单',
+  navigationBarTitleText: '首页',
   enablePullDownRefresh: true,
 };
 

@@ -160,20 +160,14 @@ const Index = () => {
             </FormItem>
           </Cell>
           <Cell label='营业开始时间'>
-            <FormItem
-              name='businessStartTime'
-              initialValue='07:00'
-              rules={[{ required: true }]}>
+            <FormItem name='businessStartTime' rules={[{ required: true }]}>
               <WechatPicker mode='time' placeholder='请输入营业时间'>
                 时间
               </WechatPicker>
             </FormItem>
           </Cell>
           <Cell label='营业结束时间'>
-            <FormItem
-              name='businessEndTime'
-              initialValue='22:00'
-              rules={[{ required: true }]}>
+            <FormItem name='businessEndTime' rules={[{ required: true }]}>
               <WechatPicker mode='time' placeholder='请输入结束时间'>
                 时间
               </WechatPicker>
@@ -184,7 +178,11 @@ const Index = () => {
               name='minOrderAmount'
               trigger='onChange'
               rules={[{ required: true }]}>
-              <Input border={false} placeholder='请输入最低订单价' />
+              <Input
+                border={false}
+                type='number'
+                placeholder='请输入最低订单价'
+              />
             </FormItem>
           </Cell>
           <Cell label='店铺简介'>

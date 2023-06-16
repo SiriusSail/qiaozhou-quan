@@ -20,6 +20,7 @@ export const Img: React.FC<
       onChange={(e) => {
         console.log(e);
         setValue(e.detail.value);
+        valueRef.current = e.detail.value;
         onChange?.(e.detail.value);
       }}>
       {value || placeholder}

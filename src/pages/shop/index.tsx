@@ -3,7 +3,7 @@ import {
   showModal,
   showShareMenu,
   createSelectorQuery,
-  navigateTo,
+  makePhoneCall,
   getSystemInfo,
   View,
 } from 'remax/wechat';
@@ -313,7 +313,14 @@ const Shop = () => {
                 })}>
                 店铺简介：{data?.merDescribe || '暂无简介'}
               </View>
-              <View>联系电话：{data?.merPersonTel || '-'}</View>
+              <View
+                onTap={() => {
+                  makePhoneCall({
+                    phoneNumber: data?.merPersonTel,
+                  });
+                }}>
+                联系电话：{data?.merPersonTel || '-'}
+              </View>
               <View>
                 地址：{data?.merchantAddress} <Icon type='location' />
               </View>

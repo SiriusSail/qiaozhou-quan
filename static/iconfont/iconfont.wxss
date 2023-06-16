@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'iconfont';  /* Project id 3880061 */
-  src: url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.woff2?t=1686064423891') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.woff?t=1686064423891') format('woff'),
-       url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.ttf?t=1686064423891') format('truetype'),
-       url('//at.alicdn.com/t/c/font_3880061_3yrdkhnjs52.svg?t=1686064423891#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/c/font_3880061_c9vci0whxqt.woff2?t=1686578080216') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3880061_c9vci0whxqt.woff?t=1686578080216') format('woff'),
+       url('//at.alicdn.com/t/c/font_3880061_c9vci0whxqt.ttf?t=1686578080216') format('truetype'),
+       url('//at.alicdn.com/t/c/font_3880061_c9vci0whxqt.svg?t=1686578080216#iconfont') format('svg');
 }
 
 .iconfont {
@@ -15,6 +15,7 @@
 }
 
 
+.icon-e60a:before{content: '\e60a';}
 .icon-e647:before{content: '\e647';}
 .icon-e621:before{content: '\e621';}
 .icon-e609:before{content: '\e609';}

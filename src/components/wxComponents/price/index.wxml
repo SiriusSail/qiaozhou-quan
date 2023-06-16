@@ -1,4 +1,4 @@
 <view class="price">
-  <view style="color: {{icolor}};font-size: {{isize * 0.7}}rpx;{{iiconstyle}}">￥</view>
-  <view style="color: {{icolor}};font-size: {{isize}}rpx;{{itextstyle}}">{{itext}}</view>
+  <view style="color: {{icolor}};font-size: {{isize * 0.7}}rpx;line-height: {{isize * 0.7}}rpx;{{iiconstyle}}">￥</view>
+  <view style="color: {{icolor}};font-size: {{isize}}rpx;line-height: {{isize}}rpx;{{itextstyle}}">{{itext}}</view>
 </view>

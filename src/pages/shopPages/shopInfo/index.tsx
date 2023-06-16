@@ -47,7 +47,7 @@ const Index = () => {
         <Cell label='店铺地址'>{data?.merAddress}</Cell>
         <Cell label='营业开始时间'>{data?.businessStartTime}</Cell>
         <Cell label='营业结束时间'>{data?.businessEndTime}</Cell>
-        <Cell label='最低订单价'>{data?.businessEndTime}</Cell>
+        <Cell label='最低订单价'>{data?.minOrderAmount}</Cell>
         <Cell label='审核状态'>{data?.examineStatus}</Cell>
         <Cell label='店铺简介'>{data?.merDescribe}</Cell>
         <Cell label='支付方式'>{data?.payType === 1 ? '线上' : '线下'}</Cell>

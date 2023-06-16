@@ -114,7 +114,7 @@ const Index = () => {
               initialValue={userInfo?.nickname}
               trigger='onChange'
               rules={[{ required: true }]}>
-              <Input border={false} type='number' placeholder='请输入联系人' />
+              <Input border={false} placeholder='请输入联系人' />
             </FormItem>
           </Cell>
           <Cell label='联系电话'>

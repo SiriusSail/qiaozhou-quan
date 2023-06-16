@@ -22,6 +22,7 @@ type TagItemProps = {
   onTap?: () => void;
   text?: React.ReactNode;
   image?: string;
+  size?: number;
   icon?: string;
   disable?: boolean;
   iconColor?: string;
@@ -33,6 +34,7 @@ const TagItem: React.FC<TagItemProps> = ({
   icon,
   access,
   image,
+  size = 60,
   disable,
   onTap,
   iconColor = '#666',
@@ -53,7 +55,7 @@ const TagItem: React.FC<TagItemProps> = ({
             {icon ? (
               <Iconfont
                 name={icon as any}
-                size={60}
+                size={size}
                 color={disable ? '#797979' : iconColor}
               />
             ) : (
@@ -68,7 +70,7 @@ const TagItem: React.FC<TagItemProps> = ({
 };
 
 const Friend = () => {
-  const { userInfo, valiLoading } = userInfoStores.useContainer();
+  const { userInfo, valiLogin } = userInfoStores.useContainer();
   const [voucher, setVoucher] = useState(false);
   return (
     <>
@@ -76,7 +78,7 @@ const Friend = () => {
         icon='qz-yaoqingjiangli'
         text='邀新奖励'
         iconColor='#03c9e8'
-        onTap={() => valiLoading() && setVoucher(true)}
+        onTap={() => valiLogin() && setVoucher(true)}
       />
       <Popup
         closeable={false}
@@ -114,14 +116,14 @@ const Friend = () => {
 };
 
 const Index = () => {
-  const { userInfo, getUserInfo, isVip, isMerchant, valiLoading } =
+  const { userInfo, getUserInfo, isVip, isMerchant, valiLogin } =
     userInfoStores.useContainer();
   usePageEvent('onShow', () => {
     getUserInfo();
   });
   // 点击成为商家
   const handleMechart = () => {
-    if (valiLoading()) {
+    if (valiLogin()) {
       navigateTo({
         url: '/pages/shopPages/shopApply/index',
       });
@@ -209,32 +211,51 @@ const Index = () => {
                 icon='qz-huiyuan3'
                 text='会员中心'
               />
-
-              <>
+              <TagItem
+                iconColor='#F65C60'
+                size={50}
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/bag/index',
+                  })
+                }
+                icon='qz-gerenzhongxin-hongbao'
+                text='我的红包'
+              />
+              <TagItem
+                iconColor='#EAD1A1'
+                size={50}
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/shopPages/shopInteractive/index',
+                  })
+                }
+                icon='qz-dianpu1'
+                text='商家动态'
+              />
+              {!isMerchant && (
                 <TagItem
                   iconColor='#F65C60'
-                  disable={!isMerchant}
-                  onTap={() =>
-                    navigateTo({
-                      url: '/pages/shopPages/shopInfo/index',
-                    })
-                  }
-                  icon='qz-shangdian'
-                  text='店铺管理'
+                  onTap={handleMechart}
+                  icon='qz-jiamengguanli'
+                  text='商家入驻'
                 />
-                <TagItem
-                  iconColor='#E8813E'
-                  disable={!isMerchant}
-                  onTap={() =>
-                    navigateTo({
-                      url: '/pages/activityPages/activitySetting/index',
-                    })
-                  }
-                  icon='qz-huodongguanli'
-                  text='活动管理'
-                />
-              </>
-
+              )}
+            </View>
+          </Shadow>
+          <Shadow addstyle='padding: 20rpx 0'>
+            <View className={styles.row}>
+              <TagItem
+                iconColor='#F65C60'
+                disable={!isMerchant}
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/shopPages/shopOrder/index',
+                  })
+                }
+                icon='qz-dingdan2'
+                text='店铺订单'
+              />
               <TagItem
                 iconColor='#F65C60'
                 disable={!isMerchant}
@@ -246,18 +267,29 @@ const Index = () => {
                 icon='qz-youhuiquan'
                 text='核销优惠券'
               />
-            </View>
-          </Shadow>
-          <Shadow addstyle='padding: 20rpx 0'>
-            <View className={styles.row}>
-              {!isMerchant && (
-                <TagItem
-                  iconColor='#F65C60'
-                  onTap={handleMechart}
-                  icon='qz-jiamengguanli'
-                  text='商家入驻'
-                />
-              )}
+              <TagItem
+                iconColor='#F65C60'
+                disable={!isMerchant}
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/shopPages/shopInfo/index',
+                  })
+                }
+                icon='qz-shangdian'
+                text='店铺管理'
+              />
+              <TagItem
+                iconColor='#E8813E'
+                disable={!isMerchant}
+                onTap={() =>
+                  navigateTo({
+                    url: '/pages/activityPages/activitySetting/index',
+                  })
+                }
+                icon='qz-huodongguanli'
+                text='活动管理'
+              />
+
               <TagItem
                 iconColor='#E8813E'
                 disable={!isMerchant}
@@ -311,7 +343,7 @@ const Index = () => {
                     },
                   });
                 }}
-                icon='qz-shangdian'
+                icon='qz-shangpin'
                 text='商品管理'
               />
               <TagItem
@@ -331,12 +363,16 @@ const Index = () => {
                 onTap={() =>
                   navigateTo({
                     // url: '/pages/shopPages/shopRelease/index',
-                    url: '/pages/myReleaseList/index',
+                    url: '/pages/shopPages/myReleaseList/index',
                   })
                 }
                 icon='qz-fabu'
-                text='我的动态'
+                text='店铺动态'
               />
+            </View>
+          </Shadow>
+          <Shadow addstyle='padding: 20rpx 0'>
+            <View className={styles.row}>
               <Friend />
             </View>
           </Shadow>

@@ -3,9 +3,9 @@ import { pay } from '@/apis/payment';
 import { valiVip } from '@/utils/index';
 
 const memberType = [
-  { title: '日VIP', amount: '9.9', text: '试用一天', value: 'DAY' },
-  { title: '周VIP', amount: '29.9', text: '续费7天', value: 'WEEK' },
-  { title: '月VIP', amount: '99', text: '续费31天', value: 'MONTH' },
+  { title: '日VIP', amount: '0.99', text: '试用一天', value: 'DAY' },
+  { title: '周VIP', amount: '2.99', text: '续费7天', value: 'WEEK' },
+  { title: '月VIP', amount: '9.9', text: '续费31天', value: 'MONTH' },
 ];
 
 Page({

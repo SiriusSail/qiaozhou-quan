@@ -1,7 +1,7 @@
 import { campusPage } from '@/apis/campus';
 import apis from '@/apis/index';
 import { getPhone, getAddress } from '@/apis/infoPublish';
-import { valiVip } from '@/utils/index';
+import { valiVip, valiLogin } from '@/utils/index';
 import { publishInfoPage } from '@/apis/infoPublish';
 
 const typeImages = [
@@ -41,6 +41,7 @@ Page({
     menuOption: wx.getMenuButtonBoundingClientRect(),
     campuList: camputList,
     campuId: wx.getStorageSync('campu'),
+    userInfo: wx.getStorageSync('userInfo') || {},
     banner: [],
     typeImages,
     request: publishInfoPage,
@@ -85,57 +86,78 @@ Page({
     });
   },
   toinfo() {
-    if (
-      valiVip({
-        content: '需要成为vip后才可以发布动态',
-      })
-    ) {
+    if (valiLogin()) {
       wx.navigateTo({
         url: `/pages/shopPages/shopRelease/index`,
-        // url: '/pages/myReleaseList/index',
+        // url: '/pages/shopPages/myReleaseList/index',
       });
     }
   },
+  back() {
+    wx.navigateBack();
+  },
 
   phoneCall: function (e) {
+    if (!valiLogin()) {
+      return;
+    }
     const id = e.currentTarget.dataset.value;
-    getPhone(id).then((res) => {
-      wx.makePhoneCall({
-        phoneNumber: res,
+    getPhone(id)
+      .then((res) => {
+        wx.makePhoneCall({
+          phoneNumber: res,
+        });
+      })
+      .catch((res) => {
+        wx.showToast({
+          title: res.message,
+          icon: 'none',
+          duration: 2000,
+        });
       });
-    });
   },
 
   address: function (e) {
+    if (!valiLogin()) {
+      return;
+    }
     const id = e.currentTarget.dataset.value;
-    getAddress(id).then((res) => {
-      console.log(res);
-      wx.showActionSheet({
-        alertText: res,
-        itemList: ['复制地址'],
-        success: function (res) {
-          console.log(res, '成功');
-          wx.getClipboardData({
-            //这个api是把拿到的数据放到电脑系统中的
-            success: function (res) {
-              wx.showToast({
-                title: '地址已复制到剪切板',
-                icon: 'none',
-                duration: 2000,
-              });
-            },
-          });
-        },
-        fail: function (res) {
-          console.log(res, '失败');
-          wx.showToast({
-            title: res.errMsg,
-            icon: 'none',
-            duration: 2000,
-          });
-        },
+    getAddress(id)
+      .then((res) => {
+        console.log(res);
+        wx.showActionSheet({
+          alertText: res,
+          itemList: ['复制地址'],
+          success: function () {
+            wx.setClipboardData({
+              data: res,
+              //这个api是把拿到的数据放到电脑系统中的
+              success: function () {
+                wx.showToast({
+                  title: '地址已复制到剪切板',
+                  icon: 'none',
+                  duration: 2000,
+                });
+              },
+              fail: function (res) {
+                console.log(res, '失败');
+                wx.showToast({
+                  title: res.errMsg,
+                  icon: 'none',
+                  duration: 2000,
+                });
+              },
+            });
+          },
+        });
+      })
+      .catch((res) => {
+        wx.showToast({
+          title: res.message,
+          icon: 'none',
+          duration: 2000,
+        });
       });
-    });
   },
   onLoad: function () {
     campusPage().then((res) => {

@@ -95,7 +95,7 @@ export default createContainer(() => {
     }
   );
 
-  const valiLoading = useCallback((props?: { isHideModal: boolean }) => {
+  const valiLogin = useCallback((props?: { isHideModal: boolean }) => {
     const token = storage.get('token');
     if (!token) {
       if (!props?.isHideModal) {
@@ -125,7 +125,7 @@ export default createContainer(() => {
       isHideModal?: boolean;
       content?: string;
     }) => {
-      if (!valiLoading()) return false;
+      if (!valiLogin()) return false;
       if (!userInfo?.isApply) {
         if (!isHideModal) {
           return false;
@@ -145,12 +145,12 @@ export default createContainer(() => {
       }
       return true;
     },
-    [userInfo?.isApply, valiLoading]
+    [userInfo?.isApply, valiLogin]
   );
 
   const valiVip = useCallback(
     ({ isHideModal, content }: { isHideModal?: boolean; content?: string }) => {
-      if (!valiLoading()) return false;
+      if (!valiLogin()) return false;
       if (isVip) return true;
       if (!isHideModal) {
         showModal({
@@ -168,7 +168,7 @@ export default createContainer(() => {
       }
       return false;
     },
-    [isVip, valiLoading]
+    [isVip, valiLogin]
   );
 
   const isMerchant = useMemo(() => {
@@ -180,7 +180,7 @@ export default createContainer(() => {
     userInfo,
     isVip,
     valiApply,
-    valiLoading,
+    valiLogin,
     invalidToken,
     valiVip,
     merchant,

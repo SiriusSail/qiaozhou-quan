@@ -195,7 +195,7 @@
                 },
                 {
                     "name": "我的动态",
-                    "pathName": "pages/myReleaseList/index",
+                    "pathName": "pages/shopPages/myReleaseList/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
@@ -203,6 +203,20 @@
                 {
                     "name": "会员中心",
                     "pathName": "pages/myPages/vips/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "动态列表",
+                    "pathName": "pages/shopPages/shopInteractive/index",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "核销",
+                    "pathName": "pages/check/index",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

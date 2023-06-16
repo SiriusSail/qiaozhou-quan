@@ -1,6 +1,9 @@
 <view class="home-page">
-  <view class="positioning" style="top: {{menuOption.top * 2}}rpx">
-    <positioning bindchange="updataCampuId" range="{{campuList}}" defaultOpen="{{true}}"value="{{campuId}}" />
+  <view class="hom-top" style="top: {{menuOption.top * 2}}rpx">
+    <view class="hom-back" bindtap="back"><view class="iconfont icon-e60a"></view></view>
+    <view class="positioning" >
+      <positioning bindchange="updataCampuId" range="{{campuList}}" defaultOpen="{{true}}"value="{{campuId}}" />
+    </view>
   </view>
   <list-scroll-view request="{{request}}" bindupdateList="updateList" params="{{params}}" navigationStyle="custom">
     <view class="home-background" style="padding-top: {{menuOption.top * 2}}rpx"></view>
@@ -72,7 +75,7 @@
       </shadow>
     </view>
   </list-scroll-view>
-  <bottom-button addstyle="right: 20rpx;left: auto;width: auto;">
+  <bottom-button wx:if="{{userInfo.merchantId}}" addstyle="right: 20rpx;left: auto;width: auto;">
     <view class="home-card-bottom" bindtap="toinfo">
       <view class="home-iconfont iconfont icon-e605"></view>
       <!-- <view>发布动态</view> -->

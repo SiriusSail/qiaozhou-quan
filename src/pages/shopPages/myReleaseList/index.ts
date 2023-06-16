@@ -31,10 +31,10 @@ Page({
     });
   },
   toinfo(e) {
-    const id = e.currentTarget.dataset.id;
+    // const id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `/pages/shopPages/shopRelease/index?${id ? `id=${id}` : ''}`,
-      // url: '/pages/myReleaseList/index',
+      url: `/pages/shopPages/shopRelease/index`,
+      // url: '/pages/shopPages/myReleaseList/index',
     });
   },
   setDataList(e) {

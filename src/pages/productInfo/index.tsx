@@ -47,7 +47,7 @@ const TagItem: React.FC<TagItemProps> = ({
 };
 
 const Friend = () => {
-  const { userInfo, valiLoading } = userInfoStores.useContainer();
+  const { userInfo, valiLogin } = userInfoStores.useContainer();
   const [voucher, setVoucher] = useState(false);
   // 二维码大小
   const sizeRef = useRef<string>();
@@ -100,7 +100,7 @@ const Friend = () => {
         icon='friend'
         text='邀新奖励'
         iconColor='#03c9e8'
-        onTap={() => valiLoading() && setVoucher(true)}
+        onTap={() => valiLogin() && setVoucher(true)}
       />
       <Popup
         closeable={false}
@@ -142,14 +142,14 @@ const Friend = () => {
 };
 
 const Index = () => {
-  const { userInfo, getUserInfo, isVip, isMerchant, valiLoading } =
+  const { userInfo, getUserInfo, isVip, isMerchant, valiLogin } =
     userInfoStores.useContainer();
   usePageEvent('onShow', () => {
     getUserInfo();
   });
   // 点击成为商家
   const handleMechart = () => {
-    if (valiLoading()) {
+    if (valiLogin()) {
       navigateTo({
         url: '/pages/shopPages/shopApply/index',
       });

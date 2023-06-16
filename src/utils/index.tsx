@@ -9,7 +9,7 @@ export function checkTelephone(telephone: string) {
   }
 }
 
-export const valiLoading = (isHideModal = false) => {
+export const valiLogin = (isHideModal = false) => {
   const token = wx.getStorageSync('token');
   if (!token) {
     if (!isHideModal) {
@@ -38,7 +38,7 @@ export const valiVip = ({
   isHideModal?: boolean;
   content?: string;
 }) => {
-  if (!valiLoading()) return false;
+  if (!valiLogin()) return false;
   const userInfo = wx.getStorageSync('userInfo');
   const isvip = dayjs(userInfo?.memberEndTime).diff(dayjs()) > 0;
   if (isvip) return true;
